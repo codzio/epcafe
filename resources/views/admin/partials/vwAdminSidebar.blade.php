@@ -177,6 +177,68 @@ data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate=
                 </div>
                 @endcan
 
+                <!-- Coupon -->
+
+                @can('read', 'coupon')
+                <div  data-kt-menu-trigger="click"  class="menu-item here show menu-accordion" >
+                    
+                    <span class="menu-link" >
+                        <span  class="menu-icon" >
+                            <i class="ki-outline ki-home-2 fs-2"></i>
+                        </span>
+                        <span  class="menu-title">Coupon</span>
+                        <span  class="menu-arrow"></span>
+                    </span>
+
+
+                    <div  class="menu-sub menu-sub-accordion" >
+                        <div  class="menu-item" >
+                            
+                            @can('read', 'coupon')
+                            <a class="menu-link"  href="{{ route('adminCoupon') }}" >
+                                <span  class="menu-bullet" >
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span  class="menu-title">Coupon</span>
+                            </a>
+                            @endcan
+
+                        </div>
+                    </div>
+                </div>
+                @endcan
+
+                <!-- Shipping -->
+
+                @can('read', 'shipping')
+                <div  data-kt-menu-trigger="click"  class="menu-item here show menu-accordion" >
+                    
+                    <span class="menu-link" >
+                        <span  class="menu-icon" >
+                            <i class="ki-outline ki-home-2 fs-2"></i>
+                        </span>
+                        <span  class="menu-title">Shipping</span>
+                        <span  class="menu-arrow"></span>
+                    </span>
+
+
+                    <div  class="menu-sub menu-sub-accordion" >
+                        <div  class="menu-item" >
+                            
+                            @can('read', 'shipping')
+                            <a class="menu-link"  href="{{ route('adminShipping') }}" >
+                                <span  class="menu-bullet" >
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span  class="menu-title">Shipping</span>
+                            </a>
+                            @endcan
+
+                        </div>
+                    </div>
+                </div>
+                @endcan
+
                 @can('read', 'site_settings')
                 <div class="menu-item here">            
                     <a href="{{ route('adminSiteSetting') }}" class="menu-link {{ $menu == 'site-settings'? 'active':''; }}">
