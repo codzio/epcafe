@@ -2,7 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+//Frontend
+use App\Http\Controllers\Home;
 
+//Backend
 use App\Http\Controllers\admin\Auth;
 use App\Http\Controllers\admin\MediaManager;
 use App\Http\Controllers\admin\Users;
@@ -10,6 +13,8 @@ use App\Http\Controllers\admin\Roles;
 use App\Http\Controllers\admin\SiteSettings;
 
 use App\Http\Controllers\admin\Category;
+use App\Http\Controllers\admin\Coupon;
+use App\Http\Controllers\admin\Shipping;
 use App\Http\Controllers\admin\PaperSize;
 use App\Http\Controllers\admin\PaperType;
 use App\Http\Controllers\admin\Binding;
@@ -30,8 +35,19 @@ use App\Http\Controllers\admin\Pricing;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('/')->group(function() {
+    Route::get('/', [Home::class, 'index'])->name('homePage');
+    Route::get('/about-us', [Home::class, 'about'])->name('aboutPage');
+    Route::get('/contact-us', [Home::class, 'contact'])->name('contactPage');
+});
+
+Route::prefix('/category')->group(function() {
+    Route::get('/{slug}', [Home::class, 'category'])->name('categoryPage');
+});
+
+Route::prefix('/products')->group(function() {
+    Route::post('/pricing', [Home::class, 'getPricing'])->name('getPricing');
+    Route::get('/{slug}', [Home::class, 'product'])->name('productPage');
 });
 
 Route::prefix(config('admin.path'))->middleware('web')->group(function () {
@@ -108,6 +124,35 @@ Route::prefix(config('admin.path'))->middleware('web')->group(function () {
             Route::post('/doBulkDelete', [Category::class, 'doBulkDelete'])->name('adminBulkDeleteCategory');
         });
 
+        //Coupon
+        Route::prefix('coupon')->group(function() {
+            Route::get('/', [Coupon::class, 'index'])->name('adminCoupon');
+            Route::get('/get', [Coupon::class, 'get'])->name('getAdminCoupon');
+
+            Route::get('/add', [Coupon::class, 'add'])->name('adminAddCoupon');
+            Route::get('/edit/{id}', [Coupon::class, 'edit'])->name('adminEditCoupon');
+
+            Route::post('/doAdd', [Coupon::class, 'doAdd'])->name('adminDoAddCoupon');
+            Route::post('/doUpdate', [Coupon::class, 'doUpdate'])->name('adminDoUpdateCoupon');
+            Route::post('/doDelete', [Coupon::class, 'doDelete'])->name('adminDeleteCoupon');
+            Route::post('/doBulkDelete', [Coupon::class, 'doBulkDelete'])->name('adminBulkDeleteCoupon');
+        });
+
+        //Shipping
+        Route::prefix('shipping')->group(function() {
+            Route::get('/', [Shipping::class, 'index'])->name('adminShipping');
+            Route::get('/get', [Shipping::class, 'get'])->name('getAdminShipping');
+            Route::get('/bulk-import', [Shipping::class, 'bulkImport'])->name('adminShippingBulkImport');
+            Route::post('/doShippingBulkImport', [Shipping::class, 'doShippingBulkImport'])->name('adminDoShippingBulkImport');
+            Route::get('/add', [Shipping::class, 'add'])->name('adminAddShipping');
+            Route::get('/edit/{id}', [Shipping::class, 'edit'])->name('adminEditShipping');
+
+            Route::post('/doAdd', [Shipping::class, 'doAdd'])->name('adminDoAddShipping');
+            Route::post('/doUpdate', [Shipping::class, 'doUpdate'])->name('adminDoUpdateShipping');
+            Route::post('/doDelete', [Shipping::class, 'doDelete'])->name('adminDeleteShipping');
+            Route::post('/doBulkDelete', [Shipping::class, 'doBulkDelete'])->name('adminBulkDeleteShipping');
+        });
+
         //Paper Size
         Route::prefix('paper-size')->group(function() {
             Route::get('/', [PaperSize::class, 'index'])->name('adminPaperSize');
@@ -125,7 +170,7 @@ Route::prefix(config('admin.path'))->middleware('web')->group(function () {
         //Paper Type
         Route::prefix('paper-type')->group(function() {
             Route::get('/', [PaperType::class, 'index'])->name('adminPaperType');
-            Route::get('/get', [PaperType::class, 'get'])->name('getAdminPaperType');
+            Route::get('/get', [PaperType::class, 'get'])->name('getGetAdminPaperType');
 
             Route::get('/add', [PaperType::class, 'add'])->name('adminAddPaperType');
             Route::get('/edit/{id}', [PaperType::class, 'edit'])->name('adminEditPaperType');
