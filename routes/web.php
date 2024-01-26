@@ -2,7 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+//Frontend
+use App\Http\Controllers\Home;
 
+//Backend
 use App\Http\Controllers\admin\Auth;
 use App\Http\Controllers\admin\MediaManager;
 use App\Http\Controllers\admin\Users;
@@ -30,8 +33,19 @@ use App\Http\Controllers\admin\Pricing;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('/')->group(function() {
+    Route::get('/', [Home::class, 'index'])->name('homePage');
+    Route::get('/about-us', [Home::class, 'about'])->name('aboutPage');
+    Route::get('/contact-us', [Home::class, 'contact'])->name('contactPage');
+});
+
+Route::prefix('/category')->group(function() {
+    Route::get('/{slug}', [Home::class, 'category'])->name('categoryPage');
+});
+
+Route::prefix('/products')->group(function() {
+    Route::post('/pricing', [Home::class, 'getPricing'])->name('getPricing');
+    Route::get('/{slug}', [Home::class, 'product'])->name('productPage');
 });
 
 Route::prefix(config('admin.path'))->middleware('web')->group(function () {
@@ -125,7 +139,7 @@ Route::prefix(config('admin.path'))->middleware('web')->group(function () {
         //Paper Type
         Route::prefix('paper-type')->group(function() {
             Route::get('/', [PaperType::class, 'index'])->name('adminPaperType');
-            Route::get('/get', [PaperType::class, 'get'])->name('getAdminPaperType');
+            Route::get('/get', [PaperType::class, 'get'])->name('getGetAdminPaperType');
 
             Route::get('/add', [PaperType::class, 'add'])->name('adminAddPaperType');
             Route::get('/edit/{id}', [PaperType::class, 'edit'])->name('adminEditPaperType');
