@@ -13,6 +13,8 @@ use App\Http\Controllers\admin\Roles;
 use App\Http\Controllers\admin\SiteSettings;
 
 use App\Http\Controllers\admin\Category;
+use App\Http\Controllers\admin\Coupon;
+use App\Http\Controllers\admin\Shipping;
 use App\Http\Controllers\admin\PaperSize;
 use App\Http\Controllers\admin\PaperType;
 use App\Http\Controllers\admin\Binding;
@@ -120,6 +122,35 @@ Route::prefix(config('admin.path'))->middleware('web')->group(function () {
             Route::post('/doUpdate', [Category::class, 'doUpdate'])->name('adminDoUpdateCategory');
             Route::post('/doDelete', [Category::class, 'doDelete'])->name('adminDeleteCategory');
             Route::post('/doBulkDelete', [Category::class, 'doBulkDelete'])->name('adminBulkDeleteCategory');
+        });
+
+        //Coupon
+        Route::prefix('coupon')->group(function() {
+            Route::get('/', [Coupon::class, 'index'])->name('adminCoupon');
+            Route::get('/get', [Coupon::class, 'get'])->name('getAdminCoupon');
+
+            Route::get('/add', [Coupon::class, 'add'])->name('adminAddCoupon');
+            Route::get('/edit/{id}', [Coupon::class, 'edit'])->name('adminEditCoupon');
+
+            Route::post('/doAdd', [Coupon::class, 'doAdd'])->name('adminDoAddCoupon');
+            Route::post('/doUpdate', [Coupon::class, 'doUpdate'])->name('adminDoUpdateCoupon');
+            Route::post('/doDelete', [Coupon::class, 'doDelete'])->name('adminDeleteCoupon');
+            Route::post('/doBulkDelete', [Coupon::class, 'doBulkDelete'])->name('adminBulkDeleteCoupon');
+        });
+
+        //Shipping
+        Route::prefix('shipping')->group(function() {
+            Route::get('/', [Shipping::class, 'index'])->name('adminShipping');
+            Route::get('/get', [Shipping::class, 'get'])->name('getAdminShipping');
+            Route::get('/bulk-import', [Shipping::class, 'bulkImport'])->name('adminShippingBulkImport');
+            Route::post('/doShippingBulkImport', [Shipping::class, 'doShippingBulkImport'])->name('adminDoShippingBulkImport');
+            Route::get('/add', [Shipping::class, 'add'])->name('adminAddShipping');
+            Route::get('/edit/{id}', [Shipping::class, 'edit'])->name('adminEditShipping');
+
+            Route::post('/doAdd', [Shipping::class, 'doAdd'])->name('adminDoAddShipping');
+            Route::post('/doUpdate', [Shipping::class, 'doUpdate'])->name('adminDoUpdateShipping');
+            Route::post('/doDelete', [Shipping::class, 'doDelete'])->name('adminDeleteShipping');
+            Route::post('/doBulkDelete', [Shipping::class, 'doBulkDelete'])->name('adminBulkDeleteShipping');
         });
 
         //Paper Size
