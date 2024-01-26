@@ -191,13 +191,17 @@ $("#kt_form").submit(function(event) {
     event.preventDefault();
 
     url = $(this).attr('action');
-    formData = $(this).serialize();
+    //formData = $(this).serialize();
+    formData = new FormData(this);
 
     $.ajax({
         url: url,
         type: 'POST',
         dataType: 'json',
         data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
         beforeSend: function() {
             $(".text-danger").html('');
             $("#kt_form_submit .indicator-label").hide();

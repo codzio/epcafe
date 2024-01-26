@@ -128,7 +128,8 @@ Route::prefix(config('admin.path'))->middleware('web')->group(function () {
         Route::prefix('shipping')->group(function() {
             Route::get('/', [Shipping::class, 'index'])->name('adminShipping');
             Route::get('/get', [Shipping::class, 'get'])->name('getAdminShipping');
-
+            Route::get('/bulk-import', [Shipping::class, 'bulkImport'])->name('adminShippingBulkImport');
+            Route::post('/doShippingBulkImport', [Shipping::class, 'doShippingBulkImport'])->name('adminDoShippingBulkImport');
             Route::get('/add', [Shipping::class, 'add'])->name('adminAddShipping');
             Route::get('/edit/{id}', [Shipping::class, 'edit'])->name('adminEditShipping');
 

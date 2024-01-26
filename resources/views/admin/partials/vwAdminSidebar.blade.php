@@ -212,7 +212,6 @@ data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate=
 
                 @can('read', 'shipping')
                 <div  data-kt-menu-trigger="click"  class="menu-item here show menu-accordion" >
-                    
                     <span class="menu-link" >
                         <span  class="menu-icon" >
                             <i class="ki-outline ki-home-2 fs-2"></i>
@@ -236,6 +235,23 @@ data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate=
 
                         </div>
                     </div>
+
+                    <div  class="menu-sub menu-sub-accordion" >
+                        <div  class="menu-item" >
+                            
+                            @can('read', 'bulk-import')
+                            <a class="menu-link"  href="{{ route('adminShippingBulkImport') }}" >
+                                <span  class="menu-bullet" >
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span  class="menu-title">Bulk Import</span>
+                            </a>
+                            @endcan
+
+                        </div>
+                    </div>
+
+
                 </div>
                 @endcan
 

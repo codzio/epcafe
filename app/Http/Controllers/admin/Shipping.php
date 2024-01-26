@@ -17,6 +17,11 @@ use Illuminate\Support\Facades\Cookie;
 use App\Models\ShippingModel;
 use App\Models\AdminModel;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 class Shipping extends Controller {
 
 	private $status = array();
@@ -212,8 +217,8 @@ class Shipping extends Controller {
 
 	public function add(Request $request) {
 
-		if (!can('create', 'coupon')){
-			return redirect(route('adminCoupon'));
+		if (!can('create', 'shipping')){
+			return redirect(route('adminShipping'));
 		}
 
 		$data = array(
@@ -225,17 +230,192 @@ class Shipping extends Controller {
 		return view('admin/shipping/add', $data);
 	}
 
+	public function bulkImport(Request $request) {
+
+		if (!can('create', 'shipping')){
+			return redirect(route('adminShipping'));
+		}
+
+		$data = array(
+			'title' => 'Shipping Bulk Import',
+			'pageTitle' => 'Shipping Bulk Import',
+			'menu' => 'shipping',
+		);
+
+		return view('admin/shipping/bulkImport', $data);
+	}
+
+	public function doShippingBulkImport(Request $request) {
+		if ($request->ajax()) {
+
+			if (!can('create', 'shipping')){
+				
+				$this->status = array(
+					'error' => true,
+					'eType' => 'final',
+					'msg' => 'Permission Denied.'
+				);
+
+				return json_encode($this->status);
+
+			}
+
+			$validator = Validator::make($request->all(), [
+	            'file' => 'required|mimes:xlsx,xls,application/excel,application/vnd.ms-excel,application/vnd.msexcel|max:50000',
+	        ]);
+
+	        if ($validator->fails()) {
+	            
+	            $errors = $validator->errors()->getMessages();
+
+	            $this->status = array(
+					'error' => true,
+					'eType' => 'field',
+					'errors' => $errors,
+					'msg' => 'Validation failed'
+				);
+
+	        } else {
+
+	        	$file = $request->file('file');
+
+	        	// echo "<pre>";
+
+	        	// print_r($file);
+	        	// die();
+
+
+		        if ($request->file('file')->isValid()) {
+		            $spreadsheet = IOFactory::load($file);
+		            $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+
+		            $validationErrors = $this->validateSheetData($sheetData);
+
+		            if (!empty($validationErrors)) {
+		                
+		                $this->status = array(
+		                	'error' => true,
+							'eType' => 'field',
+							'errors' => ['file' => $validationErrors],
+							'msg' => 'Something went wrong.'
+						);
+
+		            } else {
+
+		            	for ($i=2; $i <= count($sheetData); $i++) {
+		            		
+		            		$obj = [
+				        		'admin_id' => adminId(),
+				        		'pincode' => $sheetData[$i]['A'],
+				        		'under_500gm' => $sheetData[$i]['B'],
+				        		'500_1000gm' => $sheetData[$i]['C'],
+				        		'1000_2000gm' => $sheetData[$i]['D'],
+				        		'2000_3000gm' => $sheetData[$i]['E'],
+				        		'is_active' => (strtolower($sheetData[$i]['F']) == 'active')? 1:0,
+				        	];
+
+				        	$isAdded = ShippingModel::updateOrInsert($obj);
+		            	}
+
+		            	$this->status = array(
+							'error' => false,								
+							'msg' => 'Shipping has been imported successfully.'
+						);
+
+		            }
+		    
+		        } else {
+		            $this->status = array(
+						'error' => true,
+						'eType' => 'final',
+						'msg' => 'Invalid File.'
+					);
+		        }
+
+	        }
+
+		} else {
+			$this->status = array(
+				'error' => true,
+				'eType' => 'final',
+				'msg' => 'Something went wrong'
+			);
+		}
+
+		echo json_encode($this->status);
+	}
+
+	private function validateSheetData($sheetData){
+	        $validationErrors = '';
+
+	        $line=1;
+	        $statusList = ['active', 'inactive'];
+	        for ($i=2; $i <= count($sheetData); $i++) { 
+	        	
+	        	if (!isset($sheetData[$i]['A']) OR empty($sheetData[$i]['A'])) {
+	        		$validationErrors .= '<p>The pincode is required on line no. '.$line.'</p>';
+	        	} elseif (!is_numeric($sheetData[$i]['A'])) {
+	        		$validationErrors .= '<p>The pincode must be numeric on line no. '.$line.'</p>';
+	        	} elseif (strlen($sheetData[$i]['A']) != 6) {
+	        		$validationErrors .= '<p>The pincode must be of 6 digits on line no. '.$line.'</p>';
+	        	} else {
+	        		$isExist = ShippingModel::where('pincode', $sheetData[$i]['A'])->count();
+
+	        		if ($isExist) {
+	        			$validationErrors .= '<p>The pincode is already exists on line no. '.$line.'</p>';
+	        		}
+	        		
+	        	}
+
+	        	if (!isset($sheetData[$i]['B']) OR empty($sheetData[$i]['B'])) {
+	        		$validationErrors .= '<p>The under 500 gm price is required on line no. '.$line.'</p>';
+	        	} elseif (!is_numeric($sheetData[$i]['B'])) {
+	        		$validationErrors .= '<p>The under 500 gm price must be numeric on line no. '.$line.'</p>';
+	        	}
+
+	        	if (isset($sheetData[$i]['C']) OR !empty($sheetData[$i]['C'])) {
+	        		if (!is_numeric($sheetData[$i]['C'])) {
+		        		$validationErrors .= '<p>The under 500-1000 gm price must be numeric on line no. '.$line.'</p>';
+		        	}
+	        	}
+
+	        	if (isset($sheetData[$i]['D']) OR !empty($sheetData[$i]['D'])) {
+	        		if (!is_numeric($sheetData[$i]['D'])) {
+		        		$validationErrors .= '<p>The under 1000-2000 gm price must be numeric on line no. '.$line.'</p>';
+		        	}
+	        	}
+
+	        	if (isset($sheetData[$i]['E']) OR !empty($sheetData[$i]['E'])) {
+	        		if (!is_numeric($sheetData[$i]['E'])) {
+		        		$validationErrors .= '<p>The under 2000-3000 gm price must be numeric on line no. '.$line.'</p>';
+		        	}
+	        	}
+
+	        	if (!isset($sheetData[$i]['F']) OR empty($sheetData[$i]['F'])) {
+	        		$validationErrors .= '<p>The status is required on line no. '.$line.'</p>';
+	        	} elseif (!in_array(strtolower($sheetData[$i]['F']), $statusList)) {
+	        		$validationErrors .= '<p>The status should contain active or inactive on line no. '.$line.'</p>';
+	        	}
+
+	        	$line++;
+
+	        }
+
+	        return $validationErrors;
+
+    }
+
 	
 	public function edit($id) {
 
 		if (!can('update', 'coupon')){
-			return redirect(route('adminCoupon'));
+			return redirect(route('adminShipping'));
 		}
 
 		$getData = ShippingModel::where(['id' => $id])->first();
 
 		if (empty($getData)) {
-			return redirect(route('adminCoupon'));
+			return redirect(route('adminShipping'));
 		}
 
 		$data = array(
@@ -253,7 +433,7 @@ class Shipping extends Controller {
 		if ($request->ajax()) {
 
 
-			if (!can('create', 'coupon')){
+			if (!can('create', 'shipping')){
 				
 				$this->status = array(
 					'error' => true,
