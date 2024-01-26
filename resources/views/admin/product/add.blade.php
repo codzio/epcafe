@@ -117,6 +117,18 @@
                         </div>
 
                         <div class="row mb-6">                    
+                            <label class="col-lg-3 col-form-label fw-semibold fs-6 required">Display on Home</label>
+                            <div class="col-lg-9">                        
+                                <div class="row">
+                                    <div class="col-lg-12 fv-row">
+                                        <input type="checkbox" name="displayOnHome" value="1" class="form-control-lg form-control-solid mb-3 mb-lg-0">
+                                        <span id="displayOnHomeErr" class="text-danger"></span>
+                                    </div>                            
+                                </div>
+                            </div>                    
+                        </div>
+
+                        <div class="row mb-6">                    
                             <label class="col-lg-3 col-form-label fw-semibold fs-6 required">Status</label>
                             <div class="col-lg-9">                        
                                 <div class="row">
