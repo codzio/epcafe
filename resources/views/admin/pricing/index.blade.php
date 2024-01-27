@@ -32,7 +32,7 @@
                                     <div class="fw-bold me-5">
                                         <span class="me-2" data-kt-filemanager-table-select="selected_count"></span> Selected
                                     </div>
-                                    <button onclick="startBulkDelete(this)" data-url="{{ route('adminBulkDeleteProduct') }}" type="button" class="btn btn-danger" data-kt-filemanager-table-select="delete_selected">
+                                    <button onclick="startBulkDelete(this)" data-url="{{ route('adminBulkDeletePricing') }}" type="button" class="btn btn-danger" data-kt-filemanager-table-select="delete_selected">
                                         Delete Selected
                                     </button>
                                 </div>

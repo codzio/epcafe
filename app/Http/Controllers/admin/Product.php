@@ -304,7 +304,8 @@ class Product extends Controller {
 	            'description' => 'required',
 	            'status' => 'required|numeric|in:0,1',
 	            'productImg' => 'required|numeric',
-	            'galleryImages' => 'sometimes|nullable'
+	            'galleryImages' => 'sometimes|nullable',
+	            'displayOnHome' => 'sometimes|nullable',
 	        ]);
 
 	        if ($validator->fails()) {
@@ -326,6 +327,12 @@ class Product extends Controller {
 	        		$galleryImgs = json_encode($request->post('galleryImages'));
 	        	}
 
+	        	$displayOnHome = 0;
+
+	        	if ($request->post('displayOnHome')) {
+	        		$displayOnHome = 1;
+	        	}
+
 	        	$obj = [
 	        		'admin_id' => adminId(),
 	        		'name' => $request->post('name'),
@@ -333,8 +340,9 @@ class Product extends Controller {
 	        		'category_id' => $request->post('category'),
 	        		'description' => $request->post('description'),
 	        		'thumbnail_id' => $request->post('productImg'),
-	        		'gallery_images' => $galleryImgs,
+	        		'gallery_images' => !empty($galleryImgs)? $galleryImgs:null,
 	        		'is_active' => $request->post('status'),
+	        		'display_on_home' => $displayOnHome,
 	        	];
 
 	        	$isAdded = ProductModel::create($obj);
@@ -390,7 +398,8 @@ class Product extends Controller {
 	            'description' => 'required',
 	            'status' => 'required|numeric|in:0,1',
 	            'productImg' => 'required|numeric',
-	            'galleryImages' => 'sometimes|nullable'
+	            'galleryImages' => 'sometimes|nullable',
+	            'displayOnHome' => 'sometimes|nullable',
 	        ]);
 
 	        if ($validator->fails()) {
@@ -425,6 +434,12 @@ class Product extends Controller {
 	        		$galleryImgs = json_encode($request->post('galleryImages'));
 	        	}
 
+	        	$displayOnHome = 0;
+
+	        	if ($request->post('displayOnHome')) {
+	        		$displayOnHome = 1;
+	        	}
+
 	        	$getProduct->name = $request->post('name');
 	        	$getProduct->slug = Str::slug($request->post('slug'));
 	        	$getProduct->category_id = $request->post('category');
@@ -432,6 +447,7 @@ class Product extends Controller {
 	        	$getProduct->thumbnail_id = $request->post('productImg');
 	        	$getProduct->gallery_images = $galleryImgs;
 	        	$getProduct->is_active = $request->post('status');
+	        	$getProduct->display_on_home = $displayOnHome;
 	        	$isUpdated = $getProduct->save();
 
 	        	if ($isUpdated) {
