@@ -282,4 +282,41 @@ class Home extends Controller {
 		return response($this->status);
 	}
 
+	public function checkPincode(Request $request) {
+		if ($request->ajax()) {
+
+			$validator = Validator::make($request->post(), [
+			    'pincode' => 'required|numeric|digits:6',
+			]);
+
+	        if ($validator->fails()) {
+	            
+	            $errors = $validator->errors()->getMessages();
+
+	            $this->status = array(
+					'error' => true,
+					'eType' => 'field',
+					'errors' => $errors,
+					'msg' => 'Validation failed'
+				);
+
+	        } else {
+
+	        	$pincode = $request->post('pincode');
+
+	        	//check if pincode exist for delivery
+	        	$isExist = '';
+
+	        }
+
+		} else {
+			$this->status = array(
+				'error' => true,
+				'eType' => 'final',
+				'msg' => 'Something went wrong'
+			);
+		}
+
+		return response($this->status);
+	}
 }

@@ -50,6 +50,8 @@ Route::prefix('/products')->group(function() {
     Route::get('/{slug}', [Home::class, 'product'])->name('productPage');
 });
 
+Route::post('/checkPincode', [Home::class, 'checkPincode'])->name('checkPincode');
+
 Route::prefix(config('admin.path'))->middleware('web')->group(function () {
     
     Route::get('/', [Auth::class,'index'])->name('adminLogin');
