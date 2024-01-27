@@ -91,9 +91,9 @@ class Shipping extends Controller {
 
 			        $query->where('shipping.pincode', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('shipping.under_500gm', 'like', '%' . $searchValue . '%')
-			        	  ->orWhere('shipping.500_1000gm', 'like', '%' . $searchValue . '%')
-			        	  ->orWhere('shipping.1000_2000gm', 'like', '%' . $searchValue . '%')
-			        	  ->orWhere('shipping.2000_3000gm', 'like', '%' . $searchValue . '%');
+			        	  ->orWhere('shipping.from500_1000gm', 'like', '%' . $searchValue . '%')
+			        	  ->orWhere('shipping.from1000_2000gm', 'like', '%' . $searchValue . '%')
+			        	  ->orWhere('shipping.from2000_3000gm', 'like', '%' . $searchValue . '%');
 
 			        if (strtolower($searchValue) == 'active') {
 			        	$query->orWhere('shipping.is_active', 'like', '%1%');
@@ -117,9 +117,9 @@ class Shipping extends Controller {
 			    $records->where(function ($query) use ($searchValue) {
 			        $query->where('shipping.pincode', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('shipping.under_500gm', 'like', '%' . $searchValue . '%')
-			        	  ->orWhere('shipping.500_1000gm', 'like', '%' . $searchValue . '%')
-			        	  ->orWhere('shipping.1000_2000gm', 'like', '%' . $searchValue . '%')
-			        	  ->orWhere('shipping.2000_3000gm', 'like', '%' . $searchValue . '%');
+			        	  ->orWhere('shipping.from500_1000gm', 'like', '%' . $searchValue . '%')
+			        	  ->orWhere('shipping.from1000_2000gm', 'like', '%' . $searchValue . '%')
+			        	  ->orWhere('shipping.from2000_3000gm', 'like', '%' . $searchValue . '%');
 
 			        if (strtolower($searchValue) == 'active') {
 			        	$query->orWhere('shipping.is_active', 'like', '%1%');
@@ -185,9 +185,9 @@ class Shipping extends Controller {
 			        	"checkbox" => $checkbox,
 			          	"pincode" => $record->pincode,
 			          	"under 500gm" => $record->{'under_500gm'},
-			          	"500-1000 gm" => $record->{'500_1000gm'},
-			          	"1000-2000 gm" => $record->{'1000_2000gm'},
-			          	"2000-3000 gm" => $record->{'2000_3000gm'},
+			          	"500-1000 gm" => $record->{'from500_1000gm'},
+			          	"1000-2000 gm" => $record->{'from1000_2000gm'},
+			          	"2000-3000 gm" => $record->{'from2000_3000gm'},
 			          	"is_active" => $status,
 			          	"action" => $action
 			        );

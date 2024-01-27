@@ -28,38 +28,44 @@
         <div class="col-md-8"> 
           
           <!--======= Success Msg =========-->
-          <div id="contact_message" class="success-msg"> <i class="fa fa-paper-plane-o"></i>Thank You. Your Message has been Submitted</div>
+          <div id="contactFormMsg" class="success-msg"> <i class="fa fa-paper-plane-o"></i>Thank You. Your Message has been Submitted</div>
           
           <!--======= FORM  =========-->
-          <form role="form" id="contact_form" class="contact-form" method="post" onSubmit="return false">
+          <form role="form" id="contactForm" class="contact-form" method="post" >
             <ul class="row">
               <li class="col-sm-6">
                 <label>Full Name *
                   <input type="text" class="form-control" name="name" id="name" placeholder="">
+                  <span class="errors" id="nameErr"></span>
                 </label>
+                
               </li>
               <li class="col-sm-6">
                 <label>Email Address *
                   <input type="text" class="form-control" name="email" id="email" placeholder="">
+                  <span class="errors" id="emailErr"></span>
                 </label>
               </li>
               <li class="col-sm-6">
                 <label>Phone Number *
-                  <input type="text" class="form-control" name="company" id="company" placeholder="">
+                  <input type="text" class="form-control" name="phone" id="phone" placeholder="">
+                  <span class="errors" id="phoneErr"></span>
                 </label>
               </li>
               <li class="col-sm-6">
                 <label>SUBJECT
-                  <input type="text" class="form-control" name="website" id="website" placeholder="">
+                  <input type="text" class="form-control" name="subject" id="subject" placeholder="">
+                  <span class="errors" id="subjectErr"></span>
                 </label>
               </li>
               <li class="col-sm-12">
                 <label>Write your Message
                   <textarea class="form-control" name="message" id="message" rows="5" placeholder=""></textarea>
+                  <span class="errors" id="messageErr"></span>
                 </label>
               </li>
               <li class="col-sm-12">
-                <button type="submit" value="submit" class="btn" id="btn_submit" onClick="proceed();">SEND Message</button>
+                <button type="submit" value="submit" class="btn" id="contactFormBtn">SEND Message</button>
               </li>
             </ul>
           </form>
@@ -126,4 +132,52 @@
 <!--</section>-->
 </div>
 
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $("#contactForm").submit(function(event) {
+      event.preventDefault();
+
+      formData = $(this).serialize();
+
+      $.ajax({
+        url: '{{ route("getContact") }}',
+        type: 'POST',
+        dataType: 'json',
+        data: formData,
+        beforeSend: function() {
+          $("#contactFormBtn").html('Sending...');
+          $(".errors").html('');
+        }, success: function(res) {
+
+          if (res.error == true) {
+              if (res.eType == 'field') {
+                  $.each(res.errors, function(index, val) {
+                      $("#"+index+"Err").html(val);
+                  });
+              } else {
+                  $('#contactFormMsg').html(res.msg);
+              }
+          } else {
+              $("#contactForm")[0].reset();
+              $('#contactFormMsg').html(res.msg).show();
+          }
+
+
+          $("#contactFormBtn").html('SEND Message');
+        }
+      })
+
+    });
+  
+  });
+</script>
+
 @endsection
+

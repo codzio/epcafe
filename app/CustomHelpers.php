@@ -276,3 +276,10 @@ function can($permission, $module) {
 		return false;
 	}
 }
+
+
+//Customer
+function customerId() {
+	$customerSess = Session::get('customerSess');
+	return $customerSess['customerId'];
+}
