@@ -307,14 +307,22 @@ class Shipping extends Controller {
 		            		$obj = [
 				        		'admin_id' => adminId(),
 				        		'pincode' => $sheetData[$i]['A'],
-				        		'under_500gm' => $sheetData[$i]['B'],
-				        		'500_1000gm' => $sheetData[$i]['C'],
-				        		'1000_2000gm' => $sheetData[$i]['D'],
-				        		'2000_3000gm' => $sheetData[$i]['E'],
-				        		'is_active' => (strtolower($sheetData[$i]['F']) == 'active')? 1:0,
+				        		'free_shipping' => $sheetData[$i]['B'],
+				        		'under_500gm' => $sheetData[$i]['C'],
+				        		'from500_1000gm' => $sheetData[$i]['D'],
+				        		'from1000_2000gm' => $sheetData[$i]['E'],
+				        		'from2000_3000gm' => $sheetData[$i]['F'],
+				        		'is_active' => (strtolower($sheetData[$i]['G']) == 'active')? 1:0,
 				        	];
 
-				        	$isAdded = ShippingModel::updateOrInsert($obj);
+
+				        		$isExist = ShippingModel::where('pincode', $sheetData[$i]['A'])->count();
+
+				        		if ($isExist) {
+				        			$isAdded = ShippingModel::where('pincode', $sheetData[$i]['A'])->update($obj);
+				        		} else {
+				        			$isAdded = ShippingModel::create($obj);
+				        		}
 		            	}
 
 		            	$this->status = array(
@@ -358,42 +366,49 @@ class Shipping extends Controller {
 	        		$validationErrors .= '<p>The pincode must be numeric on line no. '.$line.'</p>';
 	        	} elseif (strlen($sheetData[$i]['A']) != 6) {
 	        		$validationErrors .= '<p>The pincode must be of 6 digits on line no. '.$line.'</p>';
-	        	} else {
-	        		$isExist = ShippingModel::where('pincode', $sheetData[$i]['A'])->count();
+	        	} 
+	        	// else {
+	        	// 	$isExist = ShippingModel::where('pincode', $sheetData[$i]['A'])->count();
 
-	        		if ($isExist) {
-	        			$validationErrors .= '<p>The pincode is already exists on line no. '.$line.'</p>';
-	        		}
+	        	// 	if ($isExist) {
+	        	// 		$validationErrors .= '<p>The pincode is already exists on line no. '.$line.'</p>';
+	        	// 	}
 	        		
-	        	}
+	        	// }
 
-	        	if (!isset($sheetData[$i]['B']) OR empty($sheetData[$i]['B'])) {
-	        		$validationErrors .= '<p>The under 500 gm price is required on line no. '.$line.'</p>';
-	        	} elseif (!is_numeric($sheetData[$i]['B'])) {
-	        		$validationErrors .= '<p>The under 500 gm price must be numeric on line no. '.$line.'</p>';
-	        	}
-
-	        	if (isset($sheetData[$i]['C']) OR !empty($sheetData[$i]['C'])) {
-	        		if (!is_numeric($sheetData[$i]['C'])) {
-		        		$validationErrors .= '<p>The under 500-1000 gm price must be numeric on line no. '.$line.'</p>';
+	        	if (isset($sheetData[$i]['B']) OR !empty($sheetData[$i]['B'])) {
+	        		if (!is_numeric($sheetData[$i]['B'])) {
+		        		$validationErrors .= '<p>The free shipping price must be numeric on line no. '.$line.'</p>';
 		        	}
+	        	}
+
+	        	if (!isset($sheetData[$i]['C']) OR empty($sheetData[$i]['C'])) {
+	        		$validationErrors .= '<p>The under 500 gm price is required on line no. '.$line.'</p>';
+	        	} elseif (!is_numeric($sheetData[$i]['C'])) {
+	        		$validationErrors .= '<p>The under 500 gm price must be numeric on line no. '.$line.'</p>';
 	        	}
 
 	        	if (isset($sheetData[$i]['D']) OR !empty($sheetData[$i]['D'])) {
 	        		if (!is_numeric($sheetData[$i]['D'])) {
-		        		$validationErrors .= '<p>The under 1000-2000 gm price must be numeric on line no. '.$line.'</p>';
+		        		$validationErrors .= '<p>The under 500-1000 gm price must be numeric on line no. '.$line.'</p>';
 		        	}
 	        	}
 
 	        	if (isset($sheetData[$i]['E']) OR !empty($sheetData[$i]['E'])) {
 	        		if (!is_numeric($sheetData[$i]['E'])) {
+		        		$validationErrors .= '<p>The under 1000-2000 gm price must be numeric on line no. '.$line.'</p>';
+		        	}
+	        	}
+
+	        	if (isset($sheetData[$i]['F']) OR !empty($sheetData[$i]['F'])) {
+	        		if (!is_numeric($sheetData[$i]['F'])) {
 		        		$validationErrors .= '<p>The under 2000-3000 gm price must be numeric on line no. '.$line.'</p>';
 		        	}
 	        	}
 
-	        	if (!isset($sheetData[$i]['F']) OR empty($sheetData[$i]['F'])) {
+	        	if (!isset($sheetData[$i]['G']) OR empty($sheetData[$i]['G'])) {
 	        		$validationErrors .= '<p>The status is required on line no. '.$line.'</p>';
-	        	} elseif (!in_array(strtolower($sheetData[$i]['F']), $statusList)) {
+	        	} elseif (!in_array(strtolower($sheetData[$i]['G']), $statusList)) {
 	        		$validationErrors .= '<p>The status should contain active or inactive on line no. '.$line.'</p>';
 	        	}
 
@@ -408,7 +423,7 @@ class Shipping extends Controller {
 	
 	public function edit($id) {
 
-		if (!can('update', 'coupon')){
+		if (!can('update', 'shipping')){
 			return redirect(route('adminShipping'));
 		}
 
@@ -422,7 +437,7 @@ class Shipping extends Controller {
 			'title' => 'Shipping',
 			'pageTitle' => 'Shipping',
 			'menu' => 'shipping',
-			'coupon' => $getData
+			'shipping' => $getData
 		);
 
 		return view('admin/shipping/edit', $data);
@@ -447,10 +462,11 @@ class Shipping extends Controller {
 
 			$validator = Validator::make($request->post(), [
 	            'pincode' => 'required|numeric|digits:6|unique:shipping,pincode',
+	            'free_shipping' => 'sometimes|nullable|numeric',
 	            'under_500gm' => 'required|numeric',
-	            '500_1000gm' => 'sometimes|nullable|numeric',
-	            '1000_2000gm' => 'sometimes|nullable|numeric',
-	            '2000_3000gm' => 'sometimes|nullable|numeric',
+	            'from500_1000gm' => 'sometimes|nullable|numeric',
+	            'from1000_2000gm' => 'sometimes|nullable|numeric',
+	            'from2000_3000gm' => 'sometimes|nullable|numeric',
 	            'status' => 'required|numeric|in:0,1'
 	        ]);
 
@@ -470,10 +486,11 @@ class Shipping extends Controller {
 	        	$obj = [
 	        		'admin_id' => adminId(),
 	        		'pincode' => $request->post('pincode'),
+	        		'free_shipping' => $request->post('free_shipping'),
 	        		'under_500gm' => $request->post('under_500gm'),
-	        		'500_1000gm' => $request->post('500_1000gm'),
-	        		'1000_2000gm' => $request->post('1000_2000gm'),
-	        		'2000_3000gm' => $request->post('2000_3000gm'),
+	        		'from500_1000gm' => $request->post('from500_1000gm'),
+	        		'from1000_2000gm' => $request->post('from1000_2000gm'),
+	        		'from2000_3000gm' => $request->post('from2000_3000gm'),
 	        		'is_active' => $request->post('status'),
 	        	];
 
@@ -525,10 +542,11 @@ class Shipping extends Controller {
 	        $validator = Validator::make($request->post(), [
 	        	'id' => 'required|numeric',
 	            'pincode' => 'required|numeric|digits:6|unique:shipping,pincode,'.$id,
+	            'free_shipping' => 'sometimes|nullable|numeric',
 	            'under_500gm' => 'required|numeric',
-	            '500_1000gm' => 'sometimes|nullable|numeric',
-	            '1000_2000gm' => 'sometimes|nullable|numeric',
-	            '2000_3000gm' => 'sometimes|nullable|numeric',
+	            'from500_1000gm' => 'sometimes|nullable|numeric',
+	            'from1000_2000gm' => 'sometimes|nullable|numeric',
+	            'from2000_3000gm' => 'sometimes|nullable|numeric',
 	            'status' => 'required|numeric|in:0,1'
 	        ]);
 
@@ -560,10 +578,11 @@ class Shipping extends Controller {
 
 	        	$obj = [
 	        		'pincode' => $request->post('pincode'),
+	        		'free_shipping' => $request->post('free_shipping'),
 	        		'under_500gm' => $request->post('under_500gm'),
-	        		'500_1000gm' => $request->post('500_1000gm'),
-	        		'1000_2000gm' => $request->post('1000_2000gm'),
-	        		'2000_3000gm' => $request->post('2000_3000gm'),
+	        		'from500_1000gm' => $request->post('from500_1000gm'),
+	        		'from1000_2000gm' => $request->post('from1000_2000gm'),
+	        		'from2000_3000gm' => $request->post('from2000_3000gm'),
 	        		'is_active' => $request->post('status'),
 	        	];
 
