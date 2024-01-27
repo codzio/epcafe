@@ -10,82 +10,38 @@
             <div class="card-header border-0 cursor-pointer">
                 
                 <div class="card-title m-0">
-                    <h3 class="fw-bold m-0">Edit Coupon</h3>
+                    <h3 class="fw-bold m-0">Edit Shipping</h3>
                 </div>
 
                 <div class="card-title">
-                    <a href="{{ route('adminCoupon') }}" class="btn btn-primary">Back</a>
+                    <a href="{{ route('adminShipping') }}" class="btn btn-primary">Back</a>
                 </div>
 
             </div>
             
             <div id="kt_account_settings_profile_details" class="collapse show">                
-                <form id="kt_form_update" class="form" action="{{ route('adminDoUpdateCoupon') }}">
+                <form id="kt_form_update" class="form" action="{{ route('adminDoUpdateShipping') }}">
                     <div class="card-body border-top p-9">
 
                         <div class="row mb-6">                    
-                            <label class="col-lg-3 col-form-label fw-semibold fs-6 required">Coupon Name</label>
+                            <label class="col-lg-3 col-form-label fw-semibold fs-6 required">Pincode</label>
                             <div class="col-lg-9">                        
                                 <div class="row">
                                     <div class="col-lg-12 fv-row">
-                                        <input type="text" name="coupon_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Name" value="{{ $coupon->coupon_name }}">
-                                        <span id="coupon_nameErr" class="text-danger"></span>
+                                        <input type="text" name="pincode" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Pincode" value="{{ $shipping->pincode }}">
+                                        <span id="pincodeErr" class="text-danger"></span>
                                     </div>                            
                                 </div>
                             </div>                    
                         </div>
 
                         <div class="row mb-6">                    
-                            <label class="col-lg-3 col-form-label fw-semibold fs-6 required">Coupon Code</label>
+                            <label class="col-lg-3 col-form-label fw-semibold fs-6">Free Shipping</label>
                             <div class="col-lg-9">                        
                                 <div class="row">
                                     <div class="col-lg-12 fv-row">
-                                        <input type="text" name="coupon_code" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Coupon Code" value="{{ $coupon->coupon_code }}">
-                                        <span id="coupon_codeErr" class="text-danger"></span>
-                                    </div>                            
-                                </div>
-                            </div>                    
-                        </div>
-
-                        <div class="row mb-6">                    
-                            <label class="col-lg-3 col-form-label fw-semibold fs-6 required">Coupon type</label>
-                            <div class="col-lg-9">                        
-                                <div class="row">
-                                    <div class="col-lg-12 fv-row">
-                                        <select class="form-select mb-2" name="coupon_type" data-control="select2" data-hide-search="true" data-placeholder="Select Coupon Type">
-                                            <option value="">Select Coupon Type</option>
-                                            <option {{ $coupon->coupon_type == 'flat'? 'selected':'' }}  value="flat">Flat</option>
-                                            <option {{ $coupon->coupon_type == 'percentage'? 'selected':'' }} value="percentage">Percentage</option>
-                                        </select>
-                                        <span id="coupon_typeErr" class="text-danger"></span>
-                                    </div>                            
-                                </div>
-                            </div>                    
-                        </div>
-
-                        <div class="row mb-6">                    
-                            <label class="col-lg-3 col-form-label fw-semibold fs-6 required">Coupon Usage</label>
-                            <div class="col-lg-9">                        
-                                <div class="row">
-                                    <div class="col-lg-12 fv-row">
-                                        <select class="form-select mb-2" name="coupon_usage" data-control="select2" data-hide-search="true" data-placeholder="Select Coupon Usage">
-                                            <option value="">Select Coupon Usage</option>
-                                            <option {{ $coupon->coupon_usage == 'single'? 'selected':'' }}  value="single">Single</option>
-                                            <option {{ $coupon->coupon_usage == 'multiple'? 'selected':'' }} value="multiple">Multiple</option>
-                                        </select>
-                                        <span id="coupon_usageErr" class="text-danger"></span>
-                                    </div>                            
-                                </div>
-                            </div>                    
-                        </div>
-
-                        <div class="row mb-6">                    
-                            <label class="col-lg-3 col-form-label fw-semibold fs-6 required">Coupon Price</label>
-                            <div class="col-lg-9">                        
-                                <div class="row">
-                                    <div class="col-lg-12 fv-row">
-                                        <input type="text" name="coupon_price" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Coupon Price" value="{{ $coupon->coupon_price }}">
-                                        <span id="coupon_priceErr" class="text-danger"></span>
+                                        <input type="text" name="free_shipping" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Price" value="{{ $shipping->free_shipping }}">
+                                        <span id="free_shippingErr" class="text-danger"></span>
                                     </div>                            
                                 </div>
                             </div>                    
@@ -93,24 +49,48 @@
 
 
                         <div class="row mb-6">                    
-                            <label class="col-lg-3 col-form-label fw-semibold fs-6 required">Start Date</label>
+                            <label class="col-lg-3 col-form-label fw-semibold fs-6 required">Under 500gm</label>
                             <div class="col-lg-9">                        
                                 <div class="row">
                                     <div class="col-lg-12 fv-row">
-                                        <input type="date" name="start_date" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Start Date" value="{{ $coupon->start_date }}">
-                                        <span id="start_dateErr" class="text-danger"></span>
+                                        <input type="text" name="under_500gm" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Price" value="{{ !empty($shipping->under_500gm)? $shipping->under_500gm : 0 }}">
+                                        <span id="under_500gmErr" class="text-danger"></span>
                                     </div>                            
                                 </div>
                             </div>                    
                         </div>
 
                         <div class="row mb-6">                    
-                            <label class="col-lg-3 col-form-label fw-semibold fs-6 required">End Date</label>
+                            <label class="col-lg-3 col-form-label fw-semibold fs-6 required">500-1000 GM</label>
                             <div class="col-lg-9">                        
                                 <div class="row">
                                     <div class="col-lg-12 fv-row">
-                                        <input type="date" name="end_date" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="End Date" value="{{ $coupon->end_date }}">
-                                        <span id="end_dateErr" class="text-danger"></span>
+                                        <input type="text" name="from500_1000gm" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Price" value="{{ $shipping->from500_1000gm; }}">
+                                        <span id="500_1000gmErr" class="text-danger"></span>
+                                    </div>                            
+                                </div>
+                            </div>                    
+                        </div>
+
+                        <div class="row mb-6">                    
+                            <label class="col-lg-3 col-form-label fw-semibold fs-6 required">1000-2000 GM</label>
+                            <div class="col-lg-9">                        
+                                <div class="row">
+                                    <div class="col-lg-12 fv-row">
+                                        <input type="text" name="from1000_2000gm" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Price" value="{{ $shipping->from1000_2000gm; }}">
+                                        <span id="1000_2000gmErr" class="text-danger"></span>
+                                    </div>                            
+                                </div>
+                            </div>                    
+                        </div>
+
+                        <div class="row mb-6">                    
+                            <label class="col-lg-3 col-form-label fw-semibold fs-6 required">2000-3000 GM</label>
+                            <div class="col-lg-9">                        
+                                <div class="row">
+                                    <div class="col-lg-12 fv-row">
+                                        <input type="text" name="from2000_3000gm" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Price" value="{{ $shipping->from2000_3000gm }}">
+                                        <span id="2000_3000gmErr" class="text-danger"></span>
                                     </div>                            
                                 </div>
                             </div>                    
@@ -123,8 +103,8 @@
                                     <div class="col-lg-12 fv-row">
                                         <select class="form-select mb-2" name="status" data-control="select2" data-hide-search="true" data-placeholder="Select Status">
                                             <option value="">Select Status</option>
-                                            <option {{ $coupon->is_active == 1? 'selected':'' }} selected value="1">Active</option>
-                                            <option {{ $coupon->is_active == 0? 'selected':'' }} value="0">Inactive</option>
+                                            <option {{ $shipping->is_active == 1? 'selected':'' }} selected value="1">Active</option>
+                                            <option {{ $shipping->is_active == 0? 'selected':'' }} value="0">Inactive</option>
                                         </select>
                                         <span id="statusErr" class="text-danger"></span>
                                     </div>                            
@@ -136,7 +116,7 @@
 
                     <div class="d-flex justify-content-end py-6 px-9">
 
-                        <input type="hidden" name="id" value="{{ $coupon->id }}">
+                        <input type="hidden" name="id" value="{{ $shipping->id }}">
 
                         <button type="submit" class="btn btn-primary" id="kt_form_update_submit">
                             <span class="indicator-label">Submit</span>

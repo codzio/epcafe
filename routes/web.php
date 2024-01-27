@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 //Frontend
 use App\Http\Controllers\Home;
+use App\Http\Controllers\Customer;
 use App\Http\Controllers\Cart;
 
 //Backend
@@ -24,6 +25,7 @@ use App\Http\Controllers\admin\Cover;
 use App\Http\Controllers\admin\Gsm;
 use App\Http\Controllers\admin\Product;
 use App\Http\Controllers\admin\Pricing;
+use App\Http\Controllers\admin\Contact;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,8 +41,21 @@ use App\Http\Controllers\admin\Pricing;
 Route::prefix('/')->group(function() {
     Route::get('/', [Home::class, 'index'])->name('homePage');
     Route::get('/about-us', [Home::class, 'about'])->name('aboutPage');
+    Route::get('/login', [Customer::class, 'login'])->name('loginPage');
+    Route::get('/register', [Customer::class, 'register'])->name('registerPage');
+    Route::post('/doRegister', [Customer::class, 'doRegister'])->name('doRegister');
+    Route::post('/doLogin', [Customer::class, 'doLogin'])->name('doLogin');
     Route::get('/contact-us', [Home::class, 'contact'])->name('contactPage');
+    Route::post('/doContact', [Home::class, 'getContact'])->name('getContact');
 });
+
+Route::prefix('/customer')->middleware('customerSessionCheck')->group(function(){
+    Route::get('/dashboard', [Customer::class, 'dashboard'])->name('customerDashboard');
+    Route::get('/logout', [Customer::class, 'logout'])->name('customerLogout');
+
+});
+
+
 
 Route::prefix('/category')->group(function() {
     Route::get('/{slug}', [Home::class, 'category'])->name('categoryPage');
@@ -157,6 +172,16 @@ Route::prefix(config('admin.path'))->middleware('web')->group(function () {
             Route::post('/doDelete', [Shipping::class, 'doDelete'])->name('adminDeleteShipping');
             Route::post('/doBulkDelete', [Shipping::class, 'doBulkDelete'])->name('adminBulkDeleteShipping');
         });
+
+        //Contact
+        Route::prefix('contact')->group(function() {
+            Route::get('/', [Contact::class, 'index'])->name('adminContact');
+            Route::get('/get', [Contact::class, 'get'])->name('getAdminContact');
+            Route::post('/doDelete', [Contact::class, 'doDelete'])->name('adminDeleteContact');
+            Route::post('/doBulkDelete', [Contact::class, 'doBulkDelete'])->name('adminBulkDeleteContact');
+        });
+
+
 
         //Paper Size
         Route::prefix('paper-size')->group(function() {

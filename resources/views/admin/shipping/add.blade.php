@@ -35,6 +35,18 @@
                             </div>                    
                         </div>
 
+                        <div class="row mb-6">                    
+                            <label class="col-lg-3 col-form-label fw-semibold fs-6 required">Free Shipping</label>
+                            <div class="col-lg-9">                        
+                                <div class="row">
+                                    <div class="col-lg-12 fv-row">
+                                        <input type="text" name="free_shipping" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Price" value="">
+                                        <span id="free_shippingErr" class="text-danger"></span>
+                                    </div>                            
+                                </div>
+                            </div>                    
+                        </div>
+
 
                         <div class="row mb-6">                    
                             <label class="col-lg-3 col-form-label fw-semibold fs-6 required">Under 500gm</label>
@@ -53,8 +65,8 @@
                             <div class="col-lg-9">                        
                                 <div class="row">
                                     <div class="col-lg-12 fv-row">
-                                        <input type="text" name="500_1000gm" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Price" value="">
-                                        <span id="500_1000gmErr" class="text-danger"></span>
+                                        <input type="text" name="from500_1000gm" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Price" value="">
+                                        <span id="from500_1000gmErr" class="text-danger"></span>
                                     </div>                            
                                 </div>
                             </div>                    
@@ -65,8 +77,8 @@
                             <div class="col-lg-9">                        
                                 <div class="row">
                                     <div class="col-lg-12 fv-row">
-                                        <input type="text" name="1000_2000gm" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Price" value="">
-                                        <span id="1000_2000gmErr" class="text-danger"></span>
+                                        <input type="text" name="from1000_2000gm" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Price" value="">
+                                        <span id="from1000_2000gmErr" class="text-danger"></span>
                                     </div>                            
                                 </div>
                             </div>                    
@@ -77,8 +89,8 @@
                             <div class="col-lg-9">                        
                                 <div class="row">
                                     <div class="col-lg-12 fv-row">
-                                        <input type="text" name="2000_3000gm" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Price" value="">
-                                        <span id="2000_3000gmErr" class="text-danger"></span>
+                                        <input type="text" name="from2000_3000gm" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Price" value="">
+                                        <span id="from2000_3000gmErr" class="text-danger"></span>
                                     </div>                            
                                 </div>
                             </div>                    

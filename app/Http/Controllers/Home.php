@@ -22,6 +22,8 @@ use App\Models\LaminationModel;
 use App\Models\CoverModel;
 use App\Models\ShippingModel;
 
+use App\Models\ContactModel;
+
 class Home extends Controller {
 
 	private $status = array();
@@ -134,6 +136,67 @@ class Home extends Controller {
 			return redirect()->to(route('homePage'));
 		}
 		
+	}
+
+	public function getContact(Request $request) {
+		if ($request->ajax()) {
+
+			$validator = Validator::make($request->post(), [
+			    'name' => 'required',
+			    'email' => 'required|email',
+			    'phone' => 'required|numeric|digits:10',
+			    'subject' => 'required',
+			    'message' => 'required',
+			]);
+
+	        if ($validator->fails()) {
+	            
+	            $errors = $validator->errors()->getMessages();
+
+	            $this->status = array(
+					'error' => true,
+					'eType' => 'field',
+					'errors' => $errors,
+					'msg' => 'Validation failed'
+				);
+
+	        } else {
+
+	        	$obj = [
+	        		'admin_id' => adminId(),
+	        		'name' => $request->post('name'),
+	        		'email' => $request->post('email'),
+	        		'phone' => $request->post('phone'),
+	        		'subject' => $request->post('subject'),
+	        		'message' => $request->post('message'),
+	        	];
+
+	        	$isAdded = ContactModel::create($obj);
+
+	        	if ($isAdded) {
+    				$this->status = array(
+						'error' => false,								
+						'msg' => 'Contact Query has been submitted successfully.'
+					);
+    			} else {
+    				$this->status = array(
+						'error' => true,
+						'eType' => 'final',
+						'msg' => 'Something went wrong.'
+					);
+    			}
+
+	        }
+
+		} else {
+			$this->status = array(
+				'error' => true,
+				'eType' => 'final',
+				'msg' => 'Something went wrong'
+			);
+		}
+
+		return response($this->status);
 	}
 
 	public function getPricing(Request $request) {
