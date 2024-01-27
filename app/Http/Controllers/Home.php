@@ -20,6 +20,7 @@ use App\Models\PricingModel;
 use App\Models\BindingModel;
 use App\Models\LaminationModel;
 use App\Models\CoverModel;
+use App\Models\ShippingModel;
 
 class Home extends Controller {
 
@@ -305,7 +306,60 @@ class Home extends Controller {
 	        	$pincode = $request->post('pincode');
 
 	        	//check if pincode exist for delivery
-	        	$isExist = '';
+	        	$isExist = ShippingModel::where(['pincode' => $pincode, 'is_active' => 1])->first();
+
+	        	if (!empty($isExist) && $isExist->count()) {
+	        		
+	        		$this->status = array(
+						'error' => false,
+						'msg' => 'Delivery is available.'
+					);
+
+	        	} else {
+	        		$this->status = array(
+						'error' => true,
+						'eType' => 'final',
+						'msg' => 'Delivery is not available.'
+					);
+	        	}
+
+	        }
+
+		} else {
+			$this->status = array(
+				'error' => true,
+				'eType' => 'final',
+				'msg' => 'Something went wrong'
+			);
+		}
+
+		return response($this->status);
+	}
+
+	public function checkDocumentLink(Request $request) {
+		if ($request->ajax()) {
+
+			$validator = Validator::make($request->post(), [
+			    'documentLink' => 'required|url:http,https',
+			]);
+
+	        if ($validator->fails()) {
+	            
+	            $errors = $validator->errors()->getMessages();
+
+	            $this->status = array(
+					'error' => true,
+					'eType' => 'field',
+					'errors' => $errors,
+					'msg' => 'Validation failed'
+				);
+
+	        } else {
+
+	        	$this->status = array(
+					'error' => false,
+					'msg' => 'The document link has been updated.'
+				);
 
 	        }
 

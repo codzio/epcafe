@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 //Frontend
 use App\Http\Controllers\Home;
+use App\Http\Controllers\Cart;
 
 //Backend
 use App\Http\Controllers\admin\Auth;
@@ -51,6 +52,8 @@ Route::prefix('/products')->group(function() {
 });
 
 Route::post('/checkPincode', [Home::class, 'checkPincode'])->name('checkPincode');
+Route::post('/checkDocumentLink', [Home::class, 'checkDocumentLink'])->name('checkDocumentLink');
+Route::post('/doAddToCart', [Cart::class, 'doAddToCart'])->name('addToCart');
 
 Route::prefix(config('admin.path'))->middleware('web')->group(function () {
     
