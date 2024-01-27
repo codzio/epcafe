@@ -16,6 +16,10 @@
   .validate-code-link-main .val-err{
     color: red;
   }
+
+  .validate-code-link-main .val-succ{
+    color: green;
+  }
 </style>
 <!-- Popular Products -->
     <section class="padding-top-100 padding-bottom-100">
@@ -42,9 +46,9 @@
             <div class="col-md-6 detail_ul">
               <h4 style="color:var(--primary-color-1);">{{ $product->name }}</h4>
               {!! $product->description !!}
-              <form class="detail_page_form" style="margin-top:25px;">
+              <form method="post" id="addToCartForm" class="detail_page_form" style="margin-top:25px;">
                 <div class="input_field">
-                  <label for="select">Paper Size</label>
+                    <label for="select">Paper Size</label>
                     <select id="paperSize" name="paperSize">
                       <option value="">Select Paper Size</option>
                       @if(!empty($paperSize))
@@ -53,42 +57,50 @@
                       @endforeach
                       @endif
                     </select>
+                    <span class="text-danger" id="paperSizeErr"></span>
                 </div>
+
                 <div class="input_field">
-                  <label for="select">Paper GSM</label>
+                    <label for="select">Paper GSM</label>
                     <select id="paperGsm" name="paperGsm">
                       <option value="">Select Paper GSM</option>
                     </select>
+                    <span class="text-danger" id="paperGsmErr"></span>
                 </div>
                 <div class="input_field">
                   <label for="select">Paper Type</label>
                     <select id="paperType" name="paperType">
                       <option value="">Select Paper Type</option>
                     </select>
+                    <span class="text-danger" id="paperTypeErr"></span>
                 </div>
                 <div class="input_field">
                   <label for="select">Print Sides</label>
                     <select id="sides" name="paperSides">
                       <option value="">Select Sides</option>
                     </select>
+                    <span class="text-danger" id="paperSidesErr"></span>
                 </div>
                 <div class="input_field">
                   <label for="select">Color</label>
                     <select id="color" name="color">
                       <option value="">Select Color</option>
                     </select>
+                    <span class="text-danger" id="colorErr"></span>
                 </div>
                 <div class="input_field">
                   <label for="select">Binding</label>
                     <select id="binding" name="binding">
                       <option value="">Select Binding</option>
                     </select>
+                    <span class="text-danger" id="bindingErr"></span>
                 </div>
                 <div class="input_field">
                   <label for="select">Lamination</label>
                     <select id="lamination" name="lamination">
                       <option value="">Select Lamination</option>
                     </select>
+                    <span class="text-danger" id="laminationErr"></span>
                 </div>
                 <div class="input_field">
                   <label for="select">Cover</label>
@@ -100,24 +112,31 @@
                       @endforeach
                       @endif
                     </select>
+                    <span class="text-danger" id="coverErr"></span>
                 </div>
                 <div class="input_field">
                   <label for="select">No of Copies</label>
                   <div class="label_input choose">
-                    <input id="noOfCopies" name="noOfCopies" type="text" style="width:100%;" placeholder="1">
+                    <input id="noOfCopies" name="noOfCopies" type="text" style="width:100%;" placeholder="No of Copies">
                       <p>Choose a quantity between 1 - 1000 for instant ordering. For higher quantities, you will be allowed to request quotations from Sales Team.
                     </p>
+                    <span class="text-danger" id="noOfCopiesErr"></span>
                   </div>
                 </div>
-              </form>
+
+              <input type="hidden" name="productId" value="{{ $product->id }}">
+
               <div class="price-desktop" style="margin-bottom: 5px;">
-               <div class="red_text">
-                   <div class="my-1"><span class="price-widget-sezzle" style="color: rgb(250, 128, 56); font-weight: 800; font-size: 22px;">₹37.76</span><span style="color: rgb(98, 107, 127); font-size: 16px;">&nbsp;inclusive of all taxes</span></div>
-                 <div><span style="color: rgb(98, 107, 127); font-size: 16px;">for</span><span style="color: rgba(0, 0, 0, 0.87); font-size: 16px;">&nbsp;1</span><span style="color: rgb(98, 107, 127); font-size: 16px;">&nbsp;Qty (</span><span id="perSheetPrice" style="color: rgba(0, 0, 0, 0.87); font-size: 16px;">₹37.76</span><span style="color: rgb(98, 107, 127); font-size: 16px;">&nbsp;/ piece)</span></div>
-                 <div class="my-2"><span style="color: rgb(112, 8, 149);">Buy in bulk and save</span></div>
-               </div>
-               <a href="https://eprintcafe.in/about-us" class="theme-btn mt-20 home_btn"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="upload" class="svg-inline--fa fa-upload fa-w-16 mr-3 ml-2" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 16px;"><path fill="currentColor" d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"></path></svg>Know More </a>
-            </div>
+                 <div class="red_text">
+                     <div class="my-1"><span class="price-widget-sezzle" style="color: rgb(250, 128, 56); font-weight: 800; font-size: 22px;">₹37.76</span><span style="color: rgb(98, 107, 127); font-size: 16px;">&nbsp;inclusive of all taxes</span></div>
+                   <div><span style="color: rgb(98, 107, 127); font-size: 16px;">for</span><span style="color: rgba(0, 0, 0, 0.87); font-size: 16px;">&nbsp;1</span><span style="color: rgb(98, 107, 127); font-size: 16px;">&nbsp;Qty (</span><span id="perSheetPrice" style="color: rgba(0, 0, 0, 0.87); font-size: 16px;">₹37.76</span><span style="color: rgb(98, 107, 127); font-size: 16px;">&nbsp;/ piece)</span></div>
+                   <div class="my-2"><span style="color: rgb(112, 8, 149);">Buy in bulk and save</span></div>
+                 </div>
+
+                 <button id="addToCartFormBtn" class="theme-btn mt-20 home_btn"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="upload" class="svg-inline--fa fa-upload fa-w-16 mr-3 ml-2" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 16px;"><path fill="currentColor" d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"></path></svg><span id="addToCartFormTxt">Add to Cart</span> </button>
+
+              </div>
+            </form>
             <div class="input_field" style="display:block;">
                   <label for="select">Estimated Delivery</label>
                   <div class="label_input validate-code-link-main" style="width:50%;">
@@ -390,13 +409,94 @@
         dataType: 'json',
         data: {pincode: pincode},
         beforeSend: function() {
+          $("#deliveryErr").html('').removeClass('val-err val-succ');
            $("#estimatedDeliveryBtn").html('Checking...');
         },
         success: function(res) {
-          console.log(res);
+          
+          if (res.error == true) {
+            if (res.eType == 'field') {
+              $("#deliveryErr").html(res.errors.pincode).addClass('val-err');
+            } else if(res.eType == 'final') {
+              $("#deliveryErr").html(res.msg).addClass('val-err');
+            }
+          } else {
+            $("#deliveryErr").html(res.msg).addClass('val-succ');
+          }
+
           $("#estimatedDeliveryBtn").html('Check');
         }
       })      
+
+    });
+
+    $("#documentLinkBtn").click(function(event) {
+      
+      documentLink = $("#documentLink").val();
+
+      $.ajax({
+        url: '{{ route("checkDocumentLink") }}',
+        type: 'POST',
+        dataType: 'json',
+        data: {documentLink: documentLink},
+        beforeSend: function() {
+          $("#documentLinkErr").html('').removeClass('val-err val-succ');
+           $("#documentLinkBtn").html('Checking...');
+        },
+        success: function(res) {
+          
+          if (res.error == true) {
+            if (res.eType == 'field') {
+              $("#documentLinkErr").html(res.errors.documentLink).addClass('val-err');
+            } else if(res.eType == 'final') {
+              $("#documentLinkErr").html(res.msg).addClass('val-err');
+            }
+          } else {
+            $("#documentLinkErr").html(res.msg).addClass('val-succ');
+          }
+
+          $("#documentLinkBtn").html('Update');
+        }
+      })      
+
+    });
+
+    $("#addToCartForm").submit(function(event) {
+      event.preventDefault();
+
+      formData = $(this).serialize();
+      documentLink = $("#documentLink").val();
+      formData += "&documentLink="+documentLink;
+
+      $.ajax({
+        url: '{{ route("addToCart") }}',
+        type: 'POST',
+        dataType: 'json',
+        data: formData,
+        beforeSend: function() {
+          $('.text-danger').html('');
+          $("#addToCartFormTxt").html('Adding...');
+        },
+        success: function(res) {
+          
+          if (res.error == true) {
+            if (res.eType == 'field') {
+              
+              $.each(res.errors, function(index, val) {
+                 $("#"+index+"Err").html(val);
+              });
+
+            } else if(res.eType == 'final') {
+              $("#documentLinkErr").html(res.msg).addClass('val-err');
+            }
+          } else {
+            $("#documentLinkErr").html(res.msg).addClass('val-succ');
+          }
+
+          $("#addToCartFormTxt").html('Add To Cart');
+        }
+      })  
+      
 
     });
 
