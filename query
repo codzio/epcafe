@@ -1,0 +1,1 @@
+ALTER TABLE `product` ADD `display_on_home` TINYINT(1) NOT NULL DEFAULT '0' AFTER `gallery_images`;

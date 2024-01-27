@@ -77,7 +77,7 @@
     </div>
 
     <script type="text/javascript">
-        dataUrl = '{{ route("getAdminPaperType") }}';        
+        dataUrl = '{{ route("getGetAdminPaperType") }}';        
     </script>
 
     <script src="{{ asset('public/backend') }}/plugins/custom/datatables/datatables.bundle.js"></script>
