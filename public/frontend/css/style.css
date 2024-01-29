@@ -48,11 +48,16 @@ body {
 
 :root{
 /*	--secondary-color-3: #e5097f;*/
-	--primary-color-2: #2faee4;
-	--primary-color-3: #2b2a29;
-	--secondary-color-1: #5b9f52;
-	--secondary-color-2: #cc9933;
-	--secondary-color-3: #f9b21b;
+	--primary-color-2: #dd1d26;
+	--primary-color-3: #000;
+	--secondary-color-1: #000;
+	--secondary-color-2: #dd1d26;
+	--secondary-color-3: #dd1d26;
+}
+button:focus{
+	outline: none!important;
+	border:none;
+	color: #fff!important;
 }
 .stickys{
     position: fixed;
@@ -135,6 +140,9 @@ ul {
 }
 li {
 	list-style: none;
+}
+.errors{
+	color: var(--primary-color-2);
 }
 .about-footer img{
       background:#fff;
@@ -273,8 +281,8 @@ a:hover, a:focus {
 	z-index: 1;
 }
 .btn:hover {
-	background: #fff;
-	color: var(--secondary-color-1);
+	background: var(--secondary-color-1);
+	color: #fff;
 }
 .btn-white {
 	background: #fff;
@@ -1556,7 +1564,7 @@ header .is-sticky .sticky .user-basket .dropdown-menu {
     color: var(--secondary-color-3);
 }
 .papular-block .overlay {
-	background: rgba(255,255,21,0.75);
+	background: rgba(221,29,38,0.65);
 	position: absolute;
 	height: 100%;
 	width: 100%;
@@ -1680,7 +1688,7 @@ header .is-sticky .sticky .user-basket .dropdown-menu {
 	margin-top: 10px;
 }
 .papular-block .item-name a {
-	font-size: 22px;
+	font-size: 18px;
 	font-weight: bold;
 	letter-spacing: 3px;
 	color: var(--secondary-color-3);
@@ -2903,7 +2911,7 @@ header .is-sticky .sticky .user-basket .dropdown-menu {
 	margin-top: 30px;
 }
 .shopping-cart .cart-ship-info input {
-	border: 1px solid var(--secondary-color-3);
+	border: 1px solid #ccc;
 	width: 60px;
 	height: 44px;
 	float: left;
@@ -2935,12 +2943,16 @@ header .is-sticky .sticky .user-basket .dropdown-menu {
 }
 .shopping-cart .cart-ship-info label {
 	font-size: 10px;
-	margin-bottom: 20px;
+/*	margin-bottom: 20px;*/
 	display: inline-block;
 	width: 100%;
 	font-size: 12px;
 	font-weight: normal;
-	color: var(--secondary-color-3);
+	color: #000;
+}
+.shopping-cart .cart-ship-info .errors{
+	margin-bottom: 20px;
+	display: block;
 }
 .shopping-cart .cart-ship-info .grand-total {
 	border: 3px solid var(--secondary-color-2);
@@ -3063,7 +3075,7 @@ header .is-sticky .sticky .user-basket .dropdown-menu {
 	padding: 0px 30px;
 }
 .shopping-cart .btn:hover {
-	background: var(--secondary-color-2) !important;
+	background: var(--secondary-color-1) !important;
 }
 .small-cart .cart-ship-info form {
 	background: #eeeeee;
@@ -3435,7 +3447,7 @@ footer .small-about ul{
 .small-about .social_icons li a {
 	font-size: 16px;
 	margin: 0 5px;
-	color: var(--secondary-color-3);
+	color: #999;
 	text-align: left;
 }
 footer .small-about .social_icons li a i{
@@ -4474,14 +4486,14 @@ main {
 }
 .cart-ship-info.register .bootstrap-select .btn {
 	height: 44px;
-	border: 1px solid var(--secondary-color-3);
+	border: 1px solid #ccc;
 	box-shadow: none;
 	letter-spacing: 0px;
 	background: #fff !important;
 	padding: 0 15px;
 }
 .bootstrap-select.btn-group .dropdown-toggle .filter-option {
-	color: var(--secondary-color-3);
+	color: #ccc;
 	font-size: 12px;
 }
 .cart-ship-info.register .bootstrap-select.btn-group .dropdown-menu li {
@@ -4586,7 +4598,7 @@ main {
     background:var(--secondary-color-3);
 }
 .home_btn:hover{
-	background:var(--primary-color-2);
+	background:var(--primary-color-3);
 	color:#fff;
 }
 /*home counter*/
@@ -4695,6 +4707,7 @@ main {
     align-items: center;
     column-gap: 8px;
     font-size: 14px;
+    border: 0;
 }
 .choose p{
     line-height: 1.2;

@@ -22,13 +22,30 @@ class Customer extends Controller {
 
 	public function dashboard(Request $request) {
 
-		$data = array(
-			'title' => 'Dashboard',
-			'pageTitle' => 'Dashboard',
-			'menu' => 'dashboard',
-		);
+		$customerId =customerId();
 
-		return view('frontend/dashboard', $data);
+		if (empty($customerId)) {
+			return view('frontend/login');
+		}else{
+			$cond = [
+	    		['id', $customerId],
+	    	];
+
+	    	$customer = CustomerModel::where($cond)->first();
+
+	    	// echo "<pre>";
+	    	// print_r($customer->toArray());
+	    	// die();
+
+			$data = array(
+				'title' => 'Dashboard',
+				'pageTitle' => 'Dashboard',
+				'menu' => 'dashboard',
+				'customer' => $customer
+			);
+
+			return view('frontend/dashboard', $data);
+		}
 
 	}
 
@@ -58,6 +75,18 @@ class Customer extends Controller {
 
 	}
 
+	public function forgetPassword(Request $request) {
+
+		$data = array(
+			'title' => 'Forget Passwoord',
+			'pageTitle' => 'Forget Passwoord',
+			'menu' => 'forget-password',
+		);
+
+		return view('frontend/forgetPassword', $data);
+
+	}
+
 	public function register(Request $request) {
 
 		$data = array(
@@ -80,10 +109,6 @@ class Customer extends Controller {
 
 	public function doRegister(Request $request) {
 		if ($request->ajax()) {
-
-			// echo "<pre>";
-			// print_r($_POST);
-			// die();
 
 			$validator = Validator::make($request->post(), [
 			    'name' => 'required',
@@ -225,6 +250,252 @@ class Customer extends Controller {
 		}
 
 		return response($this->status);
+	}
+
+	public function doForgotPassword(Request $request) {
+		
+		if ($request->ajax()) {
+
+			$validator = Validator::make($request->post(), [
+	            'email' => 'required|email',	            
+	        ]);
+
+	        if ($validator->fails()) {
+	            
+	            $errors = $validator->errors()->getMessages();
+
+	            $this->status = array(
+					'error' => true,
+					'eType' => 'field',
+					'errors' => $errors,
+					'msg' => 'Validation failed'
+				);
+
+	        } else {
+	        	
+	        	$cond = [
+	        		['email', $request->post('email')],
+	        	];
+
+	        	$getCustomer = CustomerModel::where($cond)->first();
+
+	        	if (!empty($getCustomer)) {
+
+	        		$token = bin2hex(random_bytes(20));
+	        		$tokenExpiry = date('Y-m-d');
+
+	        		$getCustomer->forgot_token = $token;
+	        		$getCustomer->forgot_token_validity = $tokenExpiry;
+	        		$getCustomer->save();
+
+    				$forgotPass = array(
+    					'name' => $getCustomer->name,
+    					'email' => $getCustomer->email,
+    					'token' => $token,
+    					'tokenExpiry' => $tokenExpiry,
+    				);
+
+    				$isMailSent = EmailSending::customerResetPassword($forgotPass);
+					//$isMailSent = true;
+
+					if ($isMailSent) {
+
+		        		$this->status = array(
+							'error' => false,
+							'msg' => 'Please check your inbox and follow the provided link to reset your password.',
+							'redirect' => route('loginPage')
+						);
+
+					} else {
+						
+						$this->status = array(
+							'error' => true,
+							'eType' => 'final',
+							'msg' => 'Something went wrong'
+						);
+
+					}
+
+	        	} else {
+	        		$this->status = array(
+						'error' => true,
+						'eType' => 'final',
+						'msg' => 'It appears that either your email might be incorrect, or your account could be inactive.'
+					);
+	        	}
+	        }
+
+
+		} else {
+			$this->status = array(
+				'error' => true,
+				'eType' => 'final',
+				'msg' => 'Something went wrong'
+			);
+		}
+
+		return response($this->status);
+
+	}
+
+	public function resetPassword(Request $request, $token) {
+		
+		Session::forget('customerSess');
+
+		//get admin user from the token
+
+		$cond = [
+    		['forgot_token', $token],
+    	];
+
+		$getCustomer = CustomerModel::where($cond)->first();
+		
+		if (!empty($getCustomer)) {
+			
+			//validate date
+			$getForgotTokenValidity = $getCustomer->forgot_token_validity;
+			$currentDate = date('Y-m-d');
+
+			$proceedProcess = true;
+
+			if ($getForgotTokenValidity != $currentDate) {
+				$proceedProcess = false;
+			}
+
+			if ($proceedProcess) {
+
+				$data = array(
+					'token' => $token,
+					'title' => 'Reset Password',
+					'pageTitle' => 'Reset Password',
+					'menu' => 'reset-password',
+				);
+				return view('frontend/resetPassword', $data);
+
+			} else {
+
+				$getCustomer->forgot_token = null;
+				$getCustomer->forgot_token_validity = null;
+				$getCustomer->save();
+				return redirect(route('loginPage'));
+
+			}
+
+		} else {
+			return redirect(route('loginPage'));
+		}
+
+	}
+
+	public function doResetPassword(Request $request) {
+		
+		if ($request->ajax()) {
+
+			$validator = Validator::make($request->post(), [
+	            'password' => 'required|min:8',
+	            'confirmPass' => 'required|same:password',
+	            'resetToken' => 'required',        
+	        ]);
+
+	        if ($validator->fails()) {
+	            
+	            $errors = $validator->errors()->getMessages();
+
+	            $this->status = array(
+					'error' => true,
+					'eType' => 'field',
+					'errors' => $errors,
+					'msg' => 'Validation failed'
+				);
+
+	        } else {
+
+	        	$token = $request->post('resetToken');
+	        	
+	        	$cond = [
+					['forgot_token', $token],
+				];
+
+	        	$getCustomer = CustomerModel::where($cond)->first();
+
+	        	if (!empty($getCustomer)) {
+
+	        		//validate date
+					$getForgotTokenValidity = $getCustomer->forgot_token_validity;
+					$currentDate = date('Y-m-d');
+
+					$proceedProcess = true;
+
+					if ($getForgotTokenValidity != $currentDate) {
+						$proceedProcess = false;
+					}
+
+					if ($proceedProcess) {
+
+						//check if user entering the same password as new password
+
+						$newPassword = $request->post('password');
+
+						if (Hash::check($newPassword, $getCustomer->password)) {
+							
+							$this->status = array(
+								'error' => true,
+								'eType' => 'final',
+								'msg' => 'You cannot use your current password as new password.'
+							);
+
+							return response($this->status);
+
+						}
+
+						//change password
+						$hashedNewPassword = Hash::make($newPassword);
+
+						$getCustomer->password = $hashedNewPassword;
+						$getCustomer->forgot_token = null;
+						$getCustomer->forgot_token_validity = null;
+						$getCustomer->save();
+
+						$this->status = array(
+							'error' => false,							
+							'msg' => 'Your password has been reset successfully.',
+							'redirect' => route('loginPage')
+						);
+
+					} else {
+
+						$getCustomer->forgot_token = null;
+						$getCustomer->forgot_token_validity = null;
+						$getCustomer->save();
+						
+						$this->status = array(
+							'error' => true,
+							'eType' => 'final',
+							'msg' => 'It appears that your token might be incorrect, or token might be expired. Please referesh the page and try again'
+						);
+
+					}
+
+	        	} else {
+	        		$this->status = array(
+						'error' => true,
+						'eType' => 'final',
+						'msg' => 'It appears that your token might be incorrect, or your account could be inactive.'
+					);
+	        	}
+	        }
+
+
+		} else {
+			$this->status = array(
+				'error' => true,
+				'eType' => 'final',
+				'msg' => 'Something went wrong'
+			);
+		}
+
+		return response($this->status);
+
 	}
 
 	

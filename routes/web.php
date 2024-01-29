@@ -43,6 +43,10 @@ Route::prefix('/')->group(function() {
     Route::get('/about-us', [Home::class, 'about'])->name('aboutPage');
     Route::get('/login', [Customer::class, 'login'])->name('loginPage');
     Route::get('/register', [Customer::class, 'register'])->name('registerPage');
+    Route::get('/forget-password', [Customer::class, 'forgetPassword'])->name('forgetPasswordPage');
+    Route::post('/doForgotPassword', [Customer::class, 'doForgotPassword'])->name('doForgotPassword');
+    Route::get('/reset-password/{token}', [Customer::class,'resetPassword'])->name('customerResetPassword');
+    Route::post('/doResetPassword', [Customer::class,'doResetPassword'])->name('customerDoResetPassword');
     Route::post('/doRegister', [Customer::class, 'doRegister'])->name('doRegister');
     Route::post('/doLogin', [Customer::class, 'doLogin'])->name('doLogin');
     Route::get('/contact-us', [Home::class, 'contact'])->name('contactPage');

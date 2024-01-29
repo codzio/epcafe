@@ -36,6 +36,12 @@
               <div class="col-sm-12">
                 <h6>REGISTER</h6>
                 <form id="registerForm" method="post">
+
+                  <div class="checkbox margin-0  text-right">
+                      <p id="registerFormMsg" class="fw-semibold">
+                      </p>
+                  </div>
+                  
                   <ul class="row">
                     
                     <!-- Name -->

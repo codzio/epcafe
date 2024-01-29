@@ -31,7 +31,16 @@
 <script src="{{ asset('public/frontend') }}/js/jquery-1.11.3.min.js"></script>
 
 <style>
- 
+
+ div.ldr{
+    border-right: 4px solid var(--primary-color-2);
+ }
+ div.ldr:before{
+  border-left: 3px solid var(--primary-color-2);
+ }
+ div.ldr:after{
+  border-right: 2px solid var(--primary-color-2);
+ }
   .home-slider{
     height:80vh;
   }
