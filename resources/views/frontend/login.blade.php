@@ -52,6 +52,8 @@
                       </label>
                       <span class="errors" id="passwordErr"></span>
                     </li>
+
+                    <input type="hidden" name="action" value="{{ $action }}">
                     
                     <!-- LOGIN -->
                     <li class="col-md-4">

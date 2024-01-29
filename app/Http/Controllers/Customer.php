@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cookie;
 
 use App\Models\CustomerModel;
+use App\Models\CartModel;
 
 class Customer extends Controller {
 
@@ -40,10 +41,13 @@ class Customer extends Controller {
 
 	public function login(Request $request) {
 
+		$action = $request->get('action');
+
 		$data = array(
 			'title' => 'Login',
 			'pageTitle' => 'Login',
 			'menu' => 'login',
+			'action' => $action
 		);
 
 		$customerSess = Session::get('customerSess');
@@ -186,14 +190,24 @@ class Customer extends Controller {
 	        		//check if password match
 	        		if (Hash::check($request->post('password'), $getCustomer->password)) {
 
-	        				
 	        				$request->session()->put('customerSess', array(
 			        			'customerId' => $getCustomer->id
 			        		));
 
+			        		//update customer id if cart data exist
+			        		updateUserIdInCart();
+
+			        		$redirectUrl = route('customerDashboard');
+
+			        		if (!empty($request->post('action'))) {
+			        			if ($request->post('action') == 'checkout') {
+			        				$redirectUrl = route('checkoutPage');
+			        			}
+			        		}
+
 		        			$this->status = array(
 								'error' => false,
-								'redirect' => route('customerDashboard')
+								'redirect' => $redirectUrl
 							);
 
 	        		} else {
