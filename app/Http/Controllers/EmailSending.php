@@ -37,6 +37,19 @@ class EmailSending extends Controller {
 		));
 	}
 
+    public static function customerResetPassword($data) {        
+
+        $template = view('email_templates.customer.vwForgotPassTemp', $data)->render();
+
+        $emailComposer = new EmailSending();
+
+        return $emailComposer->composeEmail(array(
+            'to' => $data['email'],
+            'subject' => 'Forgot Password',
+            'body' => $template
+        ));
+    }
+
 	public static function adminPassChangeNotify($data) {
 
         $data['siteSettings'] = siteSettings();

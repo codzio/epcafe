@@ -7,14 +7,17 @@
     display: flex;
   }
   .validate-code-link-main .validate-code-link button{
-      background: #f9b21b;
+      background: var(--primary-color-2);
       color: #fff;
       border: 0;
       padding: 0 12px;
       border-radius: 0 4px 4px 0;
   }
+  .validate-code-link-main .validate-code-link button:hover{
+    background: #000;
+  }
   .validate-code-link-main .val-err{
-    color: red;
+    color: var(--primary-color-2);
   }
 
   .validate-code-link-main .val-succ{
@@ -128,9 +131,9 @@
 
               <div class="price-desktop" style="margin-bottom: 5px;">
                  <div class="red_text">
-                     <div class="my-1"><span class="price-widget-sezzle" style="color: rgb(250, 128, 56); font-weight: 800; font-size: 22px;">₹37.76</span><span style="color: rgb(98, 107, 127); font-size: 16px;">&nbsp;inclusive of all taxes</span></div>
-                   <div><span style="color: rgb(98, 107, 127); font-size: 16px;">for</span><span style="color: rgba(0, 0, 0, 0.87); font-size: 16px;">&nbsp;1</span><span style="color: rgb(98, 107, 127); font-size: 16px;">&nbsp;Qty (</span><span id="perSheetPrice" style="color: rgba(0, 0, 0, 0.87); font-size: 16px;">₹37.76</span><span style="color: rgb(98, 107, 127); font-size: 16px;">&nbsp;/ piece)</span></div>
-                   <div class="my-2"><span style="color: rgb(112, 8, 149);">Buy in bulk and save</span></div>
+                     <div class="my-1"><span class="price-widget-sezzle" style="color:var(--primary-color-2); font-weight: 800; font-size: 22px;">₹37.76</span><span style="color:#000; font-size: 16px;">&nbsp;inclusive of all taxes</span></div>
+                   <div><span style="color:#000; font-size: 16px;">for</span><span style="color: rgba(0, 0, 0, 0.87); font-size: 16px;">&nbsp;1</span><span style="color: #000; font-size: 16px;">&nbsp;Qty (</span><span id="perSheetPrice" style="color: rgba(0, 0, 0, 0.87); font-size: 16px;">₹37.76</span><span style="color:#000;font-size: 16px;">&nbsp;/ piece)</span></div>
+                   <div class="my-2"><span style="color:var(--primary-color-2);">Buy in bulk and save</span></div>
                  </div>
 
                  <button id="addToCartFormBtn" class="theme-btn mt-20 home_btn"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="upload" class="svg-inline--fa fa-upload fa-w-16 mr-3 ml-2" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 16px;"><path fill="currentColor" d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"></path></svg><span id="addToCartFormTxt">Add to Cart</span> </button>
