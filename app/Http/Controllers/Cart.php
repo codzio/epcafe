@@ -22,6 +22,7 @@ use App\Models\LaminationModel;
 use App\Models\CoverModel;
 use App\Models\ShippingModel;
 use App\Models\CartModel;
+use App\Models\CouponModel;
 
 class Cart extends Controller {
 
@@ -29,25 +30,39 @@ class Cart extends Controller {
 
 	public function index(Request $request) {
 
-		echo "Show Cart Data";
-		die();
+		$tempId = $request->cookie('tempUserId');
+		$userId = customerId();
 
-		$categoryList = CategoryModel::
-		select('category.*', DB::raw('(SELECT COUNT(*) FROM product as b WHERE b.category_id = category.id) as totalProducts'))
-		->where('category.is_active', 1)
+		$cond = ['product.is_active' => 1];
+
+		if (!empty($userId)) {
+			$cond['cart.user_id'] = $userId;
+		} else {
+			$cond['cart.temp_id'] = $tempId;
+		}
+
+		$getCartData = CartModel::join('product', 'cart.product_id', '=', 'product.id')
+		->where($cond)
+		->select('cart.*', 'product.name', 'product.thumbnail_id')
 		->get();
 
-		$popularProds = ProductModel::where(['is_active' => 1, 'display_on_home' => 1])->get();
+		if (!empty($getCartData) && $getCartData->count()) {
 
-		$data = array(
-			'title' => 'Home',
-			'pageTitle' => 'Home',
-			'menu' => 'home',
-			'categoryList' => $categoryList,
-			'popularProds' => $popularProds,
-		);
+			//remove promo
+		    Session::forget('coupon');
+		
+			$data = array(
+				'title' => 'Cart',
+				'pageTitle' => 'Cart',
+				'menu' => 'cart',
+				'cartData' => $getCartData,
+			);
 
-		return view('frontend/home', $data);
+			return view('frontend/cart', $data);
+
+		} else {
+			return redirect()->route('homePage');
+		}
 
 	}
 
@@ -223,4 +238,241 @@ class Cart extends Controller {
 		return response($this->status);
 	}
 
+	public function doRemoveCartItem(Request $request) {
+		if ($request->ajax()) {
+
+			$validator = Validator::make($request->post(), [
+			    'cartId' => 'required|numeric',
+			]);
+
+	        if ($validator->fails()) {
+	            
+	            $errors = $validator->errors()->getMessages();
+
+	            $this->status = array(
+					'error' => true,
+					'eType' => 'field',
+					'errors' => $errors,
+					'msg' => 'Validation failed'
+				);
+
+	        } else {
+
+	        	$cartId = $request->post('cartId');
+	        	CartModel::where('id', $cartId)->delete();
+
+	        	//remove coupon && shipping
+
+	        	$this->status = array(
+					'error' => false,
+					'msg' => 'The cart item has been removed'
+				);
+
+	        }
+
+		} else {
+			$this->status = array(
+				'error' => true,
+				'eType' => 'final',
+				'msg' => 'Something went wrong'
+			);
+		}
+
+		return response($this->status);
+	}
+
+	public function doUpdateCartItem(Request $request) {
+		if ($request->ajax()) {
+
+			$validator = Validator::make($request->post(), [
+			    'qty' => 'required|numeric|min:1',
+			]);
+
+	        if ($validator->fails()) {
+	            
+	            $errors = $validator->errors()->getMessages();
+
+	            $this->status = array(
+					'error' => true,
+					'eType' => 'field',
+					'errors' => $errors,
+					'msg' => 'Validation failed'
+				);
+
+	        } else {
+
+	        	$tempId = $request->cookie('tempUserId');
+				$userId = customerId();
+
+				if (!empty($userId)) {
+					$cond['cart.user_id'] = $userId;
+				} else {
+					$cond['cart.temp_id'] = $tempId;
+				}
+
+				$qty = $request->post('qty');
+
+	        	CartModel::where($cond)->update(['qty' => $qty]);
+
+	        	//remove coupon && shipping
+
+	        	$this->status = array(
+					'error' => false,
+					'msg' => 'The cart item has been updated'
+				);
+
+	        }
+
+		} else {
+			$this->status = array(
+				'error' => true,
+				'eType' => 'final',
+				'msg' => 'Something went wrong'
+			);
+		}
+
+		return response($this->status);
+	}
+
+	public function doApplyPromo(Request $request) {
+		if ($request->ajax()) {
+
+			$validator = Validator::make($request->post(), [
+			    'couponCode' => 'required',
+			]);
+
+	        if ($validator->fails()) {
+	            
+	            $errors = $validator->errors()->getMessages();
+
+	            $this->status = array(
+					'error' => true,
+					'eType' => 'field',
+					'errors' => $errors,
+					'msg' => 'Validation failed'
+				);
+
+	        } else {
+
+	        	$tempId = $request->cookie('tempUserId');
+				$userId = customerId();
+
+				if (!empty($userId)) {
+					$cond['cart.user_id'] = $userId;
+				} else {
+					$cond['cart.temp_id'] = $tempId;
+				}
+
+	        	//check if data exist
+	        	$isExist = CartModel::where($cond)->first();
+
+	        	if (!empty($isExist) && $isExist->count()) {
+
+	        		//get coupon data
+	        		$couponCode = $request->post('couponCode');
+	        		$getCoupon = CouponModel::where(['coupon_code' => $couponCode, 'is_active' => 1])->first();
+
+	        		if (!empty($getCoupon) && $getCoupon->count()) {
+	        			
+	        			$currentDate = date('Y-m-d');
+
+				        $isDateValidated = false;
+		                $startDate = $getCoupon->start_date;
+		                $endDate = $getCoupon->end_date;
+
+		                //check start date and end date
+		                if (empty($startDate) && empty($endDate)) {
+		                    
+		                    $isDateValidated = true;
+
+		                } elseif (!empty($startDate) && !empty($endDate)) {
+		                    
+		                    if (($currentDate >= $startDate) && ($currentDate <= $endDate)) {
+		                        $isDateValidated = true;
+		                    }
+
+		                } elseif (!empty($startDate) && empty($endDate)) {
+		                    
+		                    if ($currentDate >= $startDate) {
+		                        $isDateValidated = true;
+		                    }
+
+		                } elseif (empty($startDate) && !empty($endDate)) {
+		                    
+		                    if ($currentDate <= $endDate) {
+		                        $isDateValidated = true;
+		                    }
+
+		                }
+
+		                if ($isDateValidated) {
+
+		                	//remove promo
+		                	Session::forget('coupon');
+
+		                	$productPrice = productPrice();
+		                	$subTotal = $productPrice->total;
+                			$deliveryCharges = 0;
+                			
+                			$discountRate = $getCoupon->coupon_price;
+                			if ($getCoupon->coupon_type == 'percentage') {
+                				$discount = ($subTotal*$discountRate)/100;
+                			} else {
+                				$discount = $discountRate;
+                			}
+
+                			$totalDiscount = $subTotal-$discount;
+                			$grandTotal = $subTotal+$deliveryCharges-$discount;
+
+                			$sessionObj = array(
+				              'coupon_id' => $getCoupon->id,
+				              'coupon_code' => $getCoupon->coupon_code,
+				              'discount' => $discount,
+				            );
+			            
+			            	$request->session()->put('coupon', $sessionObj);
+
+			            	$this->status = array(
+								'error' => false,
+								'discount' => $discount,
+								'grandTotal' => $grandTotal,
+								'msg' => 'The coupon has been applied'
+							);
+
+		                } else {
+		                	$this->status = array(
+								'error' => true,
+								'eType' => 'final',
+								'msg' => 'The entered coupon is expired'
+							);
+		                }
+
+	        		} else {
+	        			$this->status = array(
+							'error' => true,
+							'eType' => 'final',
+							'msg' => 'The entered coupon is invalid'
+						);
+	        		}
+	        		
+	        	} else {
+	        		$this->status = array(
+						'error' => true,
+						'eType' => 'final',
+						'msg' => 'Something went wrong'
+					);
+	        	}
+
+	        }
+
+		} else {
+			$this->status = array(
+				'error' => true,
+				'eType' => 'final',
+				'msg' => 'Something went wrong'
+			);
+		}
+
+		return response($this->status);
+	}
 }

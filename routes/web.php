@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Home;
 use App\Http\Controllers\Customer;
 use App\Http\Controllers\Cart;
+use App\Http\Controllers\Checkout;
 
 //Backend
 use App\Http\Controllers\admin\Auth;
@@ -46,6 +47,7 @@ Route::prefix('/')->group(function() {
     Route::post('/doRegister', [Customer::class, 'doRegister'])->name('doRegister');
     Route::post('/doLogin', [Customer::class, 'doLogin'])->name('doLogin');
     Route::get('/contact-us', [Home::class, 'contact'])->name('contactPage');
+    Route::get('/cart', [Cart::class, 'index'])->name('cartPage');
     Route::post('/doContact', [Home::class, 'getContact'])->name('getContact');
 });
 
@@ -54,8 +56,6 @@ Route::prefix('/customer')->middleware('customerSessionCheck')->group(function()
     Route::get('/logout', [Customer::class, 'logout'])->name('customerLogout');
 
 });
-
-
 
 Route::prefix('/category')->group(function() {
     Route::get('/{slug}', [Home::class, 'category'])->name('categoryPage');
@@ -66,9 +66,16 @@ Route::prefix('/products')->group(function() {
     Route::get('/{slug}', [Home::class, 'product'])->name('productPage');
 });
 
+Route::prefix('/checkout')->group(function() {
+    Route::get('/', [Checkout::class, 'index'])->name('checkoutPage');
+});
+
 Route::post('/checkPincode', [Home::class, 'checkPincode'])->name('checkPincode');
 Route::post('/checkDocumentLink', [Home::class, 'checkDocumentLink'])->name('checkDocumentLink');
 Route::post('/doAddToCart', [Cart::class, 'doAddToCart'])->name('addToCart');
+Route::post('/doRemoveCartItem', [Cart::class, 'doRemoveCartItem'])->name('removeCartItem');
+Route::post('/doUpdateCartItem', [Cart::class, 'doUpdateCartItem'])->name('updateCartItem');
+Route::post('/doApplyPromo', [Cart::class, 'doApplyPromo'])->name('applyPromo');
 
 Route::prefix(config('admin.path'))->middleware('web')->group(function () {
     

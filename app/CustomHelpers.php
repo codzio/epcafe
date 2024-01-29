@@ -5,11 +5,20 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cookie;
+use Request;
 
 use App\Models\AdminModel;
 use App\Models\MediaModel;
 use App\Models\SettingModel;
-
+use App\Models\CartModel;
+use App\Models\PaperSizeModel;
+use App\Models\GsmModel;
+use App\Models\PaperTypeModel;
+use App\Models\BindingModel;
+use App\Models\LaminationModel;
+use App\Models\CoverModel;
+use App\Models\PricingModel;
+use App\Models\CustomerModel;
 
 function getImg($imageId) {
 	$mediaData = MediaModel::where('id', $imageId)->first();
@@ -280,7 +289,272 @@ function can($permission, $module) {
 
 
 //Customer
+
 function customerId() {
 	$customerSess = Session::get('customerSess');
-	return $customerSess['customerId'];
+	if (isset($customerSess['customerId']) && !empty($customerSess['customerId'])) {
+		return $customerSess['customerId'];
+	} else {
+		return null;
+	}
+}
+
+function productSpec($cartId) {
+	
+	$cartData = CartModel::join('product', 'cart.product_id', '=', 'product.id')
+		->where(['cart.id' => $cartId, 'product.is_active' => 1])
+		->select('cart.*', 'product.name', 'product.thumbnail_id')
+		->first();
+
+	if (!empty($cartData)) {
+			
+		$productId = $cartData->product_id;
+		$paperSizeId = $cartData->paper_size_id;
+		$paperGsmId = $cartData->paper_gsm_id;
+		$paperTypeId = $cartData->paper_type_id;
+		$printSide = $cartData->print_side;
+		$color = $cartData->color;
+		$bindingId = $cartData->binding_id;
+		$laminationId = $cartData->lamination_id;
+		$coverId = $cartData->cover_id;
+
+		$spec = '';
+
+		//Get Paper Size
+		$getPaperSize = PaperSizeModel::where('id', $paperSizeId)->value('size');
+
+		if (!empty($getPaperSize)) {
+			$spec .= "<p><strong>Paper Size:</strong> ".$getPaperSize."</p>";
+		}
+
+		//Get Paper Gsm
+		$getPaperGsm = GsmModel::where('id', $paperGsmId)->value('gsm');
+
+		if (!empty($getPaperGsm)) {
+			$spec .= "<p><strong>Paper GSM:</strong> ".$getPaperGsm."</p>";
+		}
+
+		//Get Paper Type
+		$getPaperType = PaperTypeModel::where('id', $paperTypeId)->value('paper_type');
+
+		if (!empty($getPaperType)) {
+			$spec .= "<p><strong>Paper Type:</strong> ".$getPaperType."</p>";
+		}
+
+		//Get Print Side
+		$spec .= "<p><strong>Print Side:</strong> ".$cartData->print_side."</p>";
+
+		//Get Color
+		$spec .= "<p><strong>Color:</strong> ".$cartData->color."</p>";
+
+		//Get Binding
+		$getBinding = BindingModel::where('id', $bindingId)->value('binding_name');
+
+		if (!empty($getBinding)) {
+			$spec .= "<p><strong>Binding:</strong> ".$getBinding."</p>";
+		}
+
+		//Get Lamination
+		$getLamination = LaminationModel::where('id', $laminationId)->first();
+
+		if (!empty($getLamination)) {
+			$spec .= "<p><strong>Lamination:</strong> ".$getLamination->lamination.' - '.$getLamination->lamination_type."</p>";
+		}
+
+		//Get Cover
+		$getCover = CoverModel::where('id', $coverId)->value('cover');
+
+		if (!empty($getCover)) {
+			$spec .= "<p><strong>Cover:</strong> ".$getCover."</p>";
+		}
+
+		return $spec;
+
+	} else {
+		return false;
+	}
+}
+
+function productPrice() {
+
+	$tempId = Request::cookie('tempUserId');
+	$userId = customerId();
+
+	$cond = ['product.is_active' => 1];
+	if (!empty($userId)) {
+		$cond['cart.user_id'] = $userId;
+	} else {
+		$cond['cart.temp_id'] = $tempId;
+	}
+
+	$cartData = CartModel::join('product', 'cart.product_id', '=', 'product.id')
+		->where($cond)
+		->select('cart.*', 'product.name', 'product.thumbnail_id')
+		->first();
+
+	if (!empty($cartData)) {
+			
+		$productId = $cartData->product_id;
+		$paperSizeId = $cartData->paper_size_id;
+		$paperGsmId = $cartData->paper_gsm_id;
+		$paperTypeId = $cartData->paper_type_id;
+		$printSide = $cartData->print_side;
+		$color = $cartData->color;
+		$bindingId = $cartData->binding_id;
+		$laminationId = $cartData->lamination_id;
+		$coverId = $cartData->cover_id;
+
+		$data = [
+			'per_sheet_price' => 0,
+			'paper_type_price' => 0,
+			'printSideAndColorPrice' => 0,
+			'binding' => 0,
+			'lamination' => 0,
+			'cover' => 0,
+			'price' => 0,
+			'shipping' => 0,
+			'discount' => 0,
+			'total' => 0
+		];
+
+		$getPaperGsm = GsmModel::where(['paper_size' => $paperSizeId, 'id' => $paperGsmId, 'paper_type' => $paperTypeId])->first();
+
+		if (!empty($getPaperGsm)) {
+			$data['per_sheet_price'] = $getPaperGsm->rate;
+			$data['paper_type_price'] = $getPaperGsm->paper_type_price;
+		}
+
+		$printSideAndColorPrice = PricingModel::where(['product_id' => $productId, 'paper_size_id' => $paperSizeId, 'paper_gsm_id' => $paperGsmId, 'paper_type_id' => $paperTypeId, 'side' => $printSide, 'color' => $color])->value('other_price');
+
+		if (!empty($printSideAndColorPrice)) {
+			$data['printSideAndColorPrice'] = $printSideAndColorPrice;
+		}
+
+		if (!empty($bindingId)) {
+			
+			$bindingData = BindingModel::where('id', $bindingId)->value('price');
+
+			if (!empty($bindingData)) {
+				$data['binding'] = $bindingData;
+			}
+
+		}
+
+		if (!empty($laminationId)) {
+			
+			$laminationData = LaminationModel::where('id', $laminationId)->value('price');
+
+			if (!empty($laminationData)) {
+				$data['lamination'] = $laminationData;
+			}
+
+		}
+
+		$data['price'] = $data['per_sheet_price']+$data['paper_type_price']+$data['printSideAndColorPrice']+$data['binding']+$data['lamination']+$data['cover'];
+
+		$getCouponData = Session::get('coupon');
+
+		$discount = 0;
+
+		if (!empty($getCouponData)) {
+			$discount = $getCouponData['discount'];
+		}
+
+		$data['discount'] = $discount;
+		$data['total'] = ($data['price']*$cartData->qty)-$discount;
+
+		return (object) $data;
+
+	} else {
+		return false;
+	}
+
+}
+
+function cartWeight() {
+
+	$tempId = Request::cookie('tempUserId');
+	$userId = customerId();
+
+	$cond = ['product.is_active' => 1];
+	if (!empty($userId)) {
+		$cond['cart.user_id'] = $userId;
+	} else {
+		$cond['cart.temp_id'] = $tempId;
+	}
+
+	$cartData = CartModel::join('product', 'cart.product_id', '=', 'product.id')
+		->where($cond)
+		->select('cart.*', 'product.name', 'product.thumbnail_id')
+		->first();
+
+	if (!empty($cartData)) {
+			
+		$productId = $cartData->product_id;
+		$paperSizeId = $cartData->paper_size_id; 
+		$paperGsmId = $cartData->paper_gsm_id; //weight
+		$paperTypeId = $cartData->paper_type_id;
+		$printSide = $cartData->print_side;
+		$color = $cartData->color;
+		$bindingId = $cartData->binding_id;
+		$laminationId = $cartData->lamination_id;
+		$coverId = $cartData->cover_id;
+
+		$weight = 0;
+
+		//Get GSM Data
+		$getWeight = GsmModel::where(['paper_size' => $paperSizeId, 'id' => $paperGsmId])->value('weight');
+
+		$weight = $getWeight;
+		$totalWeight = $weight*$cartData->qty;
+
+		return $totalWeight;
+
+	} else {
+		return false;
+	}
+
+}
+
+function updateUserIdInCart() {
+
+	$tempId = Request::cookie('tempUserId');
+
+	$cond = ['product.is_active' => 1];
+	$cond['cart.temp_id'] = $tempId;
+
+	$cartData = CartModel::join('product', 'cart.product_id', '=', 'product.id')
+		->where($cond)
+		->count();
+
+	if ($cartData) {
+		$userId = customerId();
+		CartModel::where('temp_id', $tempId)->update(['user_id' => $userId]);
+	}
+
+	return $cartData;
+}
+
+function customerData($col='') {
+	$customerSess = Session::get('customerSess');
+
+	if (!empty($customerSess)) {
+
+		$customerId = $customerSess['customerId'];
+		
+		$getCusDetail = CustomerModel::where('id', $customerId)->first();
+
+		if (!empty($getCusDetail) && $getCusDetail->count()) {
+			if (!empty($col)) {
+				return $getCusDetail->{$col};
+			} else {
+				return $getCusDetail;
+			}
+		} else {
+			return false;
+		}
+
+	} else {
+		return false;
+	}
 }

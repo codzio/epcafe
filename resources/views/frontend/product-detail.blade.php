@@ -491,6 +491,7 @@
             }
           } else {
             $("#documentLinkErr").html(res.msg).addClass('val-succ');
+            window.location.href = "{{ route('cartPage') }}";
           }
 
           $("#addToCartFormTxt").html('Add To Cart');
