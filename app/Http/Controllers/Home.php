@@ -436,4 +436,12 @@ class Home extends Controller {
 
 		return response($this->status);
 	}
+
+	public function thankyou() {
+		echo "Thank you";
+	}
+
+	public function paymentFail() {
+		echo "Payment Fail";
+	}
 }

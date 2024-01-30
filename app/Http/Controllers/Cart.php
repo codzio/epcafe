@@ -430,7 +430,7 @@ class Cart extends Controller {
 				              'discount' => $discount,
 				            );
 			            
-			            	$request->session()->put('coupon', $sessionObj);
+			            	$request->session()->put('couponSess', $sessionObj);
 
 			            	$this->status = array(
 								'error' => false,
