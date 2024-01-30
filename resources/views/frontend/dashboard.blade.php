@@ -1086,7 +1086,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="#logout" class="tab-head-font">
+								<a href="{{ route('customerLogout') }}" class="tab-head-font">
 									<img src="images/logout.png" alt="">
 									<p>Logout</p>
 								</a>
@@ -1119,41 +1119,6 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>ABCD321</td>
-												<td>14/04/22</td>
-												<td>Royal Blue Kuwaiti Kandora</td>
-												<td>342</td>
-												<td>1643.50 AED</td>
-											</tr>
-											<tr>
-												<td>ABCD321</td>
-												<td>14/04/22</td>
-												<td>Royal Blue Kuwaiti Kandora</td>
-												<td>342</td>
-												<td>1643.50 AED</td>
-											</tr>
-											<tr>
-												<td>ABCD321</td>
-												<td>14/04/22</td>
-												<td>Royal Blue Kuwaiti Kandora</td>
-												<td>342</td>
-												<td>1643.50 AED</td>
-											</tr>
-											<tr>
-												<td>ABCD321</td>
-												<td>14/04/22</td>
-												<td>Royal Blue Kuwaiti Kandora</td>
-												<td>342</td>
-												<td>1643.50 AED</td>
-											</tr>
-											<tr>
-												<td>ABCD321</td>
-												<td>14/04/22</td>
-												<td>Royal Blue Kuwaiti Kandora</td>
-												<td>342</td>
-												<td>1643.50 AED</td>
-											</tr>
 											<tr>
 												<td>ABCD321</td>
 												<td>14/04/22</td>
@@ -1464,28 +1429,17 @@
 							                        <li data-state-code="WB">West Bengal</li>
 												</ul>
 											</div>
-											<input id="state" type="name" value="" name="state">
-											<span class="imp set_default_state">*<span class="plc" data-default="{{ $customer->state }}">hhhhh</span></span>
+											<input id="state" type="hidden" value="" name="state">
+											<span class="imp set_default_state">*<span class="plc" data-default="{{ $customer->state }}"></span></span>
 											<span class="arw"><img src="images/ExpandMore.png" alt=""></span>
+											<span class="errors" id="stateErr"></span>
 										</span>
 										<div class="form-field">
-											<input type="text" name="towncity" class="mr-42">
-											<span class="imp">*<span class="plc">Town/City</span></span>
+											<input type="text" name="city" class="mr-42">
+											<span class="imp">*<span class="plc">City</span></span>
+											<span class="errors" id="cityErr"></span>
 										</div>
 									</span>
-
-									<div class="form-field plc-adjust">
-										<input type="text" name="currentpassword" class="mr-42">
-										<span class="imp"><span class="plc">Current Password (blank to leave unchanged)</span></span>
-									</div>
-									<div class="form-field plc-adjust">
-										<input type="text" name="newpassword">
-										<span class="imp"><span class="plc">New Password (blank to leave unchanged)</span></span>
-									</div>
-									<div class="form-field">
-										<input type="text" name="confirmnewpassword" class="mr-42">
-										<span class="imp"><span class="plc">Confirm New Password</span></span>
-									</div>
 									<div class="form-field">
 										<div class="butn">
 											<button class="uppercase form-btn tab-form-btn-font mr-36">Cancel</button>
@@ -1499,23 +1453,32 @@
 							<div class="form">
 								<h1 class="tab-body-main-font uppercase">Change Password</h1>
 								<p class="tab-body-para-font">Mandatory fields are marked <span>*</span></p>
-								<form action="">
+								<form id="changePasswordForm" method="post">
 									<div class="form-field">
-										<input type="text" name="currentpassword" class="mr-42">
+										<input type="password" name="password" class="mr-42">
 										<span class="imp">*<span class="plc">Current Password</span></span>
+
+										<span class="errors" id="passwordErr"></span>
+
 									</div>
 									<div class="form-field">
-										<input type="text" name="newpassword">
+										<input type="password" name="newPassword">
 										<span class="imp">*<span class="plc">New Password</span></span>
+
+										<span class="errors" id="newPasswordErr"></span>
+
 									</div>
 									<div class="form-field">
-										<input type="text" name="confirmpassword" class="mr-42">
+										<input type="password" name="confirmPassword" class="mr-42">
 										<span class="imp">*<span class="plc">Confirm Password</span></span>
+
+										<span class="errors" id="confirmPasswordErr"></span>
+
 									</div>
 									<div class="form-field">
 										<div class="butn">
 											<button class="uppercase form-btn tab-form-btn-font mr-36">Cancel</button>
-											<button class="uppercase form-btn tab-form-btn-font">Update Password</button>
+											<button id="changePasswordBtn" class="uppercase form-btn tab-form-btn-font">Update Password</button>
 										</div>
 									</div>
 								</form>
