@@ -299,6 +299,38 @@ function customerId() {
 	}
 }
 
+function getCartId() {
+	$tempId = Request::cookie('tempUserId');
+	$userId = customerId();
+
+	$cond = ['product.is_active' => 1];
+	if (!empty($userId)) {
+		$cond['cart.user_id'] = $userId;
+	} else {
+		$cond['cart.temp_id'] = $tempId;
+	}
+
+	return CartModel::join('product', 'cart.product_id', '=', 'product.id')
+		->where($cond)
+		->value('cart.id');
+}
+
+function getCartProductId() {
+	$tempId = Request::cookie('tempUserId');
+	$userId = customerId();
+
+	$cond = ['product.is_active' => 1];
+	if (!empty($userId)) {
+		$cond['cart.user_id'] = $userId;
+	} else {
+		$cond['cart.temp_id'] = $tempId;
+	}
+
+	return CartModel::join('product', 'cart.product_id', '=', 'product.id')
+		->where($cond)
+		->value('cart.product_id');
+}
+
 function productSpec($cartId) {
 	
 	$cartData = CartModel::join('product', 'cart.product_id', '=', 'product.id')
@@ -452,7 +484,7 @@ function productPrice() {
 
 		$data['price'] = $data['per_sheet_price']+$data['paper_type_price']+$data['printSideAndColorPrice']+$data['binding']+$data['lamination']+$data['cover'];
 
-		$getCouponData = Session::get('coupon');
+		$getCouponData = Session::get('couponSess');
 
 		$discount = 0;
 
@@ -460,8 +492,17 @@ function productPrice() {
 			$discount = $getCouponData['discount'];
 		}
 
+		//Shipping
+		$shipping = 0;
+		$getShippingData = Session::get('shippingSess');
+
+		if (!empty($getShippingData)) {
+			$shipping = $getShippingData['shipping'];
+		}
+
 		$data['discount'] = $discount;
-		$data['total'] = ($data['price']*$cartData->qty)-$discount;
+		$data['shipping'] = $shipping;
+		$data['total'] = (($data['price']*$cartData->qty)-$discount)+$shipping;
 
 		return (object) $data;
 
