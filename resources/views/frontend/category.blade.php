@@ -54,7 +54,7 @@
       @if(!empty($products) && $products->count())
       <div class="papular-block row single-img-demos">
           @foreach($products as $product)
-          <div class="col-md-3">
+          <div class="col-md-4">
             <div class="item"> 
               <a href="{{ route('productPage', ['slug' => $product->slug]) }}">
                 <div class="item-img"> <img class="img-1" src="{{ getImg($product->thumbnail_id); }}" alt=""> 

@@ -19,7 +19,7 @@
 <style type="text/css">
 		/*root css*/
 		:root{
-			--main-color: #BD9C68;
+			--main-color: #dd1d26;
 			--primary-color: #1F242B;
 			--secondary-color: #25292F;
 			--white-color: #fff;
@@ -48,7 +48,7 @@
 			font-size: 14px;
 			line-height: 29px;
 			letter-spacing: 1px;
-			color: #1F242B;
+			color: #000;
 		}
 		.tab-body-para-font{
 			font-family: 'open-sans-regular';
@@ -58,7 +58,7 @@
 			line-height: 29px;
 			letter-spacing: 1px;
 			text-decoration-line: underline;
-			color: #2E2E2E;
+			color: #000;
 		}
 		.tab-form-btn-font{
 			font-family: 'open-sans-regular';
@@ -82,7 +82,7 @@
 		.tab-head{
 			width: max-content;
 			height: auto;
-			background: #1F242B;
+			background: #000;
 			border-right: 1px solid #fff;
 			border-radius: 5px 0px 0px 5px;
 			position: relative;
@@ -107,13 +107,16 @@
 			border-top: 0.5px solid #1F242B;
 		}*/
 		.tab-head ul li:hover > a{
-			background: #8b694E;
-			border-top: 0.5px solid #fff;
+			background: #dd1d26;
+/*			border-top: 0.5px solid #fff;*/
+			color: #fff;
+		}
+		.tab-head ul li a p{
 			color: #fff;
 		}
 		.tab-head ul li a.active{
-			background: #8b694E;
-			border-top: 0.5px solid #fff;
+			background: #dd1d26;
+/*			border-top: 0.5px solid #fff;*/
 		}
 		/*.tab-head ul li.active a{color: #fff;}*/
 		/*.tab-head ul li:hover > a{
@@ -149,7 +152,7 @@
 			width: 100%;
 			height: 48px;
 			background: transparent;
-			border:  1px solid #BD9C68;
+			border:  1px solid #000;
 			border-radius: 5px;
 			margin-bottom: 24px;
 			padding: 0 20px;
@@ -167,7 +170,7 @@
 			width: 100%;
 			height: 127px;
 			background: #fff;
-			border:  1px solid #BD9C68;
+			border:  1px solid #000;
 			border-radius: 5px;
 			margin-bottom: 24px;
 			padding: 8px 20px;
@@ -183,7 +186,7 @@
 			width: 100%;
 			height: 48px;
 			background: #fff;
-			border:  1px solid #BD9C68;
+			border:  1px solid #000;
 			border-radius: 5px;	
 			margin-bottom: 24px;
 			padding: 0 20px;
@@ -216,7 +219,7 @@
 			font-weight: 600;
 			font-size: 13px;
 			line-height: 22px;
-			color: #E80000;
+			color: #dd1d26;
 			position: absolute;
 			left: 0;
 			top: 0;
@@ -238,7 +241,7 @@
 			font-weight: 600;
 			font-size: 13px;
 			line-height: 22px;
-			color: #E80000;
+			color: #dd1d26;
 			position: absolute;
 			left: 5%;
 			top: 12px;
@@ -252,7 +255,7 @@
 			display: inline-block;
 			width: 48px;
 			height: 48px;
-			background: #BD9C68;
+			background: #dd1d26;
 			border-radius: 0px 5px 5px 0px;
 			position: absolute;
 			top: 0;
@@ -265,8 +268,8 @@
 		.tab-body .account-forms.active{display: block;}
 		.form-btn{
 			padding: 11.5px 50.5px;
-			background: #8B694E;
-			border: 1px solid #8B694E;
+			background: #dd1d26;
+			border: 1px solid #dd1d26;
 		}
 		.mr-42{margin-right: 24px;}
 		.mr-36{margin-right: 24px;}
@@ -282,9 +285,9 @@
 			margin-top: 7px;
 		}
 		.account-forms form button:hover{
-			background: #fff;
-			color: #8B694E;
-			border: 1px solid #8B694E;
+			background: #000;
+			color: #fff;
+			border: 1px solid #000;
 		}
 		.butn{width: 100%;}
 		/*.tab-body .data{display: none;}*/
@@ -331,6 +334,7 @@
 			letter-spacing: 0.07em;
 			color: #5B8E25;
 			padding-bottom: 6px;
+			margin: 0;
 		}
 		.dashboardMsg p{
 			font-family: 'open-sans-regular';
@@ -348,7 +352,7 @@
 			border-spacing: 0 10px;
 		}
 		.my-orders table thead tr{
-			background: #BD9C68;
+			background: #dd1d26;
 		}
 		.my-orders table thead{margin-bottom: 10px;}
 		.my-orders table thead tr td:first-child{border-top-left-radius: 5px;border-bottom-left-radius: 5px;}
@@ -493,7 +497,7 @@
 		.address-tab{margin-bottom: 21px;}
 		.address-tab a{
 			background: #fff;
-			border: 1px solid #8B694E;
+			border: 1px solid #000;
 			border-radius: 39px;
 			padding: 7.5px 34px;
 			font-family: 'open-sans-regular';
@@ -503,16 +507,18 @@
 			line-height: 29px;
 			text-align: center;
 			letter-spacing: 1px;
-			color: #8B694E;
+			color: #000;
 			margin-right: 36px;
 		}
 		.address-tab a.active{
-			background: #8B694E;
+			background: #dd1d26;
 			color: #fff;
+			border-color: #dd1d26;
 		}
 		.address-tab a:hover{
-			background: #8B694E;
+			background: #dd1d26;
 			color: #fff;
+			border-color: #dd1d26;
 		}
 		.address-tab a:last-child{padding: 7.5px 43.5px;}
 		.address-tab-body .data{display: none;}
@@ -528,7 +534,7 @@
 			line-height: 23px;
 			text-align: justify;
 			letter-spacing: 0.07em;
-			color: #1F242B;
+			color: #000;
 		}
 		.account-tab-body.tab-body textarea{
 			background: transparent;
@@ -767,6 +773,8 @@
 			line-height: 20px;
 			color: #7B7B7B;
 			padding: 0;
+			max-height: 195px;
+			overflow-y: auto;
 		}
 		.after .custom-select ul li{
 			background: #fff;
@@ -1043,447 +1051,516 @@
 	</style>
 </head>
 <body>
-	<div class="my-account">
-		<div class="width fadeInDown">
-			<div class="main">
-				<div class="content">
-					<div class="tab-head">
-						<ul>
-							<li>
-								<a href="#dashboard" class="tab-head-font active">
-									<img src="images/dashboard.png" alt="">
-									<p>My Dashboard</p>
-								</a>
-							</li>
-							<li>
-								<a href="#orders" class="tab-head-font">
-									<img src="images/orders.png" alt="">
-									<p>My Orders</p>
-								</a>
-							</li>
-							<li>
-								<a href="#addresses" class="tab-head-font">
-									<img src="images/addresses.png" alt="">
-									<p>Addresses</p>
-								</a>
-							</li>
-							<!-- <li>
-								<a href="#paymentMethod" class="tab-head-font">
-									<img src="images/payment-method.png" alt="">
-									<p>Payment Methods</p>
-								</a>
-							</li> -->
-							<li>
-								<a href="#accountDetail" class="tab-head-font">
-									<img src="images/account-detail.png" alt="">
-									<p>Account Details</p>
-								</a>
-							</li>
-							<li>
-								<a href="#changePassword" class="tab-head-font">
-									<img src="images/change-password.png" alt="">
-									<p>Change Password</p>
-								</a>
-							</li>
-							<li>
-								<a href="{{ route('customerLogout') }}" class="tab-head-font">
-									<img src="images/logout.png" alt="">
-									<p>Logout</p>
-								</a>
-							</li>
-						</ul>
-						<span class="tab-arr"><img src="images/ExpandMore.png" alt=""></span>
-					</div>
-					<div class="tab-body account-tab-body">
-						<div class="data account-forms dashboard active" id="dashboard">
-							<div class="form">
-								<h1 class="tab-body-main-font uppercase">My Dashboard</h1>
-								<div class="dashboardMsg">
-									<h2>Hello {{ $customer->name }} (If not {{ $customer->name }}) <a href="{{ route('customerLogout') }}">Log out?</a></h2>
-									<p>From your account Dashboard you can view your recent orders, manage your shipping, update billing addresses, edit your password and account details.</p>
-								</div>
-							</div>
+	<div class="container">
+		<div class="my-account">
+			<div class="width fadeInDown">
+				<div class="main">
+					<div class="content">
+						<div class="tab-head">
+							<ul>
+								<li>
+									<a href="#dashboard" class="tab-head-font active">
+										<img src="images/dashboard.png" alt="">
+										<p>My Dashboard</p>
+									</a>
+								</li>
+								<li>
+									<a href="#orders" class="tab-head-font">
+										<img src="images/orders.png" alt="">
+										<p>My Orders</p>
+									</a>
+								</li>
+								<li>
+									<a href="#addresses" class="tab-head-font">
+										<img src="images/addresses.png" alt="">
+										<p>Addresses</p>
+									</a>
+								</li>
+								<!-- <li>
+									<a href="#paymentMethod" class="tab-head-font">
+										<img src="images/payment-method.png" alt="">
+										<p>Payment Methods</p>
+									</a>
+								</li> -->
+								<li>
+									<a href="#accountDetail" class="tab-head-font">
+										<img src="images/account-detail.png" alt="">
+										<p>Account Details</p>
+									</a>
+								</li>
+								<li>
+									<a href="#changePassword" class="tab-head-font">
+										<img src="images/change-password.png" alt="">
+										<p>Change Password</p>
+									</a>
+								</li>
+								<li>
+									<a href="{{ route('customerLogout') }}" class="tab-head-font">
+										<img src="images/logout.png" alt="">
+										<p>Logout</p>
+									</a>
+								</li>
+							</ul>
+							<span class="tab-arr"><img src="{{ asset('public/frontend') }}/images/ExpandMore.png" alt=""></span>
 						</div>
-						<div class="data account-forms orders" id="orders">
-							<div class="form">
-								<h1 class="tab-body-main-font uppercase">My Orders</h1>
-								<div class="my-orders">
-									<table border="0">
-										<thead>
-											<tr>
-												<td>Order ID</td>
-												<td>Order Date</td>
-												<td>Product Name</td>
-												<td>Qty</td>
-												<td>Price</td>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>ABCD321</td>
-												<td>14/04/22</td>
-												<td>Royal Blue Kuwaiti Kandora</td>
-												<td>342</td>
-												<td>1643.50 AED</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-						<div class="data account-forms addresses" id="addresses">
-								<h1 class="tab-body-main-font uppercase">Your Addresses</h1>
-								<p class="tab-body-para-font">Mandatory fields are marked <span>*</span></p>
-								<div class="address-tab">
-									<div>
-										<a href="#shippingAddress">Shipping Address</a>
-										<a href="#billingAddress" class="active">Billing Address</a>
+						<div class="tab-body account-tab-body">
+							<div class="data account-forms dashboard active" id="dashboard">
+								<div class="form">
+									<h1 class="tab-body-main-font uppercase">My Dashboard</h1>
+									<div class="dashboardMsg">
+										<h2>Hello {{ $customer->name }} (If not {{ $customer->name }}) <a href="{{ route('customerLogout') }}">Log out?</a></h2>
+										<p>From your account Dashboard you can view your recent orders, manage your shipping, update billing addresses, edit your password and account details.</p>
 									</div>
 								</div>
-								<div class="address-tab-body">
-									<div class="data shippingAddress" id="shippingAddress">
-										<p>The following addresses will be used on the checkout page by default.</p>
-										<form action="">
-											<div class="form-field">
-												<input type="text" name="name" class="mr-42" value="{{ $customer->name }}">
-												<span class="imp">*<span class="plc">First Name</span></span>
-											</div>
-											<div class="form-field">
-												<input type="text" name="lastname">
-												<span class="imp">*<span class="plc">Last Name</span></span>
-											</div>
-											<span class="m-set">
-												<span class="after">
-													<!-- <select name="countryregion" id="">
-														<option value="">Country/Region</option>
-													</select> -->
-													<div class="select"></div>
-													<div class="custom-select">
-														<ul>
-															<li>Your Preferred Fitting 1</li>
-															<li>Your Preferred Fitting 2</li>
-														</ul>
-													</div>
-													<span class="imp">*<span class="plc">Country Ragion</span></span>
-													<span class="arw"><img src="images/ExpandMore.png" alt=""></span>
-												</span>
-												<div class="form-field">
-													<input type="text" name="towncity" class="mr-42">
-													<span class="imp">*<span class="plc">Town/City</span></span>
-												</div>
-											</span>
-											<div class="form-field">
-												<textarea type="text" name="address"></textarea>
-												<span class="imp">*<span class="plc">Address</span></span>
-											</div>
-											<div class="form-field">
-												<input type="text" name="postcode" class="mr-42">
-												<span class="imp"><span class="plc">Postcode/Zip (Optional)</span></span>
-											</div>
-											<span class="after">
-												<!-- <select name="countryoptional" id="">
-													<option value="">Country (Optional)</option>
-												</select> -->
-												<div class="select"></div>
-												<div class="custom-select">
-													<ul>
-														<li>Your Preferred Fitting 1</li>
-														<li>Your Preferred Fitting 2</li>
-													</ul>
-												</div>
-												<span class="imp"><span class="plc">Country (Optional)</span></span>
-												<span class="arw"><img src="images/ExpandMore.png" alt=""></span>
-											</span>
-											<div class="form-field">
-												<input type="text" name="state" class="mr-42">
-												<span class="imp">*<span class="plc">Enter State</span></span>
-											</div>
-											<div class="form-field">
-												<input type="text" name="number" class="mr-42">
-												<span class="imp">*<span class="plc">Phone Number</span></span>
-											</div>
-											<div class="butn">
-												<button class="uppercase form-btn tab-form-btn-font mr-36">Cancel</button>
-												<button class="uppercase form-btn tab-form-btn-font">Save Address</button>
-											</div>
-										</form>
+							</div>
+							<div class="data account-forms orders" id="orders">
+								<div class="form">
+									<h1 class="tab-body-main-font uppercase">My Orders</h1>
+									<div class="my-orders">
+										<table border="0">
+											<thead>
+												<tr>
+													<td>Order ID</td>
+													<td>Order Date</td>
+													<td>Product Name</td>
+													<td>Qty</td>
+													<td>Price</td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>{{ strtoupper($orders->order_id) }}</td>
+													<td>{{ date('d-m-Y', strtotime($orders->created_at)) }}</td>
+													<td>{{ $orders->product_name }}</td>
+													<td>{{ $orders->qty }}</td>
+													<td>&#8377; {{ $orders->paid_amount }}</td>
+												</tr>
+											</tbody>
+										</table>
 									</div>
-									<div class="data billingAddress active" id="billingAddress">
-										<p>The following addresses will be used on the checkout page by default.</p>
-										<form action="">
-											<div class="form-field">
-												<input type="text" name="firstname" class="mr-42">
-												<span class="imp">*<span class="plc">First Name</span></span>
-											</div>
-											<div class="form-field">
-												<input type="text" name="lastname">
-												<span class="imp">*<span class="plc">Last Name</span></span>
-											</div>
-											<span class="m-set">
-												<span class="after">
-													<!-- <select name="countryregion" id="">
-														<option value="">Country/Region</option>
-													</select> -->
-													<div class="select"></div>
-													<div class="custom-select">
-														<ul>
-															<li>Your Preferred Fitting 1</li>
-															<li>Your Preferred Fitting 2</li>
-														</ul>
+								</div>
+							</div>
+							<div class="data account-forms addresses" id="addresses">
+									<h1 class="tab-body-main-font uppercase">Your Addresses</h1>
+									<p class="tab-body-para-font">Mandatory fields are marked <span>*</span></p>
+									<div class="address-tab">
+										<div>
+											<a href="#shippingAddress" class="active">Shipping Address</a>
+											<a href="#billingAddress">Billing Address</a>
+										</div>
+									</div>
+									<div class="address-tab-body">
+										<p id="shippingAddressFormMsg"></p>
+										<div class="data shippingAddress active" id="shippingAddress">
+											<p>The following addresses will be used on the checkout page by default.</p>
+											<form id="shippingAddressForm" method="post">
+												<div class="form-field">
+													<input type="text" name="shippingName" class="mr-42" value="{{ $address->shipping_name }}">
+													<span class="imp">*<span class="plc">Shipping Name</span></span>
+												</div>
+												<span class="errors" id="shippingNameErr"></span>
+							
+												<div class="form-field">
+													<input type="text" name="shippingCompanyName" value="{{ $address->shipping_company_name }}">
+													<span class="imp">*<span class="plc">Shipping Company Name</span></span>
+												</div>
+												<span class="errors" id="shippingNameErr"></span>
+												<span class="m-set">
+													<span class="after">
+														<!-- <select name="countryregion" id="">
+															<option value="">Country/Region</option>
+														</select> -->
+														<div class="select"></div>
+														<div class="custom-select">
+															<ul class="shipping-list">
+																<li data-state-shipping="">Select state</li>
+				                        <li data-state-shipping="AN">Andaman and Nicobar Islands</li>
+				                        <li data-state-shipping="AP">Andhra Pradesh</li>
+				                        <li data-state-shipping="AR">Arunachal Pradesh</li>
+				                        <li data-state-shipping="AS">Assam</li>
+				                        <li data-state-shipping="BR">Bihar</li>
+				                        <li data-state-shipping="CH">Chandigarh</li>
+				                        <li data-state-shipping="CT">Chhattisgarh</li>
+				                        <li data-state-shipping="DN">Dadra and Nagar Haveli</li>
+				                        <li data-state-shipping="DD">Daman and Diu</li>
+				                        <li data-state-shipping="DL">Delhi</li>
+				                        <li data-state-shipping="GA">Goa</li>
+				                        <li data-state-shipping="GJ">Gujarat</li>
+				                        <li data-state-shipping="HR">Haryana</li>
+				                        <li data-state-shipping="HP">Himachal Pradesh</li>
+				                        <li data-state-shipping="JK">Jammu and Kashmir</li>
+				                        <li data-state-shipping="JH">Jharkhand</li>
+				                        <li data-state-shipping="KA">Karnataka</li>
+				                        <li data-state-shipping="KL">Kerala</li>
+				                        <li data-state-shipping="LA">Ladakh</li>
+				                        <li data-state-shipping="LD">Lakshadweep</li>
+				                        <li data-state-shipping="MP">Madhya Pradesh</li>
+				                        <li data-state-shipping="MH">Maharashtra</li>
+				                        <li data-state-shipping="MN">Manipur</li>
+				                        <li data-state-shipping="ML">Meghalaya</li>
+				                        <li data-state-shipping="MZ">Mizoram</li>
+				                        <li data-state-shipping="NL">Nagaland</li>
+				                        <li data-state-shipping="OR">Odisha</li>
+				                        <li data-state-shipping="PY">Puducherry</li>
+				                        <li data-state-shipping="PB">Punjab</li>
+				                        <li data-state-shipping="RJ">Rajasthan</li>
+				                        <li data-state-shipping="SK">Sikkim</li>
+				                        <li data-state-shipping="TN">Tamil Nadu</li>
+				                        <li data-state-shipping="TG">Telangana</li>
+				                        <li data-state-shipping="TR">Tripura</li>
+				                        <li data-state-shipping="UP">Uttar Pradesh</li>
+				                        <li data-state-shipping="UT">Uttarakhand</li>
+				                        <li data-state-shipping="WB">West Bengal</li>
+															</ul>
+														</div>
+														<input id="shipping" type="hidden" name="shippingState" value="{{ $address->shipping_state }}">
+														<span class="imp set_default_shipping">*<span class="plc" data-default="{{ $address->shipping_state }}"></span></span>
+														<span class="arw"><img src="{{ asset('public/frontend') }}/images/ExpandMore.png" alt=""></span>
+														<span class="errors" id="shippingStateErr"></span>
+													</span>
+													<div class="form-field">
+														<input type="text" name="shippingCity" class="mr-42" value="{{ $address->shipping_city }}">
+														<span class="imp">*<span class="plc">Shipping City</span></span>
+														<span class="errors" id="shippingCityErr"></span>
 													</div>
-													<span class="imp">*<span class="plc">Country Region</span></span>
-													<span class="arw"><img src="images/ExpandMore.png" alt=""></span>
 												</span>
 												<div class="form-field">
-													<input type="text" name="towncity" class="mr-42">
-													<span class="imp">*<span class="plc">Town/City</span></span>
+													<textarea  type="text" name="shippingAddress">{{ $address->shipping_address }}</textarea>
+													<span class="imp">*<span class="plc">Shipping Address</span></span>
+													<span class="errors" id="shippingAddressErr"></span>
 												</div>
-											</span>
-											<div class="form-field">
-												<textarea type="text" name="address"></textarea>
-												<span class="imp">*<span class="plc">Address</span></span>
-											</div>
-											<div class="form-field">
-												<input type="text" name="postcode" class="mr-42">
-												<span class="imp"><span class="plc">Postcode/Zip (Optional)</span></span>
-											</div>
-											<span class="after">
-												<!-- <select name="countryoptional" id="">
-													<option value="">Country (Optional)</option>
-												</select> -->
-												<div class="select"></div>
-												<div class="custom-select">
-													<ul>
-														<li>Your Preferred Fitting 1</li>
-														<li>Your Preferred Fitting 2</li>
-													</ul>
+												<div class="form-field">
+													<input type="text" name="shippingPincode" class="mr-42" value="{{ $address->shipping_pincode }}">
+													<span class="imp"><span class="plc">Shipping Pincode</span></span>
+													<span class="errors" id="shippingPincodeerr"></span>
 												</div>
-												<span class="imp"><span class="plc">Country (Optional)</span></span>
-												<span class="arw"><img src="images/ExpandMore.png" alt=""></span>
-											</span>
-											<div class="form-field">
-												<input type="text" name="state" class="mr-42">
-												<span class="imp">*<span class="plc">Enter State</span></span>
-											</div>
-											<div class="form-field">
-												<input type="text" name="number" class="mr-42">
-												<span class="imp">*<span class="plc">Phone Number</span></span>
-											</div>
-											<div class="form-field">
-												<input type="text" name="email" class="mr-42">
-												<span class="imp">*<span class="plc">Email</span></span>
-											</div>
-											<div class="form-field">
+												<div class="form-field">
+													<input type="text" name="shippingEmail" class="mr-42" value="{{ $address->shipping_email }}">
+													<span class="imp">*<span class="plc">Shipping Email</span></span>
+													<span class="errors" id="shippingEmailErr"></span>
+												</div>
+												<div class="form-field">
+													<input type="text" name="shippingPhone" class="mr-42" value="{{ $address->shipping_phone }}">
+													<span class="imp">*<span class="plc">Shipping Phone</span></span>
+													<span class="errors" id="shippingPhoneErr"></span>
+												</div>
+												<div class="form-field">
+													<div class="butn">
+														<button class="uppercase form-btn tab-form-btn-font mr-36">Cancel</button>
+														<button id="shippingAddressFormBtn" class="uppercase form-btn tab-form-btn-font">Save Address</button>
+													</div>
+												</div>
+											</form>
+										</div>
+										<div class="data billingAddress" id="billingAddress">
+										<p id="billingAddressFormMsg"></p>
+
+											<p>The following addresses will be used on the checkout page by default.</p>
+											<form id="billingAddressForm" method="post">
+												<div class="form-field">
+													<input type="text" name="billingName" class="mr-42" value="{{ $address->billing_name }}">
+													<span class="imp">*<span class="plc">Billing Name</span></span>
+												</div>
+												<span class="errors" id="billingNameErr"></span>
+							
+												<div class="form-field">
+													<input type="text" name="billingCompanyName" value="{{ $address->billing_company_name }}">
+													<span class="imp">*<span class="plc">Billing Company Name</span></span>
+												</div>
+												<span class="m-set">
+													<span class="after">
+														<!-- <select name="countryregion" id="">
+															<option value="">Country/Region</option>
+														</select> -->
+														<div class="select"></div>
+														<div class="custom-select">
+															<ul class="billing-list">
+																<li data-state-billing="">Select state</li>
+				                        <li data-state-billing="AN">Andaman and Nicobar Islands</li>
+				                        <li data-state-billing="AP">Andhra Pradesh</li>
+				                        <li data-state-billing="AR">Arunachal Pradesh</li>
+				                        <li data-state-billing="AS">Assam</li>
+				                        <li data-state-billing="BR">Bihar</li>
+				                        <li data-state-billing="CH">Chandigarh</li>
+				                        <li data-state-billing="CT">Chhattisgarh</li>
+				                        <li data-state-billing="DN">Dadra and Nagar Haveli</li>
+				                        <li data-state-billing="DD">Daman and Diu</li>
+				                        <li data-state-billing="DL">Delhi</li>
+				                        <li data-state-billing="GA">Goa</li>
+				                        <li data-state-billing="GJ">Gujarat</li>
+				                        <li data-state-billing="HR">Haryana</li>
+				                        <li data-state-billing="HP">Himachal Pradesh</li>
+				                        <li data-state-billing="JK">Jammu and Kashmir</li>
+				                        <li data-state-billing="JH">Jharkhand</li>
+				                        <li data-state-billing="KA">Karnataka</li>
+				                        <li data-state-billing="KL">Kerala</li>
+				                        <li data-state-billing="LA">Ladakh</li>
+				                        <li data-state-billing="LD">Lakshadweep</li>
+				                        <li data-state-billing="MP">Madhya Pradesh</li>
+				                        <li data-state-billing="MH">Maharashtra</li>
+				                        <li data-state-billing="MN">Manipur</li>
+				                        <li data-state-billing="ML">Meghalaya</li>
+				                        <li data-state-billing="MZ">Mizoram</li>
+				                        <li data-state-billing="NL">Nagaland</li>
+				                        <li data-state-billing="OR">Odisha</li>
+				                        <li data-state-billing="PY">Puducherry</li>
+				                        <li data-state-billing="PB">Punjab</li>
+				                        <li data-state-billing="RJ">Rajasthan</li>
+				                        <li data-state-billing="SK">Sikkim</li>
+				                        <li data-state-billing="TN">Tamil Nadu</li>
+				                        <li data-state-billing="TG">Telangana</li>
+				                        <li data-state-billing="TR">Tripura</li>
+				                        <li data-state-billing="UP">Uttar Pradesh</li>
+				                        <li data-state-billing="UT">Uttarakhand</li>
+				                        <li data-state-billing="WB">West Bengal</li>
+															</ul>
+														</div>
+														<input id="billing" type="hidden" value="{{ $address->billing_pincode }}" name="billingState">
+														<span class="imp set_default_billing">*<span class="plc" data-default="{{ $address->billing_state }}"></span></span>
+														<span class="arw"><img src="{{ asset('public/frontend') }}/images/ExpandMore.png" alt=""></span>
+													</span>
+													<div class="form-field">
+														<input type="text" name="billingCity" class="mr-42" value="{{ $address->billing_city }}">
+														<span class="imp">*<span class="plc">Billing City</span></span>
+														<span class="errors" id="billingCityErr"></span>
+													</div>
+												</span>
+												<div class="form-field">
+													<textarea type="text" name="billingAddress">{{ $address->billing_address }}</textarea>
+													<span class="imp">*<span class="plc">Billing Address</span></span>
+													<span class="errors" id="billingAddressErr"></span>
+												</div>
+												<div class="form-field">
+													<input type="text" name="billingPincode" class="mr-42" value="{{ $address->billing_pincode }}">
+													<span class="imp"><span class="plc">Billing Pincode</span></span>
+													<span class="errors" id="billingPincodeerr"></span>
+												</div>
+												<div class="form-field">
+													<input type="text" name="billingEmail" class="mr-42" value="{{ $address->billing_email }}">
+													<span class="imp">*<span class="plc">Billing Email</span></span>
+													<span class="errors" id="billingEmailErr"></span>
+												</div>
+												<div class="form-field">
+													<input type="text" name="billingPhone" class="mr-42" value="{{ $address->billing_phone }}">
+													<span class="imp">*<span class="plc">Billing Phone</span></span>
+													<span class="errors" id="billingPhoneErr"></span>
+												</div>
+												<div class="form-field">
+													<div class="butn">
+														<button class="uppercase form-btn tab-form-btn-font mr-36">Cancel</button>
+														<button id="billingAddressFormBtn" class="uppercase form-btn tab-form-btn-font">Update Address</button>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								<div class="add_msg">
+									<div class="addressesMsg">
+										<p>No saved Addresses currently added or available.</p>
+									</div>
+									<div class="butn">
+										<button class="uppercase form-btn tab-form-btn-font mr-36">Add Billing Address</button>
+										<button class="uppercase form-btn tab-form-btn-font">Add Shipping Address</button>
+									</div>
+								</div>
+							</div>
+							<!-- <div class="data account-forms paymentMethod" id="paymentMethod">
+								<div class="form">
+									<h1 class="tab-body-main-font uppercase">Choose Payment Method</h1>
+									<p class="tab-body-para-font">Mandatory fields are marked <span>*</span></p>
+									<div class="payment-tab">
+										<div>
+											<a href="#cards" class="active">
+												<span></span>
+												Credit/Debit Card
+											</a>
+										</div>
+										<div>
+											<a href="#cashod" class="">
+												<span></span>
+												Cash on Delivery
+											</a>
+										</div>
+										<div>
+											<a href="#cardod" class="">
+												<span></span>
+												Cash on Delivery
+											</a>
+										</div>
+									</div>
+									<div class="payment-tab-body">
+										<div class="data cards active" id="cards">
+											<form action="">
+												<div class="form-field">
+													<input type="text" name="cardnumber" class="mr-42">
+													<span class="imp">*<span class="plc">Card Number</span></span>
+												</div>
+												<div class="form-field">
+													<input type="text" name="mmyy">
+													<span class="imp">*<span class="plc">MM/YY</span></span>
+												</div>
+												<div class="form-field">
+													<input type="text" name="cvv" class="mr-42">
+													<span class="imp">*<span class="plc">CVV</span></span>
+												</div>
+												<div class="form-field">
+													<input type="text" name="nameoncard">
+													<span class="imp">*<span class="plc">Name on Card</span></span>
+												</div>
 												<div class="butn">
-													<button class="uppercase form-btn tab-form-btn-font mr-36">Cancel</button>
-													<button class="uppercase form-btn tab-form-btn-font">Update Address</button>
+													<button class="uppercase form-btn tab-form-btn-font mr-36">Update</button>
+													<button class="uppercase form-btn tab-form-btn-font">Remove</button>
 												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							<div class="add_msg">
-								<div class="addressesMsg">
-									<p>No saved Addresses currently added or available.</p>
-								</div>
-								<div class="butn">
-									<button class="uppercase form-btn tab-form-btn-font mr-36">Add Billing Address</button>
-									<button class="uppercase form-btn tab-form-btn-font">Add Shipping Address</button>
-								</div>
-							</div>
-						</div>
-						<!-- <div class="data account-forms paymentMethod" id="paymentMethod">
-							<div class="form">
-								<h1 class="tab-body-main-font uppercase">Choose Payment Method</h1>
-								<p class="tab-body-para-font">Mandatory fields are marked <span>*</span></p>
-								<div class="payment-tab">
-									<div>
-										<a href="#cards" class="active">
-											<span></span>
-											Credit/Debit Card
-										</a>
-									</div>
-									<div>
-										<a href="#cashod" class="">
-											<span></span>
-											Cash on Delivery
-										</a>
-									</div>
-									<div>
-										<a href="#cardod" class="">
-											<span></span>
-											Cash on Delivery
-										</a>
-									</div>
-								</div>
-								<div class="payment-tab-body">
-									<div class="data cards active" id="cards">
-										<form action="">
-											<div class="form-field">
-												<input type="text" name="cardnumber" class="mr-42">
-												<span class="imp">*<span class="plc">Card Number</span></span>
-											</div>
-											<div class="form-field">
-												<input type="text" name="mmyy">
-												<span class="imp">*<span class="plc">MM/YY</span></span>
-											</div>
-											<div class="form-field">
-												<input type="text" name="cvv" class="mr-42">
-												<span class="imp">*<span class="plc">CVV</span></span>
-											</div>
-											<div class="form-field">
-												<input type="text" name="nameoncard">
-												<span class="imp">*<span class="plc">Name on Card</span></span>
-											</div>
-											<div class="butn">
-												<button class="uppercase form-btn tab-form-btn-font mr-36">Update</button>
-												<button class="uppercase form-btn tab-form-btn-font">Remove</button>
-											</div>
-										</form>
-									</div>
-									<div class="data cashod" id="cashod">
-										<div class="paymentMsg">
-											<p>You have chosen cash on delivery payment method for your account.</p>
+											</form>
 										</div>
-									</div>
-									<div class="data cardod" id="cardod">
-										<div class="paymentMsg">
-											<p>You have chosen card on delivery payment method for your account. </p>
+										<div class="data cashod" id="cashod">
+											<div class="paymentMsg">
+												<p>You have chosen cash on delivery payment method for your account.</p>
+											</div>
+										</div>
+										<div class="data cardod" id="cardod">
+											<div class="paymentMsg">
+												<p>You have chosen card on delivery payment method for your account. </p>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="paymentMsg hide">
-								<p>No saved Payment Methods found.</p>
-							</div>
-						</div> -->
-						<div class="data account-forms accountDetail" id="accountDetail">
-							<div class="form">
-								<h1 class="tab-body-main-font uppercase">Account Details</h1>
-								<p class="tab-body-para-font">Mandatory fields are marked <span>*</span></p>
-								<form id="accountDetailForm" method="post">
-									<div class="form-field">
-										<input type="text" name="name" class="mr-42" value="{{ $customer->name }}">
-										<span class="imp">*<span class="plc">Name</span></span>
-										<span class="errors" id="nameErr"></span>
-									</div>
-									<div class="form-field">
-										<input type="text" name="email" value="{{ $customer->email }}">
-										<span class="imp">*<span class="plc">Email</span></span>
-										<span class="errors" id="emailErr"></span>
-									</div>
-									<div class="form-field">
-										<input type="text" name="phone" class="mr-42" value="{{ $customer->phone }}">
-										<span class="imp">*<span class="plc">Phone</span></span>
-										<span class="errors" id="phoneErr"></span>
-									</div>
+								<div class="paymentMsg hide">
+									<p>No saved Payment Methods found.</p>
+								</div>
+							</div> -->
 
-									<div class="form-field">
-										<input type="text" name="address" class="mr-42" value="{{ $customer->address }}">
-										<span class="imp">*<span class="plc">Address</span></span>
-										<span class="errors" id="addressErr"></span>
-									</div>
+							<div class="data account-forms accountDetail" id="accountDetail">
+								<p id="accountDetailFormMsg"></p>
+								<div class="form">
+									<h1 class="tab-body-main-font uppercase">Account Details</h1>
+									<p class="tab-body-para-font">Mandatory fields are marked <span>*</span></p>
+									<form id="accountDetailForm" method="post">
+										<div class="form-field">
+											<input type="text" name="name" class="mr-42" value="{{ $customer->name }}">
+											<span class="imp">*<span class="plc">Name</span></span>
+											<span class="errors" id="nameErr"></span>
+										</div>
+										<div class="form-field">
+											<input type="text" name="email" value="{{ $customer->email }}">
+											<span class="imp">*<span class="plc">Email</span></span>
+											<span class="errors" id="emailErr"></span>
+										</div>
+										<div class="form-field">
+											<input type="text" name="phone" class="mr-42" value="{{ $customer->phone }}">
+											<span class="imp">*<span class="plc">Phone</span></span>
+											<span class="errors" id="phoneErr"></span>
+										</div>
 
-									<span class="m-set">
-										<span class="after">
-											<div class="select"></div>
-											<div class="custom-select">
-												<ul class="state-list">
-													<li data-country-code="">Select state</li>
-							                        <li data-state-code="AN">Andaman and Nicobar Islands</li>
-							                        <li data-state-code="AP">Andhra Pradesh</li>
-							                        <li data-state-code="AR">Arunachal Pradesh</li>
-							                        <li data-state-code="AS">Assam</li>
-							                        <li data-state-code="BR">Bihar</li>
-							                        <li data-state-code="CH">Chandigarh</li>
-							                        <li data-state-code="CT">Chhattisgarh</li>
-							                        <li data-state-code="DN">Dadra and Nagar Haveli</li>
-							                        <li data-state-code="DD">Daman and Diu</li>
-							                        <li data-state-code="DL">Delhi</li>
-							                        <li data-state-code="GA">Goa</li>
-							                        <li data-state-code="GJ">Gujarat</li>
-							                        <li data-state-code="HR">Haryana</li>
-							                        <li data-state-code="HP">Himachal Pradesh</li>
-							                        <li data-state-code="JK">Jammu and Kashmir</li>
-							                        <li data-state-code="JH">Jharkhand</li>
-							                        <li data-state-code="KA">Karnataka</li>
-							                        <li data-state-code="KL">Kerala</li>
-							                        <li data-state-code="LA">Ladakh</li>
-							                        <li data-state-code="LD">Lakshadweep</li>
-							                        <li data-state-code="MP">Madhya Pradesh</li>
-							                        <li data-state-code="MH">Maharashtra</li>
-							                        <li data-state-code="MN">Manipur</li>
-							                        <li data-state-code="ML">Meghalaya</li>
-							                        <li data-state-code="MZ">Mizoram</li>
-							                        <li data-state-code="NL">Nagaland</li>
-							                        <li data-state-code="OR">Odisha</li>
-							                        <li data-state-code="PY">Puducherry</li>
-							                        <li data-state-code="PB">Punjab</li>
-							                        <li data-state-code="RJ">Rajasthan</li>
-							                        <li data-state-code="SK">Sikkim</li>
-							                        <li data-state-code="TN">Tamil Nadu</li>
-							                        <li data-state-code="TG">Telangana</li>
-							                        <li data-state-code="TR">Tripura</li>
-							                        <li data-state-code="UP">Uttar Pradesh</li>
-							                        <li data-state-code="UT">Uttarakhand</li>
-							                        <li data-state-code="WB">West Bengal</li>
-												</ul>
+										<div class="form-field">
+											<input type="text" name="address" class="mr-42" value="{{ $customer->address }}">
+											<span class="imp">*<span class="plc">Address</span></span>
+											<span class="errors" id="addressErr"></span>
+										</div>
+
+										<span class="m-set">
+											<span class="after">
+												<div class="select"></div>
+												<div class="custom-select">
+													<ul class="state-list">
+														<li data-state-code="">Select state</li>
+			                        <li data-state-code="AN">Andaman and Nicobar Islands</li>
+			                        <li data-state-code="AP">Andhra Pradesh</li>
+			                        <li data-state-code="AR">Arunachal Pradesh</li>
+			                        <li data-state-code="AS">Assam</li>
+			                        <li data-state-code="BR">Bihar</li>
+			                        <li data-state-code="CH">Chandigarh</li>
+			                        <li data-state-code="CT">Chhattisgarh</li>
+			                        <li data-state-code="DN">Dadra and Nagar Haveli</li>
+			                        <li data-state-code="DD">Daman and Diu</li>
+			                        <li data-state-code="DL">Delhi</li>
+			                        <li data-state-code="GA">Goa</li>
+			                        <li data-state-code="GJ">Gujarat</li>
+			                        <li data-state-code="HR">Haryana</li>
+			                        <li data-state-code="HP">Himachal Pradesh</li>
+			                        <li data-state-code="JK">Jammu and Kashmir</li>
+			                        <li data-state-code="JH">Jharkhand</li>
+			                        <li data-state-code="KA">Karnataka</li>
+			                        <li data-state-code="KL">Kerala</li>
+			                        <li data-state-code="LA">Ladakh</li>
+			                        <li data-state-code="LD">Lakshadweep</li>
+			                        <li data-state-code="MP">Madhya Pradesh</li>
+			                        <li data-state-code="MH">Maharashtra</li>
+			                        <li data-state-code="MN">Manipur</li>
+			                        <li data-state-code="ML">Meghalaya</li>
+			                        <li data-state-code="MZ">Mizoram</li>
+			                        <li data-state-code="NL">Nagaland</li>
+			                        <li data-state-code="OR">Odisha</li>
+			                        <li data-state-code="PY">Puducherry</li>
+			                        <li data-state-code="PB">Punjab</li>
+			                        <li data-state-code="RJ">Rajasthan</li>
+			                        <li data-state-code="SK">Sikkim</li>
+			                        <li data-state-code="TN">Tamil Nadu</li>
+			                        <li data-state-code="TG">Telangana</li>
+			                        <li data-state-code="TR">Tripura</li>
+			                        <li data-state-code="UP">Uttar Pradesh</li>
+			                        <li data-state-code="UT">Uttarakhand</li>
+			                        <li data-state-code="WB">West Bengal</li>
+													</ul>
+												</div>
+												<input id="state" type="hidden" value="{{ $customer->state }}" name="state">
+												<span class="imp set_default_state">*<span class="plc" data-default="{{ $customer->state }}"></span></span>
+												<span class="arw"><img src="{{ asset('public/frontend') }}/images/ExpandMore.png" alt=""></span>
+												<span class="errors" id="stateErr"></span>
+											</span>
+											<div class="form-field">
+												<input type="text" name="city" class="mr-42" value="{{ $customer->city }}">
+												<span class="imp">*<span class="plc">City</span></span>
+												<span class="errors" id="cityErr"></span>
 											</div>
-											<input id="state" type="hidden" value="" name="state">
-											<span class="imp set_default_state">*<span class="plc" data-default="{{ $customer->state }}"></span></span>
-											<span class="arw"><img src="images/ExpandMore.png" alt=""></span>
-											<span class="errors" id="stateErr"></span>
 										</span>
 										<div class="form-field">
-											<input type="text" name="city" class="mr-42">
-											<span class="imp">*<span class="plc">City</span></span>
-											<span class="errors" id="cityErr"></span>
+											<div class="butn">
+												<button class="uppercase form-btn tab-form-btn-font mr-36">Cancel</button>
+												<button id="accountDetailFormBtn" class="uppercase form-btn tab-form-btn-font">Save Changes</button>
+											</div>
 										</div>
-									</span>
-									<div class="form-field">
-										<div class="butn">
-											<button class="uppercase form-btn tab-form-btn-font mr-36">Cancel</button>
-											<button id="accountDetailFormBtn" class="uppercase form-btn tab-form-btn-font">Save Changes</button>
+									</form>
+								</div>
+							</div>						
+							<div class="data account-forms changePassword" id="changePassword">
+
+								<span id="changePasswordFormMsg" class="msgErr errors"></span>
+								<div class="form">
+									<h1 class="tab-body-main-font uppercase">Change Password</h1>
+									<p class="tab-body-para-font">Mandatory fields are marked <span>*</span></p>
+									<form id="changePasswordForm" method="post">
+										<div class="form-field">
+											<input type="password" name="password" class="mr-42">
+											<span class="imp">*<span class="plc">Current Password</span></span>
+
+											<span class="errors" id="passwordErr"></span>
+
 										</div>
-									</div>
-								</form>
-							</div>
-						</div>						
-						<div class="data account-forms changePassword" id="changePassword">
-							<div class="form">
-								<h1 class="tab-body-main-font uppercase">Change Password</h1>
-								<p class="tab-body-para-font">Mandatory fields are marked <span>*</span></p>
-								<form id="changePasswordForm" method="post">
-									<div class="form-field">
-										<input type="password" name="password" class="mr-42">
-										<span class="imp">*<span class="plc">Current Password</span></span>
+										<div class="form-field">
+											<input type="password" name="newPassword">
+											<span class="imp">*<span class="plc">New Password</span></span>
 
-										<span class="errors" id="passwordErr"></span>
+											<span class="errors" id="newPasswordErr"></span>
 
-									</div>
-									<div class="form-field">
-										<input type="password" name="newPassword">
-										<span class="imp">*<span class="plc">New Password</span></span>
-
-										<span class="errors" id="newPasswordErr"></span>
-
-									</div>
-									<div class="form-field">
-										<input type="password" name="confirmPassword" class="mr-42">
-										<span class="imp">*<span class="plc">Confirm Password</span></span>
-
-										<span class="errors" id="confirmPasswordErr"></span>
-
-									</div>
-									<div class="form-field">
-										<div class="butn">
-											<button class="uppercase form-btn tab-form-btn-font mr-36">Cancel</button>
-											<button id="changePasswordBtn" class="uppercase form-btn tab-form-btn-font">Update Password</button>
 										</div>
-									</div>
-								</form>
-							</div>
-						</div>					
+										<div class="form-field">
+											<input type="password" name="confirmPassword" class="mr-42">
+											<span class="imp">*<span class="plc">Confirm Password</span></span>
+
+											<span class="errors" id="confirmPasswordErr"></span>
+
+										</div>
+										<div class="form-field">
+											<div class="butn">
+												<button class="uppercase form-btn tab-form-btn-font mr-36">Cancel</button>
+												<button id="changePasswordBtn" class="uppercase form-btn tab-form-btn-font">Update Password</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>					
+						</div>
 					</div>
 				</div>
 			</div>
@@ -1513,6 +1590,7 @@
   }else{
 
     $('.tab-head ul li a').click(function() {
+    	event.preventDefault();
       $('.tab-head ul li a').removeClass('active');
       $(this).addClass('active');
       var id = $(this).attr('href');
@@ -1571,7 +1649,7 @@
     $(this).css('background','transparent');
     // var a = $(this).val();
     if($(this).val()){
-      // console.log('user input done')
+      // console.log(a)
       $(this).next('.imp').css('opacity','0');
       $(this).css('background','#fff');
     }
@@ -1620,6 +1698,14 @@
     }
     // console.log('input clicked');
   });
+
+$('.form-field input').each(function() {
+    var checkVal = $(this).val();
+    if (checkVal) {
+        $(this).siblings('.imp').css('opacity', '0');
+        $(this).css('background', '#fff');
+    }
+});
 
   // custom select
   $('.after').click(function(){
@@ -1681,9 +1767,23 @@ $(document).ready(function(){
     var dataVal = $(this).attr('data-state-code');
     $('#state').val(dataVal);
    });
+  $('.shipping-list li').click(function(){
+    var dataVal = $(this).attr('data-state-shipping');
+    $('#shipping').val(dataVal);
+    // console.log(dataVal)
+   });
+  $('.billing-list li').click(function(){
+    var dataVal = $(this).attr('data-state-billing');
+    $('#billing').val(dataVal);
+    // console.log(dataVal)
+   });
 
   var liData = document.querySelectorAll('.state-list li[data-state-code]');
   var dData = $('.set_default_state .plc').attr('data-default');
+  var liData1 = document.querySelectorAll('.shipping-list li[data-state-shipping]');
+  var dData1 = $('.set_default_shipping .plc').attr('data-default');
+  var liData2 = document.querySelectorAll('.billing-list li[data-state-billing]');
+  var dData2 = $('.set_default_billing .plc').attr('data-default');
   
   liData.forEach(function(li){
   	if(li.getAttribute('data-state-code') === dData){
@@ -1691,8 +1791,211 @@ $(document).ready(function(){
   		$('.set_default_state .plc').html(defaultLi)
   	}
   });
+  liData1.forEach(function(li){
+  	if(li.getAttribute('data-state-shipping') === dData1){
+  		var defaultLi = li.innerText;
+  		$('.set_default_shipping .plc').html(defaultLi)
+  	}
+  });
+  liData1.forEach(function(li){
+  	if(li.getAttribute('data-state-billing') === dData1){
+  		var defaultLi = li.innerText;
+  		$('.set_default_billing .plc').html(defaultLi)
+  	}
+  });
 
 });
 </script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $("#changePasswordForm").submit(function(event) {
+      event.preventDefault();
+
+      formData = $(this).serialize();
+
+      $.ajax({
+        url: '{{ route("customerChangePassword") }}',
+        type: 'POST',
+        dataType: 'json',
+        data: formData,
+        beforeSend: function() {
+          $("#changePasswordFormBtn").html('Sending...');
+          $(".errors").html('');
+        }, success: function(res) {
+
+          if (res.error == true) {
+              if (res.eType == 'field') {
+                  $.each(res.errors, function(index, val) {
+                      $("#"+index+"Err").html(val);
+                  });
+              } else {
+                  $('#changePasswordFormMsg').html(res.msg);
+              }
+          } else {
+              $("#changePasswordForm")[0].reset();
+              $('#changePasswordFormMsg').html(res.msg).show();
+          }
+
+
+          $("#changePasswordFormBtn").html('Save Changes');
+        }
+      })
+
+    });
+  
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $("#accountDetailForm").submit(function(event) {
+      event.preventDefault();
+
+      formData = $(this).serialize();
+
+      $.ajax({
+        url: '{{ route("doUpdateAccDetails") }}',
+        type: 'POST',
+        dataType: 'json',
+        data: formData,
+        beforeSend: function() {
+          $("#accountDetailFormBtn").html('Sending...');
+          $(".errors").html('');
+        }, success: function(res) {
+
+          if (res.error == true) {
+              if (res.eType == 'field') {
+                  $.each(res.errors, function(index, val) {
+                      $("#"+index+"Err").html(val);
+                  });
+              } else {
+                  $('#accountDetailFormMsg').html(res.msg);
+              }
+          } else {
+              // $("#accountDetailForm")[0].reset();
+              $('#accountDetailFormMsg').html(res.msg).show();
+          }
+
+
+          $("#accountDetailFormBtn").html('Save Changes');
+        }
+      })
+
+    });
+  
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $("#shippingAddressForm").submit(function(event) {
+      event.preventDefault();
+
+      formData = $(this).serialize();
+
+      $.ajax({
+        url: '{{ route("doSaveShippingAddress") }}',
+        type: 'POST',
+        dataType: 'json',
+        data: formData,
+        beforeSend: function() {
+          $("#shippingAddressFormBtn").html('Sending...');
+          $(".errors").html('');
+        }, success: function(res) {
+
+          if (res.error == true) {
+              if (res.eType == 'field') {
+                  $.each(res.errors, function(index, val) {
+                      $("#"+index+"Err").html(val);
+                  });
+              } else {
+                  $('#shippingAddressFormMsg').html(res.msg);
+              }
+          } else {
+              // $("#shippingAddressForm")[0].reset();
+              $('#shippingAddressFormMsg').html(res.msg).show();
+          }
+
+
+          $("#shippingAddressFormBtn").html('Save Changes');
+        }
+      })
+
+    });
+  
+  });
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $("#billingAddressForm").submit(function(event) {
+      event.preventDefault();
+
+      formData = $(this).serialize();
+
+      $.ajax({
+        url: '{{ route("doSaveBillingAddress") }}',
+        type: 'POST',
+        dataType: 'json',
+        data: formData,
+        beforeSend: function() {
+          $("#billingAddressFormBtn").html('Sending...');
+          $(".errors").html('');
+        }, success: function(res) {
+
+          if (res.error == true) {
+              if (res.eType == 'field') {
+                  $.each(res.errors, function(index, val) {
+                      $("#"+index+"Err").html(val);
+                  });
+              } else {
+                  $('#billingAddressFormMsg').html(res.msg);
+              }
+          } else {
+              // $("#billingAddressForm")[0].reset();
+              $('#billingAddressFormMsg').html(res.msg).show();
+          }
+
+
+          $("#billingAddressFormBtn").html('Save Changes');
+        }
+      })
+
+    });
+  
+  });
+</script>
+
+
 
 @endsection

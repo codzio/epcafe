@@ -438,10 +438,22 @@ class Home extends Controller {
 	}
 
 	public function thankyou() {
-		echo "Thank you";
+		$data = array(
+			'title' => 'Thank You',
+			'pageTitle' => 'Thank You',
+			'menu' => 'thank-you',
+		);
+
+		return view('frontend/thankYou', $data);
 	}
 
 	public function paymentFail() {
-		echo "Payment Fail";
+		$data = array(
+			'title' => 'Payment Failed',
+			'pageTitle' => 'Payment Failed',
+			'menu' => 'payment-failed',
+		);
+
+		return view('frontend/paymentFailure', $data);
 	}
 }

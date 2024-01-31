@@ -287,6 +287,38 @@ data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate=
                 </div>
                 @endcan
 
+                <!-- contact -->
+
+                @can('read', 'order')
+                <div  data-kt-menu-trigger="click"  class="menu-item here show menu-accordion" >
+                    <span class="menu-link" >
+                        <span  class="menu-icon" >
+                            <i class="ki-outline ki-home-2 fs-2"></i>
+                        </span>
+                        <span  class="menu-title">Orders</span>
+                        <span  class="menu-arrow"></span>
+                    </span>
+
+
+                    <div  class="menu-sub menu-sub-accordion" >
+                        <div  class="menu-item" >
+                            
+                            @can('read', 'order')
+                            <a class="menu-link"  href="{{ route('adminOrders') }}" >
+                                <span  class="menu-bullet" >
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span  class="menu-title">Orders</span>
+                            </a>
+                            @endcan
+
+                        </div>
+                    </div>
+
+
+                </div>
+                @endcan
+
                 @can('read', 'site_settings')
                 <div class="menu-item here">            
                     <a href="{{ route('adminSiteSetting') }}" class="menu-link {{ $menu == 'site-settings'? 'active':''; }}">

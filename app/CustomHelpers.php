@@ -1,11 +1,16 @@
 <?php
 
+// namespace App;
+
+// use Illuminate\Http\Request;
+
+
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cookie;
-use Request;
+// use Request;
 
 use App\Models\AdminModel;
 use App\Models\MediaModel;
