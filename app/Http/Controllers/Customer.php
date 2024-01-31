@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Cookie;
 
 use App\Models\CustomerModel;
 use App\Models\CartModel;
+use App\Models\CustomerAddressModel;
+use App\Models\OrderModel;
+
+
 
 class Customer extends Controller {
 
@@ -34,15 +38,34 @@ class Customer extends Controller {
 
 	    	$customer = CustomerModel::where($cond)->first();
 
+	    	$address = CustomerAddressModel::where($cond)->first();
+
+	    	$orders = OrderModel::where(['user_id' => $customerId])->first();
+
+	    	$productDetails= json_decode($orders->product_details);
+
+	    	$priceDetailsComp= json_decode($orders->price_details);
+
+	    	$customerAdd= json_decode($orders->customer_address);
+
+
 	    	// echo "<pre>";
-	    	// print_r($customer->toArray());
+	    	// print_r($orders->toArray());
+	    	// print_r($productDetails);
+	    	// print_r($priceDetailsComp);
+	    	// print_r($customerAdd);
 	    	// die();
 
 			$data = array(
 				'title' => 'Dashboard',
 				'pageTitle' => 'Dashboard',
 				'menu' => 'dashboard',
-				'customer' => $customer
+				'customer' => $customer,
+				'address' => $address,
+				'customerAdd' => $customerAdd,
+				'productDetails' => $productDetails,
+				'priceDetailsComp' => $priceDetailsComp,
+				'orders' => $orders,
 			);
 
 			return view('frontend/dashboard', $data);
@@ -511,6 +534,355 @@ class Customer extends Controller {
 		return response($this->status);
 
 	}
+
+	public function doChangePassword(Request $request) {
+		
+		if ($request->ajax()) {
+
+			// echo "<pre>";
+			// print_r($_POST);
+			// die();
+
+			$validator = Validator::make($request->post(), [
+	            'password' => 'required|min:6',
+	            'newPassword' => 'required|min:6',
+	            'confirmPassword' => 'required|min:6|same:newPassword',
+	        ]);
+
+	        if ($validator->fails()) {
+	            
+	            $errors = $validator->errors()->getMessages();
+
+	            $this->status = array(
+					'error' => true,
+					'eType' => 'field',
+					'errors' => $errors,
+					'msg' => 'Validation failed'
+				);
+
+	        } else {
+
+	        	$customerId = customerId();
+	        	
+	        	$cond = [
+	        		['id', $customerId],
+	        	];
+
+	        	$getCustomer = CustomerModel::where($cond)->first();
+
+	        	if (!empty($getCustomer)) {
+
+	        		//check if password match
+	        		if (Hash::check($request->post('password'), $getCustomer->password)) {
+
+	        			$getCustomer->password = Hash::make($request->post('confirmPassword'));
+		        		$isUpdated = $getCustomer->save();
+
+		        		if ($isUpdated) {
+		        			$this->status = array(
+								'error' => false,
+								'msg' => 'The password has been updated successfully.'
+							);
+		        		} else {
+		        			$this->status = array(
+								'error' => true,
+								'eType' => 'final',
+								'msg' => 'Something went wrong.'
+							);
+		        		}
+
+	        		} else {
+	        			
+	        			$this->status = array(
+							'error' => true,
+							'eType' => 'final',
+							'msg' => 'The password you provided is incorrect.'
+						);
+
+	        		}
+
+	        	} else {
+	        		$this->status = array(
+						'error' => true,
+						'eType' => 'final',
+						'msg' => 'Something went wrong'
+					);
+	        	}
+	        }
+
+
+		} else {
+			$this->status = array(
+				'error' => true,
+				'eType' => 'final',
+				'msg' => 'Something went wrong'
+			);
+		}
+
+		return response($this->status);
+
+	}
+
+	public function doUpdateAccDetails(Request $request) {
+		if ($request->ajax()) {
+
+			// echo "<pre>";
+			// print_r($_POST);
+			// die();
+
+			$id = customerId();
+
+
+			$validator = Validator::make($request->post(), [
+			    'name' => 'required',
+			    'email' => 'required|email|unique:customer,email,'.$id,
+			    'phone' => 'required|numeric|digits:10|unique:customer,phone,'.$id,
+			    'address' => 'required',
+			    'city' => 'required',
+			    'state' => 'required',
+			]);
+
+	        if ($validator->fails()) {
+	            
+	            $errors = $validator->errors()->getMessages();
+
+	            $this->status = array(
+					'error' => true,
+					'eType' => 'field',
+					'errors' => $errors,
+					'msg' => 'Validation failed'
+				);
+
+	        } else {
+
+	        	$obj = [
+	        		'name' => $request->post('name'),
+	        		'email' => $request->post('email'),
+	        		'phone' => $request->post('phone'),
+	        		'address' => $request->post('address'),
+	        		'city' => $request->post('city'),
+	        		'state' => $request->post('state'),
+	        	];
+
+	        	$isUpdated = CustomerModel::where(['id' => $id])->update($obj);
+
+	        	if ($isUpdated) {
+
+    				$this->status = array(
+						'error' => false,								
+						'msg' => 'Your account details has been updated sucessfully',
+					);
+
+    			} else {
+    				$this->status = array(
+						'error' => true,
+						'eType' => 'final',
+						'msg' => 'Something went wrong.'
+					);
+    			}
+
+	        }
+
+		} else {
+			$this->status = array(
+				'error' => true,
+				'eType' => 'final',
+				'msg' => 'Something went wrong'
+			);
+		}
+
+		return response($this->status);
+	}
+
+	public function doSaveShippingAddress(Request $request) {
+
+		if ($request->ajax()) {
+
+			// echo "<pre>";
+			// print_r($_POST);
+			// die();
+
+			$id = customerId();
+
+			$obj1 = [
+				'shippingName' => 'required',
+				'shippingCompanyName' => 'sometimes|nullable',
+				'shippingAddress' => 'required',
+				'shippingCity' => 'required',
+	            'shippingState' => 'required',
+	            'shippingPincode' => 'required|numeric|digits:6',
+	            'shippingEmail' => 'required|email',
+	            'shippingPhone' => 'required|numeric',
+	        ];
+
+
+			$validator = Validator::make($request->post(), $obj1);
+
+	        if ($validator->fails()) {
+	            
+	            $errors = $validator->errors()->getMessages();
+
+	            $this->status = array(
+					'error' => true,
+					'eType' => 'field',
+					'errors' => $errors,
+					'msg' => 'Validation failed'
+				);
+
+	        } else {
+
+	        	$userId = customerId();
+
+	        	$obj = [
+	    			'user_id' => $userId,
+					'shipping_name' => $request->post('shippingName'),
+					'shipping_company_name' => $request->post('shippingCompanyName'),
+					'shipping_address' => $request->post('shippingAddress'),
+					'shipping_city' => $request->post('shippingCity'),
+		            'shipping_state' => $request->post('shippingState'),
+		            'shipping_pincode' => $request->post('shippingPincode'),
+		            'shipping_email' => $request->post('shippingEmail'),
+		            'shipping_phone' => $request->post('shippingPhone'),
+		            'is_billing_same' => 1,
+		        ];
+
+
+		        $getShipAdd = CustomerAddressModel::where($obj)->count();
+
+		        if ($getShipAdd) {
+
+		        	$isUpdated = CustomerAddressModel::where(['user_id' => $userId])->update($obj);
+		        	
+		        }else{
+		        	$isUpdated = CustomerAddressModel::create($obj);
+		        }
+
+	        	if ($isUpdated) {
+
+    				$this->status = array(
+						'error' => false,								
+						'msg' => 'Your shipping address has been saved sucessfully',
+					);
+
+    			} else {
+    				$this->status = array(
+						'error' => true,
+						'eType' => 'final',
+						'msg' => 'Something went wrong.'
+					);
+    			}
+
+	        }
+
+		} else {
+			$this->status = array(
+				'error' => true,
+				'eType' => 'final',
+				'msg' => 'Something went wrong'
+			);
+		}
+
+		return response($this->status);
+	}
+
+	public function doSaveBillingAddress(Request $request) {
+
+		if ($request->ajax()) {
+
+			$id = customerId();
+
+			$obj1 = [
+				'billingName' => 'required',
+				'billingCompanyName' => 'sometimes|nullable',
+				'billingAddress' => 'required',
+				'billingCity' => 'required',
+	            'billingState' => 'required',
+	            'billingPincode' => 'required|numeric|digits:6',
+	            'billingEmail' => 'required|email',
+	            'billingPhone' => 'required|numeric',
+	        ];
+
+
+			$validator = Validator::make($request->post(), $obj1);
+
+	        if ($validator->fails()) {
+	            
+	            $errors = $validator->errors()->getMessages();
+
+	            $this->status = array(
+					'error' => true,
+					'eType' => 'field',
+					'errors' => $errors,
+					'msg' => 'Validation failed'
+				);
+
+	        } else {
+
+	        	$userId = customerId();
+
+	        	$obj = [
+	    			'user_id' => $userId,
+					'billing_name' => $request->post('billingName'),
+					'billing_company_name' => $request->post('billingCompanyName'),
+					'billing_address' => $request->post('billingAddress'),
+					'billing_city' => $request->post('billingCity'),
+		            'billing_state' => $request->post('billingState'),
+		            'billing_pincode' => $request->post('billingPincode'),
+		            'billing_email' => $request->post('billingEmail'),
+		            'billing_phone' => $request->post('billingPhone'),
+		            'is_billing_same' => 0,
+		        ];
+
+
+		        $getBillingAdd = CustomerAddressModel::where(['user_id' => $userId])->count();
+
+		        if ($getBillingAdd) {
+
+		        	$isUpdated = CustomerAddressModel::where(['user_id' => $userId])->update($obj);
+		        	
+		        }else{
+
+		        	$obj['shipping_name'] = $request->post('billingName');
+		        	$obj['shipping_company_name'] = $request->post('shippingCompanyName');
+		        	$obj['shipping_address'] = $request->post('shippingAddress');
+		        	$obj['shipping_city'] = $request->post('shippingCity');
+		        	$obj['shipping_state'] = $request->post('shippingState');
+		        	$obj['shipping_pincode'] = $request->post('shippingPincode');
+		        	$obj['shipping_email'] = $request->post('shippingEmail');
+		        	$obj['shipping_phone'] = $request->post('shippingPhone');
+
+		        	$isUpdated = CustomerAddressModel::create($obj);
+		        }
+
+	        	if ($isUpdated) {
+
+    				$this->status = array(
+						'error' => false,								
+						'msg' => 'Your billing address has been saved sucessfully',
+					);
+
+    			} else {
+    				$this->status = array(
+						'error' => true,
+						'eType' => 'final',
+						'msg' => 'Something went wrong.'
+					);
+    			}
+
+	        }
+
+		} else {
+			$this->status = array(
+				'error' => true,
+				'eType' => 'final',
+				'msg' => 'Something went wrong'
+			);
+		}
+
+		return response($this->status);
+	}
+
+
 
 	
 }

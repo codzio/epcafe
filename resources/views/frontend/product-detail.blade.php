@@ -23,6 +23,12 @@
   .validate-code-link-main .val-succ{
     color: green;
   }
+  .detail_fields{
+    width: 65%;
+  }
+  .detail_fields select{
+    width: 100%;
+  }
 </style>
 <!-- Popular Products -->
     <section class="padding-top-100 padding-bottom-100">
@@ -52,61 +58,76 @@
               <form method="post" id="addToCartForm" class="detail_page_form" style="margin-top:25px;">
                 <div class="input_field">
                     <label for="select">Paper Size</label>
-                    <select id="paperSize" name="paperSize">
-                      <option value="">Select Paper Size</option>
-                      @if(!empty($paperSize))
-                      @foreach($paperSize as $paperSize)
-                      <option value="{{ $paperSize->id }}">{{ $paperSize->size }}</option>
-                      @endforeach
-                      @endif
-                    </select>
-                    <span class="text-danger" id="paperSizeErr"></span>
+                    <div class="detail_fields">
+                      <select id="paperSize" name="paperSize">
+                        <option value="">Select Paper Size</option>
+                        @if(!empty($paperSize))
+                        @foreach($paperSize as $paperSize)
+                        <option value="{{ $paperSize->id }}">{{ $paperSize->size }}</option>
+                        @endforeach
+                        @endif
+                      </select>
+                      <span class="text-danger" id="paperSizeErr"></span>
+                    </div>
                 </div>
 
                 <div class="input_field">
                     <label for="select">Paper GSM</label>
-                    <select id="paperGsm" name="paperGsm">
-                      <option value="">Select Paper GSM</option>
-                    </select>
-                    <span class="text-danger" id="paperGsmErr"></span>
+                    <div class="detail_fields">
+                      <select id="paperGsm" name="paperGsm">
+                        <option value="">Select Paper GSM</option>
+                      </select>
+                      <span class="text-danger" id="paperGsmErr"></span>
+                    </div>
                 </div>
                 <div class="input_field">
                   <label for="select">Paper Type</label>
+                  <div class="detail_fields">
                     <select id="paperType" name="paperType">
                       <option value="">Select Paper Type</option>
                     </select>
                     <span class="text-danger" id="paperTypeErr"></span>
+                  </div>
                 </div>
                 <div class="input_field">
                   <label for="select">Print Sides</label>
+                  <div class="detail_fields">
                     <select id="sides" name="paperSides">
                       <option value="">Select Sides</option>
                     </select>
                     <span class="text-danger" id="paperSidesErr"></span>
+                  </div>
                 </div>
                 <div class="input_field">
                   <label for="select">Color</label>
+                  <div class="detail_fields">
                     <select id="color" name="color">
                       <option value="">Select Color</option>
                     </select>
                     <span class="text-danger" id="colorErr"></span>
+                  </div>
                 </div>
                 <div class="input_field">
                   <label for="select">Binding</label>
+                  <div class="detail_fields">
                     <select id="binding" name="binding">
                       <option value="">Select Binding</option>
                     </select>
                     <span class="text-danger" id="bindingErr"></span>
+                  </div>
                 </div>
                 <div class="input_field">
                   <label for="select">Lamination</label>
+                  <div class="detail_fields">
                     <select id="lamination" name="lamination">
                       <option value="">Select Lamination</option>
                     </select>
                     <span class="text-danger" id="laminationErr"></span>
+                  </div>
                 </div>
                 <div class="input_field">
                   <label for="select">Cover</label>
+                  <div class="detail_fields">
                     <select id="cover" name="cover">
                       <option value="">Select Cover</option>
                       @if(!empty($covers))
@@ -116,15 +137,16 @@
                       @endif
                     </select>
                     <span class="text-danger" id="coverErr"></span>
+                  </div>
                 </div>
                 <div class="input_field">
                   <label for="select">No of Copies</label>
-                  <div class="label_input choose">
-                    <input id="noOfCopies" name="noOfCopies" type="text" style="width:100%;" placeholder="No of Copies">
-                      <p>Choose a quantity between 1 - 1000 for instant ordering. For higher quantities, you will be allowed to request quotations from Sales Team.
-                    </p>
-                    <span class="text-danger" id="noOfCopiesErr"></span>
-                  </div>
+                    <div class="label_input choose">
+                      <input id="noOfCopies" name="noOfCopies" type="text" style="width:100%;" placeholder="No of Copies">
+                        <p>Choose a quantity between 1 - 1000 for instant ordering. For higher quantities, you will be allowed to request quotations from Sales Team.
+                      </p>
+                      <span class="text-danger" id="noOfCopiesErr"></span>
+                    </div>
                 </div>
 
               <input type="hidden" name="productId" value="{{ $product->id }}">

@@ -27,6 +27,7 @@ use App\Http\Controllers\admin\Gsm;
 use App\Http\Controllers\admin\Product;
 use App\Http\Controllers\admin\Pricing;
 use App\Http\Controllers\admin\Contact;
+use App\Http\Controllers\admin\Orders;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,7 +63,10 @@ Route::prefix('/')->group(function() {
 Route::prefix('/customer')->middleware('customerSessionCheck')->group(function(){
     Route::get('/dashboard', [Customer::class, 'dashboard'])->name('customerDashboard');
     Route::get('/logout', [Customer::class, 'logout'])->name('customerLogout');
-
+    Route::post('/doChangePassword', [Customer::class,'doChangePassword'])->name('customerChangePassword');
+    Route::post('/update-account-details', [Customer::class,'doUpdateAccDetails'])->name('doUpdateAccDetails');
+    Route::post('/doSaveShippingAddress', [Customer::class, 'doSaveShippingAddress'])->name('doSaveShippingAddress');
+    Route::post('/doSaveBillingAddress', [Customer::class, 'doSaveBillingAddress'])->name('doSaveBillingAddress');
 });
 
 Route::prefix('/category')->group(function() {
@@ -197,6 +201,13 @@ Route::prefix(config('admin.path'))->middleware('web')->group(function () {
             Route::get('/get', [Contact::class, 'get'])->name('getAdminContact');
             Route::post('/doDelete', [Contact::class, 'doDelete'])->name('adminDeleteContact');
             Route::post('/doBulkDelete', [Contact::class, 'doBulkDelete'])->name('adminBulkDeleteContact');
+        });
+
+        //Orders
+        Route::prefix('orders')->group(function() {
+            Route::get('/', [Orders::class, 'index'])->name('adminOrders');
+            Route::get('/get', [Orders::class, 'get'])->name('getAdminOrders');
+            Route::get('/view/{id}', [Orders::class, 'view'])->name('adminViewOrder');
         });
 
 

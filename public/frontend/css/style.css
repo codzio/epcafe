@@ -143,6 +143,14 @@ li {
 }
 .errors{
 	color: var(--primary-color-2);
+	position: absolute;
+	left: 0;
+	bottom: 10%;
+	font-size: 12px;
+}
+.msgErr{
+	text-transform: uppercase;
+	position: unset;
 }
 .about-footer img{
       background:#fff;
@@ -3473,7 +3481,7 @@ footer .small-about .social_icons li a:hover i{
 .sub-bnr {
 	background: url(../images/home_banner_img.jpg) no-repeat;
 	background-size: cover !important;
-	min-height: 610px;
+	min-height: 410px;
 	text-align: center;
 	position: relative;
 }
@@ -3898,7 +3906,11 @@ footer .subscribe input {
 	display: inline-block;
 	width: 100%;
 	margin: 0px;
-	margin-bottom: 13px;
+	margin-bottom: 24px;
+	position: relative;
+}
+.contact-form label .errors{
+	bottom: -32%;
 }
 .contact-form textarea {
 	display: inline-block;
@@ -4644,7 +4656,7 @@ main {
 }
 .for_card_listing{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 30px;
 }
 .for_card_listing .col-md-3{
