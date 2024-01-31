@@ -34,6 +34,9 @@ class Checkout extends Controller {
 
 	public function index(Request $request) {
 
+		//remove payment session
+		Session::forget('paymentSess');
+
 		$tempId = $request->cookie('tempUserId');		
 
 		//check if user logged in
@@ -537,11 +540,13 @@ class Checkout extends Controller {
 	        	$customerAdd = CustomerAddressModel::where('user_id', customerId())->first();
 
 	        	$getCartData = CartModel::where('user_id', customerId())->first();
+	        	$productName = ProductModel::where('id', getCartProductId())->value('name');
 
 	        	$orderObj = array(
 	        		'order_id' => $transactionId,
 	        		'user_id' => customerId(),
 	        		'product_id' => getCartProductId(),
+	        		'product_name' => $productName,
 	        		'product_details' => json_encode(productSpec(getCartId())),
 	        		'weight_details' => json_encode(cartWeight()),
 	        		'coupon_code' => $couponCode,
@@ -550,7 +555,7 @@ class Checkout extends Controller {
 	        		'paid_amount' => ceil($productPrice->total),
 	        		'price_details' => json_encode($productPrice),
 	        		'transaction_details' => json_encode($response->data),
-	        		'customer_address' => $customerAdd->toArray(),
+	        		'customer_address' => json_encode($customerAdd->toArray()),
 	        		'document_link' => $getCartData->document_link,
 	        		'qty' => $getCartData->qty
 	        	);

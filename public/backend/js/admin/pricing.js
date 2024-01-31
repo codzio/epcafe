@@ -41,7 +41,7 @@ var table = $('#kt_file_manager_list').DataTable({
         { "data": "side" },
         { "data": "color" },
         { "data": "weight" },
-        { "data": "rate" },
+        { "data": "per_sheet_weight" },
         { "data": "paper_price" },
         { "data": "other_price" },
         { "data": "total" },
@@ -363,12 +363,11 @@ $("#paperType").change(function (e) {
             paperType: paperType,
         },
         beforeSend: function() {
-                    
 
         }, success: function(res) {
 
             if (res.error == false) {
-                $("#perSheetPrice").val(res.perSheetPrice);
+                $("#perSheetWeight").val(res.perSheetWeight);
                 $("#paperSizePrice").val(res.paperTypePrice);
             }
 
@@ -377,11 +376,14 @@ $("#paperType").change(function (e) {
 });
 
 $("#otherPrice").change(function(event) {
-    var perSheetPrice = $("#perSheetPrice").val();
+    //var perSheetPrice = $("#perSheetPrice").val();
     var paperSizePrice = $("#paperSizePrice").val();
     var otherPrice = $("#otherPrice").val();
 
-    total = parseFloat(perSheetPrice)+parseFloat(paperSizePrice)+parseFloat(otherPrice);
+    // total = parseFloat(perSheetPrice)+parseFloat(paperSizePrice)+parseFloat(otherPrice);
+    // $("#totalPrice").val(total);
+
+    total = parseFloat(paperSizePrice)+parseFloat(otherPrice);
     $("#totalPrice").val(total);
 
 });

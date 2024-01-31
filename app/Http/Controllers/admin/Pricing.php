@@ -110,7 +110,7 @@ class Pricing extends Controller {
 			        $query->where('paper_size.size', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('gsm.gsm', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('gsm.weight', 'like', '%' . $searchValue . '%')
-			        	  ->orWhere('gsm.rate', 'like', '%' . $searchValue . '%')
+			        	  ->orWhere('gsm.per_sheet_weight', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('gsm.paper_type_price', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('paper_type.paper_type', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('pricing.side', 'like', '%' . $searchValue . '%')
@@ -134,7 +134,7 @@ class Pricing extends Controller {
 		    ->join('gsm', 'pricing.paper_gsm_id', '=', 'gsm.id')
 		    ->join('paper_type', 'pricing.paper_type_id', '=', 'paper_type.id')
 		    ->where('product_id', $request->get('id'))
-		    ->select('pricing.*', 'paper_size.size', 'paper_size.measurement', 'gsm.gsm', 'gsm.weight', 'gsm.rate', 'gsm.paper_type_price', 'paper_type.paper_type')
+		    ->select('pricing.*', 'paper_size.size', 'paper_size.measurement', 'gsm.gsm', 'gsm.weight', 'gsm.per_sheet_weight', 'gsm.paper_type_price', 'paper_type.paper_type')
 		    ->skip($start)->take($rowperpage);
 
 		    // if (!empty($searchValue)) {
@@ -147,7 +147,7 @@ class Pricing extends Controller {
 			        $query->where('paper_size.size', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('gsm.gsm', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('gsm.weight', 'like', '%' . $searchValue . '%')
-			        	  ->orWhere('gsm.rate', 'like', '%' . $searchValue . '%')
+			        	  ->orWhere('gsm.per_sheet_weight', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('gsm.paper_type_price', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('paper_type.paper_type', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('pricing.side', 'like', '%' . $searchValue . '%')
@@ -223,10 +223,10 @@ class Pricing extends Controller {
 			          	"side" => $record->side,
 			          	"color" => $record->color,
 			          	"weight" => $record->weight,
-			          	"rate" => $record->rate,
+			          	"per_sheet_weight" => $record->per_sheet_weight,
 			          	"paper_price" => $record->paper_type_price,
 			          	"other_price" => $record->other_price,
-			          	"total" => $record->rate+$record->paper_type_price+$record->other_price,
+			          	"total" => $record->paper_type_price+$record->other_price,
 			          	"action" => $action
 			        );
 			    }
@@ -290,7 +290,7 @@ class Pricing extends Controller {
 		join('product', 'pricing.product_id', '=', 'product.id')
 		->join('gsm', 'pricing.paper_gsm_id', '=', 'gsm.id')
 		->where(['pricing.id' => $pricingId, 'product_id' => $productId])
-		->select('product.name','pricing.*', 'gsm.weight', 'gsm.rate', 'gsm.paper_type_price')
+		->select('product.name','pricing.*', 'gsm.weight', 'gsm.per_sheet_weight', 'gsm.paper_type_price')
 		->first();
 
 		if (empty($getData)) {
@@ -848,17 +848,17 @@ class Pricing extends Controller {
 
 	        	$getData = GsmModel::where(['id' => $paperGsm, 'paper_size' => $paperSize, 'paper_type' => $paperType])->first();
 
-	        	$perSheetPrice = 0;
+	        	$perSheetWeight = 0;
 	        	$paperTypePrice = 0;
 
 	        	if (!empty($getData)) {
-	        		$perSheetPrice = $getData->rate;
+	        		$perSheetWeight = $getData->per_sheet_weight;
 	        		$paperTypePrice = $getData->paper_type_price;
 	        	}
 	        	
 	        	$this->status = array(
 					'error' => false,
-					'perSheetPrice' => $perSheetPrice,
+					'perSheetWeight' => $perSheetWeight,
 					'paperTypePrice' => $paperTypePrice,
 				);
 

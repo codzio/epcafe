@@ -61,7 +61,7 @@
                                         <th class="min-w-100px">Side</th>
                                         <th class="min-w-100px">Color</th>
                                         <th class="min-w-100px">Weight</th>
-                                        <th class="min-w-100px">Rate</th>
+                                        <th class="min-w-100px">Per Sheet Weight</th>
                                         <th class="min-w-100px">Paper Price</th>
                                         <th class="min-w-100px">Other Price</th>
                                         <th class="min-w-100px">Total</th>

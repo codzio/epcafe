@@ -224,7 +224,7 @@ class Home extends Controller {
 
 					if (!empty($getGsm) && $getGsm->count()) {
 						foreach ($getGsm as $gsm) {
-							$gsmOptions .= '<option data-price="'.$gsm->rate.'" value="'.$gsm->id.'">'.$gsm->gsm.' GSM</option>';
+							$gsmOptions .= '<option data-weight="'.$gsm->per_sheet_weight.'" value="'.$gsm->id.'">'.$gsm->gsm.' GSM</option>';
 						}
 					}
 

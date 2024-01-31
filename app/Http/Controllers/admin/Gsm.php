@@ -94,7 +94,7 @@ class Gsm extends Controller {
 
 			        $query->where('gsm.gsm', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('gsm.weight', 'like', '%' . $searchValue . '%')
-			        	  ->orWhere('gsm.rate', 'like', '%' . $searchValue . '%')
+			        	  ->orWhere('gsm.per_sheet_weight', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('gsm.paper_type_price', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('paper_size.size', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('paper_size.measurement', 'like', '%' . $searchValue . '%')
@@ -127,7 +127,7 @@ class Gsm extends Controller {
 			        
 			        $query->where('gsm.gsm', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('gsm.weight', 'like', '%' . $searchValue . '%')
-			        	  ->orWhere('gsm.rate', 'like', '%' . $searchValue . '%')
+			        	  ->orWhere('gsm.per_sheet_weight', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('gsm.paper_type_price', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('paper_size.size', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('paper_size.measurement', 'like', '%' . $searchValue . '%')
@@ -198,7 +198,7 @@ class Gsm extends Controller {
 			          	"measurement" => $record->measurement,
 			          	"gsm" => $record->gsm,
 			          	"weight" => $record->weight,
-			          	"rate" => $record->rate,
+			          	"per_sheet_weight" => $record->per_sheet_weight,
 			          	"paper_type" => $record->paper_type,
 			          	"paper_type_price" => $record->paper_type_price,
 			          	"action" => $action
@@ -302,9 +302,9 @@ class Gsm extends Controller {
 				'paperSize' => 'required|numeric',
 	            'gsm' => 'required|numeric',
 	            'weight' => 'required|numeric',
-	            'rate' => 'required|numeric',
+	            'perSheetWeight' => 'required|numeric',
 	            'paperType' => 'required|numeric',
-	            'paperTypePrice' => 'required|numeric',
+	            'paperTypePrice' => 'sometimes|nullable|numeric',
 	        ]);
 
 	        if ($validator->fails()) {
@@ -334,9 +334,9 @@ class Gsm extends Controller {
 		        		'paper_size' => $paperSize,
 		        		'gsm' => $request->post('gsm'),
 		        		'weight' => $request->post('weight'),
-		        		'rate' => $request->post('rate'),
+		        		'per_sheet_weight' => $request->post('perSheetWeight'),
 		        		'paper_type' => $request->post('paperType'),
-		        		'paper_type_price' => $request->post('paperTypePrice'),
+		        		'paper_type_price' => !empty($request->post('paperTypePrice'))? $request->post('paperTypePrice'):0,
 		        	];
 
 		        	$isAdded = GsmModel::create($obj);
@@ -399,9 +399,9 @@ class Gsm extends Controller {
 	            'paperSize' => 'required|numeric',
 	            'gsm' => 'required|numeric',
 	            'weight' => 'required|numeric',
-	            'rate' => 'required|numeric',
+	            'perSheetWeight' => 'required|numeric',
 	            'paperType' => 'required|numeric',
-	            'paperTypePrice' => 'required|numeric',
+	            'paperTypePrice' => 'sometimes|nullable|numeric',
 	        ]);
 
 	        if ($validator->fails()) {
@@ -431,9 +431,9 @@ class Gsm extends Controller {
 		        		'paper_size' => $paperSize,
 		        		'gsm' => $request->post('gsm'),
 		        		'weight' => $request->post('weight'),
-		        		'rate' => $request->post('rate'),
+		        		'per_sheet_weight' => $request->post('perSheetWeight'),
 		        		'paper_type' => $request->post('paperType'),
-		        		'paper_type_price' => $request->post('paperTypePrice'),
+		        		'paper_type_price' => !empty($request->post('paperTypePrice'))? $request->post('paperTypePrice'):0,
 		        	];
 
 	        		$isUpdated = GsmModel::where('id', $id)->update($obj);

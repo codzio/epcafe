@@ -193,7 +193,7 @@
                 <div class="order-detail">
                   <p>Discount <span id="discountData">{{ $productPrice->discount }}</span></p>
                   <p>Shipping Charge <span id="shippingData">{{ $productPrice->shipping }}</span></p>
-                  <p>Sub Total <span id="subTotalData">{{ $productPrice->total }}</span></p>
+                  <p>Sub Total <span id="subTotalData">{{ $productPrice->total-$productPrice->shipping-$productPrice->discount }}</span></p>
                   
                   <!-- SUB TOTAL -->
                   <p class="all-total">TOTAL<span id="totalData">{{ $productPrice->total }}</span></p>

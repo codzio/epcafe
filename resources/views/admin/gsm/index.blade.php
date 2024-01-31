@@ -57,7 +57,7 @@
                                         <th>Measurement</th>
                                         <th class="min-w-100px">Paper GSM</th>
                                         <th class="min-w-100px">Weight</th>
-                                        <th class="min-w-100px">Rate</th>
+                                        <th class="min-w-100px">Per Sheet Weight</th>
                                         <th class="min-w-100px">Paper Type</th>
                                         <th class="min-w-100px">Paper Rate</th>
                                         <th class="w-125px">Action</th>

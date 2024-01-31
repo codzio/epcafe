@@ -34,7 +34,7 @@ var table = $('#kt_file_manager_list').DataTable({
         { "data": "measurement" },
         { "data": "gsm" },
         { "data": "weight" },
-        { "data": "rate" },
+        { "data": "per_sheet_weight" },
         { "data": "paper_type" },
         { "data": "paper_type_price" },
         { "orderable": false, "searchable": false, "data": "action" }
@@ -215,7 +215,7 @@ $("#kt_form").submit(function(event) {
                 }
             } else {
                 toastr.success(res.msg);
-                $("#kt_form")[0].reset();
+                location.reload();
             }
 
             $("#kt_form_submit .indicator-label").show();

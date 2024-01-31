@@ -49,7 +49,10 @@ class Cart extends Controller {
 		if (!empty($getCartData) && $getCartData->count()) {
 
 			//remove promo
-		    Session::forget('coupon');
+		    Session::forget('couponSess');
+
+		    //remove shipping
+		    Session::forget('shippingSess');
 		
 			$data = array(
 				'title' => 'Cart',
@@ -68,6 +71,20 @@ class Cart extends Controller {
 
 	public function doAddToCart(Request $request) {
 		if ($request->ajax()) {
+
+			//check session
+			if (isPaymentInit()) {
+				
+				$this->status = array(
+					'error' => true,
+					'eType' => 'final',
+					'msg' => 'Payment Initiated & cannot add to cart.'
+				);
+
+				return response($this->status);
+				die();
+
+			}
 
 			$validator = Validator::make($request->post(), [
 			    'productId' => 'required|numeric',
@@ -170,7 +187,7 @@ class Cart extends Controller {
 
 	        				$cartObj = [
 	        					'temp_id' => $tempId,
-	        					// 'user_id' => userId(),
+	        					'user_id' => customerId(),
 	        					'product_id' => $productId,
 	        					'paper_size_id' => $paperSize,
 	        					'paper_gsm_id' => $paperGsm,
@@ -241,6 +258,20 @@ class Cart extends Controller {
 	public function doRemoveCartItem(Request $request) {
 		if ($request->ajax()) {
 
+			//check session
+			if (isPaymentInit()) {
+				
+				$this->status = array(
+					'error' => true,
+					'eType' => 'final',
+					'msg' => 'Payment Initiated & cannot remove from the cart.'
+				);
+
+				return response($this->status);
+				die();
+
+			}
+
 			$validator = Validator::make($request->post(), [
 			    'cartId' => 'required|numeric',
 			]);
@@ -283,6 +314,20 @@ class Cart extends Controller {
 
 	public function doUpdateCartItem(Request $request) {
 		if ($request->ajax()) {
+
+			//check session
+			if (isPaymentInit()) {
+				
+				$this->status = array(
+					'error' => true,
+					'eType' => 'final',
+					'msg' => 'Payment Initiated & cannot update cart item.'
+				);
+
+				return response($this->status);
+				die();
+
+			}
 
 			$validator = Validator::make($request->post(), [
 			    'qty' => 'required|numeric|min:1',
@@ -336,6 +381,20 @@ class Cart extends Controller {
 
 	public function doApplyPromo(Request $request) {
 		if ($request->ajax()) {
+
+			//check session
+			if (isPaymentInit()) {
+				
+				$this->status = array(
+					'error' => true,
+					'eType' => 'final',
+					'msg' => 'Payment Initiated & cannot apply promo.'
+				);
+
+				return response($this->status);
+				die();
+
+			}
 
 			$validator = Validator::make($request->post(), [
 			    'couponCode' => 'required',

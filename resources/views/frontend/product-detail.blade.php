@@ -131,8 +131,8 @@
 
               <div class="price-desktop" style="margin-bottom: 5px;">
                  <div class="red_text">
-                     <div class="my-1"><span class="price-widget-sezzle" style="color:var(--primary-color-2); font-weight: 800; font-size: 22px;">₹37.76</span><span style="color:#000; font-size: 16px;">&nbsp;inclusive of all taxes</span></div>
-                   <div><span style="color:#000; font-size: 16px;">for</span><span style="color: rgba(0, 0, 0, 0.87); font-size: 16px;">&nbsp;1</span><span style="color: #000; font-size: 16px;">&nbsp;Qty (</span><span id="perSheetPrice" style="color: rgba(0, 0, 0, 0.87); font-size: 16px;">₹37.76</span><span style="color:#000;font-size: 16px;">&nbsp;/ piece)</span></div>
+                     <div class="my-1"><span class="price-widget-sezzle" style="color:var(--primary-color-2); font-weight: 800; font-size: 22px;">₹0</span><span style="color:#000; font-size: 16px;">&nbsp;inclusive of all taxes</span></div>
+                   <div><span style="color:#000; font-size: 16px;">for</span><span style="color: rgba(0, 0, 0, 0.87); font-size: 16px;">&nbsp;1</span><span style="color: #000; font-size: 16px;">&nbsp;Qty (</span><span id="perSheetPrice" style="color: rgba(0, 0, 0, 0.87); font-size: 16px;">₹0</span><span style="color:#000;font-size: 16px;">&nbsp;/ piece)</span></div>
                    <div class="my-2"><span style="color:var(--primary-color-2);">Buy in bulk and save</span></div>
                  </div>
 
@@ -364,9 +364,9 @@
 
       qty = ($("#noOfCopies").val() == '')? 0:$("#noOfCopies").val();
 
-      if ($("#paperGsm").find(':selected').val() != '') {
-        paperGsmPrice = $("#paperGsm").find(':selected').attr('data-price');
-      }
+      // if ($("#paperGsm").find(':selected').val() != '') {
+      //   paperGsmPrice = $("#paperGsm").find(':selected').attr('data-weight');
+      // }
 
       if ($("#paperType").find(':selected').val() != '') {
         paperTypePrice = $("#paperType").find(':selected').attr('data-price');
