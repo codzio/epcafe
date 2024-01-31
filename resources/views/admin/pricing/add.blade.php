@@ -71,12 +71,12 @@
                         </div>
 
                         <div class="row mb-6">                    
-                            <label class="col-lg-3 col-form-label fw-semibold fs-6 required">Per Sheet Rate</label>
+                            <label class="col-lg-3 col-form-label fw-semibold fs-6 required">Per Sheet Weight</label>
                             <div class="col-lg-9">                        
                                 <div class="row">
                                     <div class="col-lg-12 fv-row">
-                                        <input readonly id="perSheetPrice" step=".01" type="number" name="perSheetPrice" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Per Sheet Rate" value="">
-                                        <span id="perSheetPriceErr" class="text-danger"></span>
+                                        <input readonly id="perSheetWeight" step=".01" type="number" name="perSheetWeight" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Per Sheet Weight" value="">
+                                        <span id="perSheetWeightErr" class="text-danger"></span>
                                     </div>                            
                                 </div>
                             </div>                    

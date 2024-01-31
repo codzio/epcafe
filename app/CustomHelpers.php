@@ -19,6 +19,8 @@ use App\Models\LaminationModel;
 use App\Models\CoverModel;
 use App\Models\PricingModel;
 use App\Models\CustomerModel;
+use App\Models\CategoryModel;
+use App\Models\ProductModel;
 
 function getImg($imageId) {
 	$mediaData = MediaModel::where('id', $imageId)->first();
@@ -299,6 +301,30 @@ function customerId() {
 	}
 }
 
+function cartData() {
+	$tempId = Request::cookie('tempUserId');
+	$userId = customerId();
+
+	$cond = ['product.is_active' => 1];
+	if (!empty($userId)) {
+		$cond['cart.user_id'] = $userId;
+	} else {
+		$cond['cart.temp_id'] = $tempId;
+	}
+
+	$getCartData = CartModel::join('product', 'cart.product_id', '=', 'product.id')
+		->where($cond)
+		->select('cart.*', 'product.name', 'product.thumbnail_id')
+		->get();
+
+	if (!empty($getCartData) && $getCartData->count()) {
+		return $getCartData;
+	} else {
+		return false;
+	}
+
+}
+
 function getCartId() {
 	$tempId = Request::cookie('tempUserId');
 	$userId = customerId();
@@ -437,7 +463,7 @@ function productPrice() {
 		$coverId = $cartData->cover_id;
 
 		$data = [
-			'per_sheet_price' => 0,
+			'per_sheet_weight' => 0,
 			'paper_type_price' => 0,
 			'printSideAndColorPrice' => 0,
 			'binding' => 0,
@@ -452,7 +478,7 @@ function productPrice() {
 		$getPaperGsm = GsmModel::where(['paper_size' => $paperSizeId, 'id' => $paperGsmId, 'paper_type' => $paperTypeId])->first();
 
 		if (!empty($getPaperGsm)) {
-			$data['per_sheet_price'] = $getPaperGsm->rate;
+			$data['per_sheet_weight'] = $getPaperGsm->per_sheet_weight;
 			$data['paper_type_price'] = $getPaperGsm->paper_type_price;
 		}
 
@@ -482,7 +508,9 @@ function productPrice() {
 
 		}
 
-		$data['price'] = $data['per_sheet_price']+$data['paper_type_price']+$data['printSideAndColorPrice']+$data['binding']+$data['lamination']+$data['cover'];
+		// $data['price'] = $data['per_sheet_weight']+$data['paper_type_price']+$data['printSideAndColorPrice']+$data['binding']+$data['lamination']+$data['cover'];
+
+		$data['price'] = $data['paper_type_price']+$data['printSideAndColorPrice']+$data['binding']+$data['lamination']+$data['cover'];
 
 		$getCouponData = Session::get('couponSess');
 
@@ -544,7 +572,7 @@ function cartWeight() {
 		$weight = 0;
 
 		//Get GSM Data
-		$getWeight = GsmModel::where(['paper_size' => $paperSizeId, 'id' => $paperGsmId])->value('weight');
+		$getWeight = GsmModel::where(['paper_size' => $paperSizeId, 'id' => $paperGsmId])->value('per_sheet_weight');
 
 		$weight = $getWeight;
 		$totalWeight = $weight*$cartData->qty;
@@ -598,4 +626,24 @@ function customerData($col='') {
 	} else {
 		return false;
 	}
+}
+
+function isPaymentInit() {
+	$isPaymentInit = Session::get('paymentSess');
+
+	if (!empty($isPaymentInit)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+//Product Related
+
+function getProductCatList() {
+	return CategoryModel::where('is_active', 1)->get();
+}
+
+function getProductList($catId) {
+	return ProductModel::where(['is_active' => 1, 'category_id' => $catId])->get();
 }

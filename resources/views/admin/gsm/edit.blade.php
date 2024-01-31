@@ -79,12 +79,12 @@
                         </div>
 
                         <div class="row mb-6">                    
-                            <label class="col-lg-3 col-form-label fw-semibold fs-6 required">Per Sheet Rate</label>
+                            <label class="col-lg-3 col-form-label fw-semibold fs-6 required">Per Sheet Weight</label>
                             <div class="col-lg-9">                        
                                 <div class="row">
                                     <div class="col-lg-12 fv-row">
-                                        <input id="rate" type="number" step="0.0001" name="rate" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Rate" value="{{ $gsm->rate }}">
-                                        <span id="rateErr" class="text-danger"></span>
+                                        <input id="rate" type="number" step="0.0001" name="perSheetWeight" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Per Sheet Weight" value="{{ $gsm->per_sheet_weight }}">
+                                        <span id="perSheetWeightErr" class="text-danger"></span>
                                     </div>                            
                                 </div>
                             </div>                    
@@ -103,7 +103,7 @@
                                             @endforeach
                                             @endif
                                         </select>
-                                        <span id="categoryErr" class="text-danger"></span>
+                                        <span id="paperTypeErr" class="text-danger"></span>
                                     </div>                            
                                 </div>
                             </div>                    

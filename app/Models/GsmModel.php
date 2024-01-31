@@ -8,7 +8,7 @@ class GsmModel extends Model
 {
     
     protected $table = 'gsm';
-    protected $fillable = ['admin_id', 'paper_size', 'gsm', 'weight', 'rate', 'paper_type', 'paper_type_price'];
+    protected $fillable = ['admin_id', 'paper_size', 'gsm', 'weight', 'per_sheet_weight', 'paper_type', 'paper_type_price'];
     protected $guarded = ['id'];
 
 }
