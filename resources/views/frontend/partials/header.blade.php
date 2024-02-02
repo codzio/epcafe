@@ -68,7 +68,7 @@
               </li>
               
               <!-- SEARCH BAR -->
-              <li class="dropdown"> <a href="javascript:void(0);" class="search-open"><i class=" icon-magnifier"></i></a>
+              <!-- <li class="dropdown"> <a href="javascript:void(0);" class="search-open"><i class=" icon-magnifier"></i></a>
                 <div class="search-inside animated bounceInUp"> <i class="icon-close search-close"></i>
                   <div class="search-overlay"></div>
                   <div class="position-center-center">
@@ -80,7 +80,7 @@
                     </div>
                   </div>
                 </div>
-              </li>
+              </li> -->
 
             </ul>
           </div>
@@ -195,7 +195,7 @@
               </li>
               
               <!-- SEARCH BAR -->
-              <li class="dropdown"> <a href="javascript:void(0);" class="search-open"><i class=" icon-magnifier"></i></a>
+              <!-- <li class="dropdown"> <a href="javascript:void(0);" class="search-open"><i class=" icon-magnifier"></i></a>
                 <div class="search-inside animated bounceInUp"> <i class="icon-close search-close"></i>
                   <div class="search-overlay"></div>
                   <div class="position-center-center">
@@ -207,7 +207,7 @@
                     </div>
                   </div>
                 </div>
-              </li>
+              </li> -->
             </ul>
           </div>
           

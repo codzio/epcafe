@@ -43,6 +43,13 @@ use App\Http\Controllers\admin\Orders;
 Route::prefix('/')->group(function() {
     Route::get('/', [Home::class, 'index'])->name('homePage');
     Route::get('/about-us', [Home::class, 'about'])->name('aboutPage');
+
+    Route::get('/privacy-policy', [Home::class, 'privacyPolicy'])->name('privacyPolicyPage');
+    Route::get('/return-policy', [Home::class, 'returnPolicy'])->name('returnPolicyPage');
+    Route::get('/shipping-policy', [Home::class, 'shippingPolicy'])->name('shippingPolicyPage');
+    Route::get('/cancellation-policy', [Home::class, 'cancellationPolicy'])->name('cancellationPolicyPage');
+    Route::get('/terms-and-conditions', [Home::class, 'termsAndCondition'])->name('termsAndConditionPage');
+
     Route::get('/login', [Customer::class, 'login'])->name('loginPage');
     Route::get('/register', [Customer::class, 'register'])->name('registerPage');
     Route::get('/forget-password', [Customer::class, 'forgetPassword'])->name('forgetPasswordPage');

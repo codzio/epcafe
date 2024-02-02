@@ -1,160 +1,111 @@
 @extends('vwFrontMaster')
 
 @section('content')
-    
-  <!--======= HOME MAIN SLIDER =========-->
-  <section class="home-slider home_banner_main"> 
-    
-    <!-- SLIDE Start -->
-    <div class="tp-banner-container">
-      <div class="tp-banner">
-        <ul>
-          <!-- SLIDE  -->
-          <li data-transition="random" data-slotamount="7" data-masterspeed="300"  data-saveperformance="off" > 
-            <!-- MAIN IMAGE --> 
-            <img src="{{ asset('public/frontend') }}/images/home_banner_img.jpg"  alt="slider"  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat"> 
-            <!-- LAYERS --> 
-            <!-- LAYER NR. 1 -->
-            <div class="home_banner_slides">
-              <div class="tp-caption font-playfair sfb tp-resizeme" 
-                data-x="left" data-hoffset="0" 
-                data-y="center" data-voffset="-200" 
-                data-speed="800" 
-                data-start="500" 
-                data-easing="Power3.easeInOut" 
-                data-splitin="none" 
-                data-splitout="none" 
-                data-elementdelay="0.1" 
-                data-endelementdelay="0.1" 
-                data-endspeed="300" 
-                style="z-index: 7; font-size:18px; position:unset; top: 10%; color:#fff; max-width: auto; max-height: auto; white-space: nowrap;">Best Printing Company In Delhi</div>
-              <!-- LAYER NR. 2 -->
-              <div class="tp-caption sfr font-extra-bold tp-resizeme" 
-                  data-x="left" data-hoffset="0" 
-                  data-y="center" data-voffset="0" 
-                  data-speed="800" 
-                  data-start="800" 
-                  data-easing="Power3.easeInOut" 
-                  data-splitin="chars" 
-                  data-splitout="none" 
-                  data-elementdelay="0.07" 
-                  data-endelementdelay="0.1" 
-                  data-endspeed="300" 
-                  style="z-index: 6; font-size:60px; position:unset; top:25%; color:#fff; text-transform:none; white-space: nowrap; margin-bottom:-2%;">Your Ultimate Destination for 
-               </div>
-              <!-- LAYER NR. 3 -->
-              <div class="tp-caption sfr font-extra-bold tp-resizeme" 
-                  data-x="left" data-hoffset="0" 
-                  data-y="center" data-voffset="110" 
-                  data-speed="800" 
-                  data-start="1300" 
-                  data-easing="Power3.easeInOut" 
-                  data-splitin="chars" 
-                  data-splitout="none" 
-                  data-elementdelay="0.07" 
-                  data-endelementdelay="0.1" 
-                  data-endspeed="300" 
-                  style="z-index: 6; font-size:60px; position:unset;  top:48%; color:#fff; text-transform:none; white-space: nowrap; top:0; margin-top:-4%;">Hassle-Free Online Printing 
-              </div>
-                <!-- LAYER NR. 4 -->
-              <div class="tp-caption lfb tp-resizeme" 
-                data-x="left" data-hoffset="0" 
-                data-y="center" data-voffset="240" 
-                data-speed="800" 
-                data-start="2200" 
-                data-easing="Power3.easeInOut" 
-                data-elementdelay="0.1" 
-                data-endelementdelay="0.1" 
-                data-endspeed="300" 
-                data-scrolloffset="0"
-                style="z-index: 8; position:unset;"><a href="shop_01.html" class="btn">PRINT NOW</a> 
-              </div>
-            </div>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-          </li>
-          
-          <!-- SLIDE  -->
-          <!--<li data-transition="random" data-slotamount="7" data-masterspeed="300"  data-saveperformance="off" > -->
-            <!-- MAIN IMAGE --> 
-          <!--  <img src="{{ asset('public/frontend') }}/images/home_banner_img.jpg"  alt="slider"  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat"> -->
-            <!-- LAYERS --> 
-          <!--  <div class="home_banner_slides">-->
-              <!-- LAYER NR. 1 -->
-          <!--    <div class="tp-caption font-playfair sfb tp-resizeme" -->
-          <!--        data-x="center" data-hoffset="0" -->
-          <!--        data-y="center" data-voffset="-150" -->
-          <!--        data-speed="800" -->
-          <!--        data-start="500" -->
-          <!--        data-easing="Power3.easeInOut" -->
-          <!--        data-splitin="none" -->
-          <!--        data-splitout="none" -->
-          <!--        data-elementdelay="0.1" -->
-          <!--        data-endelementdelay="0.1" -->
-          <!--        data-endspeed="300" -->
-          <!--        style="z-index: 7; font-size:18px; position:unset; color:#fff; max-width: auto; max-height: auto; white-space: nowrap;">The Latest Product from ecoshop-->
-          <!--    </div>-->
-              <!-- LAYER NR. 2 -->
-          <!--    <div class="tp-caption sfr font-regular tp-resizeme letter-space-4" -->
-          <!--        data-x="center" data-hoffset="0" -->
-          <!--        data-y="center" data-voffset="-50" -->
-          <!--        data-speed="800" -->
-          <!--        data-start="800" -->
-          <!--        data-easing="Power3.easeInOut" -->
-          <!--        data-splitin="chars" -->
-          <!--        data-splitout="none" -->
-          <!--        data-elementdelay="0.07" -->
-          <!--        data-endelementdelay="0.1" -->
-          <!--        data-endspeed="300" -->
-          <!--        style="z-index: 6; position:unset; font-size:60px; color:#fff; margin-bottom:-2%; text-transform:uppercase; white-space: nowrap; margin-bottom:-2%;">look beautiful -->
-          <!--    </div>-->
-              <!-- LAYER NR. 3 -->
-          <!--    <div class="tp-caption sfr font-extra-bold tp-resizeme letter-space-4" -->
-          <!--        data-x="center" data-hoffset="0" -->
-          <!--        data-y="center" data-voffset="60" -->
-          <!--        data-speed="800" -->
-          <!--        data-start="1300" -->
-          <!--        data-easing="Power3.easeInOut" -->
-          <!--        data-splitin="chars" -->
-          <!--        data-splitout="none" -->
-          <!--        data-elementdelay="0.07" -->
-          <!--        data-endelementdelay="0.1" -->
-          <!--        data-endspeed="300" -->
-          <!--        style="z-index: 6; position:unset; font-size:60px; color:#fff; text-transform:uppercase; white-space: nowrap; margin:-42px 0 -78px;">this season-->
-          <!--    </div>-->
-              <!-- LAYER NR. 4 -->
-          <!--    <div class="tp-caption sfb font-extra-bold tp-resizeme" -->
-          <!--        data-x="center" data-hoffset="120"-->
-          <!--        data-y="center" data-voffset="200"-->
-          <!--        data-speed="800" -->
-          <!--        data-start="2200" -->
-          <!--        data-easing="Power3.easeInOut" -->
-          <!--        data-splitin="none" -->
-          <!--        data-splitout="none" -->
-          <!--        data-elementdelay="0.07" -->
-          <!--        data-endelementdelay="0.1" -->
-          <!--        data-endspeed="300" -->
-          <!--        style="z-index: 6; position:unset; font-size:60px; color:#fff; text-transform:uppercase; white-space: nowrap;"><small class="font-regular">$</small> 299 -->
-          <!--    </div>-->
-              <!-- LAYER NR. 5 -->
-          <!--    <div class="tp-caption lfb tp-scrollbelowslider tp-resizeme" -->
-          <!--        data-x="center" data-hoffset="-120" -->
-          <!--        data-y="center" data-voffset="200" -->
-          <!--        data-speed="800" -->
-          <!--        data-start="2200" -->
-          <!--        data-easing="Power3.easeInOut" -->
-          <!--        data-elementdelay="0.1" -->
-          <!--        data-endelementdelay="0.1" -->
-          <!--        data-endspeed="300" -->
-          <!--        data-scrolloffset="0"-->
-          <!--        style="z-index: 8; position:unset;"><a href="shop_01.html" class="btn">BUY NOW</a> -->
-          <!--      </div>-->
-          <!--  </div>-->
-          <!--</li>-->
-        </ul>
+<style type="text/css">
+  .tp-caption {
+    color: #dd1d26 !important;
+  }
+
+  .home_banner_slide{
+    position:relative;
+  }
+  .home_banner_slide img{
+    position:relative;
+  }
+  .home_banner_slide_content{
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:16%;
+    left:5%;
+  }
+  .home_banner a{
+    background:#444;
+    padding:10px 20px;
+    color:#fff;
+    transition:all .5s linear;
+    border:1px solid #444;
+  }
+  .home_banner a:hover{
+/*    background:transparent;*/
+/*    border:1px solid #fff;*/
+  }
+  .home_banner h1{
+    margin:3% 0 5%;
+    color:#000;
+    font-family: sans-serif;
+    font-weight:700;
+    font-size:60px;
+    line-height:1.4;
+    width:65%;
+  }
+  .home_banner p{
+    color:#000;
+    width:80%;
+    font-size:20px;
+  }
+  .home_banner_slide{
+/*    height:70vh;*/
+  }
+  .home_banner_slide img{
+/*    height:100%;*/
+    object-fit:cover;
+    object-position:center;
+  }
+  .arrival-bock .item-img{
+    height:27vh;
+  }
+  .arrival-bock .item-img img{
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .mbanner-img {
+    display: none !important;
+  }
+
+  .home_banner_slide img {
+    cursor: pointer;
+  }
+
+  @media (max-width:575px) {
+
+    .dbanner-img {
+      display: none !important;
+    }
+
+    .mbanner-img {
+      display: block !important;
+      width: 100%;
+    }
+
+    .padding-top-100 {
+      padding-top: 50px !important;
+    }
+
+    .for_card_listing {
+      gap: 0px;
+    }
+
+  }
+</style>
+  <div class="home_banner">
+    <div class="home_banner_slider_main home_banner_slider">
+      <div class="home_banner_slide">
+        <img onclick="bannerRedirect()" class="dbanner-img" src="{{ asset('public/frontend') }}/img/banner.png">
+        <img onclick="bannerRedirect()" class="mbanner-img" src="{{ asset('public/frontend') }}/img/mobile-banner.jpg">
+        <!-- <div class="home_banner_slide_content">
+          <p>Best Printing Company In Delhi</p>
+          <h1>Your Ultimate Destination for <br> Hassle-Free Online Printing</h1>
+          <a href="#">PRINT NOW</a>
+        </div> -->
       </div>
     </div>
-  </section>
+  </div>
   
   <!-- Content -->
   <div id="content"> 
@@ -167,7 +118,7 @@
         <!-- Main Heading -->
         <div class="heading text-center">
           <h4>Best Services For Printing</h4>
-          <span>Welcome to Eprintcafe.in, An initiative of India Inttech Pvt. Ltd. ( Shyam Electrostat - Since 1990), your dedicated offline convenience printing store !</span> </div>
+          <span>Welcome to Eprintcafe.com, An initiative of India Inttech Pvt. Ltd. ( Shyam Electrostat - Since 1990), your dedicated offline convenience printing store !</span> </div>
       </div>
       
       <div class="container">
@@ -264,7 +215,7 @@
           <div class="more_than_year">
             <h4>We Have More than <strong style="color:var(--secondary-color-3);">33</strong> Years Of Experience in Printing Services</h4>
           </div>
-          <span style="width:100%; margin-bottom:35px;">Welcome to Eprintcafe.in, An initiative of India Inttech Pvt. Ltd. ( Shyam Electrostat - Since 1990), your dedicated offline convenience printing store ! We understand the value of your time and energy, which is why our platform is designed to provide you with easy access to high-quality online printing services. Say goodbye to the hassles of traditional printing – we're here to redefine your printing experience.
+          <span style="width:100%; margin-bottom:35px;">Welcome to Eprintcafe.com, An initiative of India Inttech Pvt. Ltd. ( Shyam Electrostat - Since 1990), your dedicated offline convenience printing store ! We understand the value of your time and energy, which is why our platform is designed to provide you with easy access to high-quality online printing services. Say goodbye to the hassles of traditional printing – we're here to redefine your printing experience.
           </span> 
           <a href="about-us_01.html" class="theme-btn mt-20 home_btn">Know More <i class="lnr lnr-arrow-right"></i></a>
         </div>
@@ -378,5 +329,20 @@
     <!--  </div>-->
     <!--</section>-->
   </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script type="text/javascript">
+    $(".home_banner_slider").slick({
+      autoplay:true,
+      autoplaySpeed:3000,
+      arrows:false
+    });
+
+    function bannerRedirect() {
+      window.location.href = "{{ url('category/document-printing'); }}"
+    }
+
+  </script>
 
 @endsection

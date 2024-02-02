@@ -717,12 +717,15 @@ class Pricing extends Controller {
 	        } else {
 
 	        	$paperSize = $request->post('paperSize');
-	        	$getPaperGsm = GsmModel::where('paper_size', $paperSize)->get();
+	        	$getPaperGsm = GsmModel::join('paper_type', 'gsm.paper_type', '=', 'paper_type.id')
+	        	->where('gsm.paper_size', $paperSize)
+	        	->select('gsm.*', 'paper_type.paper_type')
+	        	->get();
 	        	$options = '<option value="">Select Paper GSM</option>';
 
 	        	if (!empty($getPaperGsm)) {
 	        		foreach ($getPaperGsm as $paperGsm) {
-	        			$options .= '<option data-url="'.route('getAdminPaperType').'" value="'.$paperGsm->id.'">'.$paperGsm->gsm.' GSM</option>';
+	        			$options .= '<option data-url="'.route('getAdminPaperType').'" value="'.$paperGsm->id.'">'.$paperGsm->gsm.' GSM - '.$paperGsm->paper_type.'</option>';
 	        		}
 	        	}
 

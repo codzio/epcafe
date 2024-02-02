@@ -29,6 +29,14 @@
   .detail_fields select{
     width: 100%;
   }
+  .shop-detail .images-slider .slides li{
+    height:70vh;
+  }
+  .shop-detail .images-slider .slides li .img-responsive  {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
 </style>
 <!-- Popular Products -->
     <section class="padding-top-100 padding-bottom-100">
@@ -54,7 +62,7 @@
             <!-- COntent -->
             <div class="col-md-6 detail_ul">
               <h4 style="color:var(--primary-color-1);">{{ $product->name }}</h4>
-              {!! $product->description !!}
+              
               <form method="post" id="addToCartForm" class="detail_page_form" style="margin-top:25px;">
                 <div class="input_field">
                     <label for="select">Paper Size</label>
@@ -181,8 +189,11 @@
                     <span id="documentLinkErr" class="val-err"></span>
                   </div>
 
-                </div>
+              </div>
             </div>
+
+            {!! $product->description !!}
+            
           </div>
         </div>
       </div>
@@ -394,9 +405,9 @@
         paperTypePrice = $("#paperType").find(':selected').attr('data-price');
       }
 
-      if ($("#sides").find(':selected').val() != '') {
-        paperSidesPrice = $("#sides").find(':selected').attr('data-price');
-      }
+      // if ($("#sides").find(':selected').val() != '') {
+      //   paperSidesPrice = $("#sides").find(':selected').attr('data-price');
+      // }
 
       if ($("#color").find(':selected').val() != '') {
         paperColorPrice = $("#color").find(':selected').attr('data-price');
@@ -410,14 +421,18 @@
         laminationPrice = $("#lamination").find(':selected').attr('data-price');
       }
 
-      totalPrice = parseFloat(paperGsmPrice)+parseFloat(paperTypePrice)+parseFloat(paperSidesPrice)+parseFloat(paperColorPrice)+parseFloat(bindingPrice)+parseFloat(laminationPrice);
+      // totalPrice = parseFloat(paperGsmPrice)+parseFloat(paperTypePrice)+parseFloat(paperSidesPrice)+parseFloat(paperColorPrice)+parseFloat(bindingPrice)+parseFloat(laminationPrice);
 
-      if(paperSidesPrice != 0 && paperColorPrice != 0) {
-        totalPrice = parseFloat(totalPrice) - parseFloat(paperSidesPrice);
+      totalPrice = parseFloat(paperGsmPrice)+parseFloat(paperTypePrice)+parseFloat(paperSidesPrice)+parseFloat(paperColorPrice);
+
+      // if(paperSidesPrice != 0 && paperColorPrice != 0) {
+      //   totalPrice = parseFloat(totalPrice) - parseFloat(paperSidesPrice);
+      // }
+
+      finalPrice = (parseFloat(totalPrice)*parseInt(qty))+parseFloat(bindingPrice)+parseFloat(laminationPrice);;
+      if(qty != 0) {
+        $('.price-widget-sezzle').html(`₹`+finalPrice);
       }
-
-      finalPrice = parseFloat(totalPrice)*parseInt(qty);
-      $('.price-widget-sezzle').html(`₹`+finalPrice);
       $("#perSheetPrice").html(`₹`+totalPrice)
 
       console.log(totalPrice, parseInt(qty));
