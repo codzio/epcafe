@@ -8,7 +8,7 @@
         <p><i class="icon-pointer"></i> Shyam Electrosatat, 11, Vikas Marg,
           Veer Savarkar Block, Dayanand, <br> Colony, Shakarpur, Delhi, 110092</p>
         <p><i class="icon-call-end"></i> <a href="tel:+91 8448193390">+91 8448193390</a></p>
-        <p><i class="icon-envelope"></i> <a href="mailto:mail@eprintcafe.in">mail@eprintcafe.in</a></p>
+        <p><i class="icon-envelope"></i> <a href="mailto:mail@Eprintcafe.com">mail@Eprintcafe.com</a></p>
         <!-- <section class="small-about">
               <ul class="social_icons">
                 <li><a href="#." style="margin-left:0;"><i class="icon-social-facebook"></i></a></li>
@@ -39,11 +39,12 @@
       <h6>SHOP</h6>
       <ul class="link">
         <li><a href="{{ route('aboutPage') }}"> About Us</a></li>
-        <!-- <li><a href="#"> Career</a></li> -->
-        <!-- <li><a href="#"> Shipping Methods</a></li> -->
         <li><a href="{{ route('contactPage') }}"> Contact</a></li>
-        <!-- <li><a href="#"> Support</a></li> -->
-        <!-- <li><a href="#"> Retailer</a></li> -->
+        <li><a href="{{ route('termsAndConditionPage') }}"> Terms & Conditions</a></li>
+        <li><a href="{{ route('privacyPolicyPage') }}"> Privacy Policy</a></li>
+        <li><a href="{{ route('returnPolicyPage') }}"> Return Policy</a></li>
+        <li><a href="{{ route('shippingPolicyPage') }}"> Shipping Policy</a></li>
+        <li><a href="{{ route('cancellationPolicyPage') }}">Cancellation Policy</a></li>
       </ul>
     </div>
     

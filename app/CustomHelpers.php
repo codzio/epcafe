@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cookie;
-// use Request;
+use Request;
 
 use App\Models\AdminModel;
 use App\Models\MediaModel;
@@ -515,7 +515,9 @@ function productPrice() {
 
 		// $data['price'] = $data['per_sheet_weight']+$data['paper_type_price']+$data['printSideAndColorPrice']+$data['binding']+$data['lamination']+$data['cover'];
 
-		$data['price'] = $data['paper_type_price']+$data['printSideAndColorPrice']+$data['binding']+$data['lamination']+$data['cover'];
+		// $data['price'] = $data['paper_type_price']+$data['printSideAndColorPrice']+$data['binding']+$data['lamination']+$data['cover'];
+
+		$data['price'] = $data['paper_type_price']+$data['printSideAndColorPrice'];
 
 		$getCouponData = Session::get('couponSess');
 
@@ -533,9 +535,11 @@ function productPrice() {
 			$shipping = $getShippingData['shipping'];
 		}
 
+		$getPriceCal = ($data['price']*$cartData->qty)+$data['binding']+$data['lamination']+$data['cover'];
+
 		$data['discount'] = $discount;
 		$data['shipping'] = $shipping;
-		$data['total'] = (($data['price']*$cartData->qty)-$discount)+$shipping;
+		$data['total'] = ($getPriceCal-$discount)+$shipping;
 
 		return (object) $data;
 

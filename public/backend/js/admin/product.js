@@ -192,7 +192,7 @@ $("#kt_form").submit(function(event) {
     var description = tinymce.get('description').getContent();  
 
     formData = $(this).serialize();
-    formData += "&description="+description;
+    formData += "&description=" + encodeURIComponent(description);
 
     $.ajax({
         url: url,
@@ -238,7 +238,7 @@ $("#kt_form_update").submit(function(event) {
     var description = tinymce.get('description').getContent();  
 
     formData = $(this).serialize();
-    formData += "&description="+description;
+    formData += "&description=" + encodeURIComponent(description);
 
     $.ajax({
         url: url,

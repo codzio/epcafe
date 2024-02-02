@@ -61,6 +61,66 @@ class Home extends Controller {
 
 	}
 
+	public function privacyPolicy(Request $request) {
+
+		$data = array(
+			'title' => 'Privacy Policy',
+			'pageTitle' => 'Privacy Policy',
+			'menu' => 'privacy-policy',
+		);
+
+		return view('frontend/privacy-policy', $data);
+
+	}
+
+	public function returnPolicy(Request $request) {
+
+		$data = array(
+			'title' => 'Return Policy',
+			'pageTitle' => 'Return Policy',
+			'menu' => 'return-policy',
+		);
+
+		return view('frontend/return-policy', $data);
+
+	}
+
+	public function shippingPolicy(Request $request) {
+
+		$data = array(
+			'title' => 'Shipping Policy',
+			'pageTitle' => 'Shipping Policy',
+			'menu' => 'shipping-policy',
+		);
+
+		return view('frontend/shipping-policy', $data);
+
+	}
+
+	public function cancellationPolicy(Request $request) {
+
+		$data = array(
+			'title' => 'Cancellation Policy',
+			'pageTitle' => 'Cancellation Policy',
+			'menu' => 'cancellation-policy',
+		);
+
+		return view('frontend/cancellation-policy', $data);
+
+	}
+
+	public function termsAndCondition(Request $request) {
+
+		$data = array(
+			'title' => 'Terms and Conditions',
+			'pageTitle' => 'Terms and Conditions',
+			'menu' => 'terms-and-conditions',
+		);
+
+		return view('frontend/terms-conditions', $data);
+
+	}
+
 	public function contact(Request $request) {
 
 		$data = array(
@@ -212,9 +272,11 @@ class Home extends Controller {
 					
 					$getGsm = PricingModel::
 					join('gsm', 'pricing.paper_gsm_id', '=', 'gsm.id')
+					->join('paper_type', 'gsm.paper_type', '=', 'paper_type.id')
 					->where(['pricing.product_id' => $productId, 'pricing.paper_size_id' => $paperSize])
-					->select('gsm.*')
+					->select('gsm.*', 'paper_type.paper_type as paper_type_name')
 					->distinct('gsm.id')
+					->orderBy('gsm.gsm', 'asc')
 					->get();
 
 					$getBinding = BindingModel::where('paper_size_id', $paperSize)->get();
@@ -224,7 +286,7 @@ class Home extends Controller {
 
 					if (!empty($getGsm) && $getGsm->count()) {
 						foreach ($getGsm as $gsm) {
-							$gsmOptions .= '<option data-weight="'.$gsm->per_sheet_weight.'" value="'.$gsm->id.'">'.$gsm->gsm.' GSM</option>';
+							$gsmOptions .= '<option data-weight="'.$gsm->per_sheet_weight.'" value="'.$gsm->id.'">'.$gsm->gsm.' GSM - '.$gsm->paper_type_name.'</option>';
 						}
 					}
 
@@ -287,15 +349,15 @@ class Home extends Controller {
 
 					$getPaperSides = PricingModel::
 					where(['product_id' => $productId, 'paper_size_id' => $paperSize, 'paper_gsm_id' => $paperGsm, 'paper_type_id' => $paperType])
-					->select('side', 'other_price')
-					->distinct('side')
+					->select('side')
+					->distinct('product_id')
 					->get();
 
 					$paperSideOptions = '<option value="">Select Print Sides</option>';
 
 					if (!empty($getPaperSides) && $getPaperSides->count()) {
 						foreach ($getPaperSides as $paperSide) {
-							$paperSideOptions .= '<option data-price="'.$paperSide->other_price.'" value="'.$paperSide->side.'">'.$paperSide->side.'</option>';
+							$paperSideOptions .= '<option value="'.$paperSide->side.'">'.$paperSide->side.'</option>';
 						}
 					}
 

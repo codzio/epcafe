@@ -60,7 +60,7 @@ class Orders extends Controller {
 		    $rowperpage = $request->get("length"); // Rows display per page
 		    $inputName = $request->get('field');
 
-		    $singleDelUrl = route('adminDeleteOrders');
+		    $singleDelUrl = '';
 
 		    //get type
 		    $columnIndex_arr = $request->get('orders');

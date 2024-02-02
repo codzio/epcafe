@@ -31,7 +31,7 @@
       <!--<div class="more_than_year">-->
       <!--  <h4>We Have More than <strong style="color:var(--primary-color-1);">33</strong> Years Of Experience in Printing Services</h4>-->
       <!--</div>-->
-      <span style="width:100%; margin-bottom:35px;">Welcome to Eprintcafe.in, An initiative of India Inttech Pvt. Ltd. ( Shyam Electrostat - Since 1990), your dedicated offline convenience printing store ! We understand the value of your time and energy, which is why our platform is designed to provide you with easy access to high-quality online printing services. Say goodbye to the hassles of traditional printing – we're here to redefine your printing experience.
+      <span style="width:100%; margin-bottom:35px;">Welcome to Eprintcafe.com, An initiative of India Inttech Pvt. Ltd. ( Shyam Electrostat - Since 1990), your dedicated offline convenience printing store ! We understand the value of your time and energy, which is why our platform is designed to provide you with easy access to high-quality online printing services. Say goodbye to the hassles of traditional printing – we're here to redefine your printing experience.
       </span> 
     </div>
   </div>
@@ -82,7 +82,7 @@
                 INDIAN AIRFORCE<br>
                 INSTITUTE OF HIGHWAY ENGINEERINGING<br>
                 NATIONAL HIGHWAY AUTHORITY OF INDIA ETC.<br>
-                Now We introduce our self as e-commerce online store in the name of Eprintcafe.in</span>
+                Now We introduce our self as e-commerce online store in the name of Eprintcafe.com</span>
             </div>
           </div>
           <!--<div class="col-lg-7">-->

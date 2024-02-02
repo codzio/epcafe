@@ -79,7 +79,7 @@
               <li> <i class="icon-map-pin"></i> Shyam Electrosatat, 11, Vikas Marg,<br>
                 Veer Savarkar Block, Dayanand, <br> Colony, Shakarpur, Delhi, 110092</li>
               <li> <i class="icon-call-end"></i> <a href="tel:+91 8448193390">+91 8448193390</a></li>
-              <li> <i class="icon-envelope"></i> <a href="mailto:mail@eprintcafe.in" target="_top">mail@eprintcafe.in</a> </li>
+              <li> <i class="icon-envelope"></i> <a href="mailto:mail@Eprintcafe.com" target="_top">mail@Eprintcafe.com</a> </li>
               <li>
                 <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam erat turpis, pellentesque non leo eget.</p>-->
               </li>
