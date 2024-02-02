@@ -1269,9 +1269,6 @@
 												</div>
 												<span class="m-set">
 													<span class="after">
-														<!-- <select name="countryregion" id="">
-															<option value="">Country/Region</option>
-														</select> -->
 														<div class="select"></div>
 														<div class="custom-select">
 															<ul class="billing-list">
@@ -1315,7 +1312,7 @@
 				                        <li data-state-billing="WB">West Bengal</li>
 															</ul>
 														</div>
-														<input id="billing" type="hidden" value="{{ $address->billing_pincode }}" name="billingState">
+														<input id="billing" type="hidden" value="{{ $address->billing_state }}" name="billingState">
 														<span class="imp set_default_billing">*<span class="plc" data-default="{{ $address->billing_state }}"></span></span>
 														<span class="arw"><img src="{{ asset('public/frontend') }}/images/ExpandMore.png" alt=""></span>
 													</span>
@@ -1700,6 +1697,13 @@
   });
 
 $('.form-field input').each(function() {
+    var checkVal = $(this).val();
+    if (checkVal) {
+        $(this).siblings('.imp').css('opacity', '0');
+        $(this).css('background', '#fff');
+    }
+});
+$('.form-field textarea').each(function() {
     var checkVal = $(this).val();
     if (checkVal) {
         $(this).siblings('.imp').css('opacity', '0');
