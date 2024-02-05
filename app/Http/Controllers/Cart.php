@@ -467,7 +467,7 @@ class Cart extends Controller {
 		                if ($isDateValidated) {
 
 		                	//remove promo
-		                	Session::forget('coupon');
+		                	Session::forget('couponSess');
 
 		                	$productPrice = productPrice();
 		                	$subTotal = $productPrice->total;
