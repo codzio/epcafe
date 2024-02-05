@@ -8,13 +8,15 @@
   .tp-caption {
     color: #dd1d26 !important;
   }
-
   .home_banner_slide{
-    position:relative;
+      position:relative;
   }
-  .home_banner_slide img{
-    position:relative;
-  }
+.home_banner_slide img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
   .home_banner_slide_content{
     position:absolute;
     width:100%;
@@ -47,17 +49,13 @@
     width:80%;
     font-size:20px;
   }
-  .home_banner_slide{
-/*    height:70vh;*/
-  }
-  .home_banner_slide img{
-/*    height:100%;*/
-    object-fit:cover;
-    object-position:center;
-  }
+  
   .arrival-bock .item-img{
-    height:27vh;
+    /*height:37vh;*/
   }
+  
+  
+  
   .arrival-bock .item-img img{
     height: 100%;
     object-fit: cover;
@@ -68,12 +66,9 @@
     display: none !important;
   }
 
-  .home_banner_slide img {
-    cursor: pointer;
-  }
 
   @media (max-width:575px) {
-
+    
     .dbanner-img {
       display: none !important;
     }
@@ -126,7 +121,7 @@
       <div class="arrival-bock"> 
         <div class="papular-block row single-img-demos for_card_listing"> 
           @foreach($categoryList as $category)
-          <!-- Item -->
+          <!-- Item --> 
           <div class="col-md-3">
             <div class="item"> 
               <!-- Item img -->

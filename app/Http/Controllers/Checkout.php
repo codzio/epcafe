@@ -399,7 +399,8 @@ class Checkout extends Controller {
 	        		// print_r($shippingSess);
 	        		// print_r($couponSess);
 
-	        		$paidAmount = ceil($priceData->total*100);
+	        		// $paidAmount = ceil($priceData->total*100);
+	        		$paidAmount = $priceData->total*100;
 	        		$transactionId = uniqid();
 
 	        		$paymentObj = array (
@@ -552,7 +553,8 @@ class Checkout extends Controller {
 	        		'coupon_code' => $couponCode,
 	        		'discount' => $discount,
 	        		'shipping' => $shipping,
-	        		'paid_amount' => ceil($productPrice->total),
+	        		// 'paid_amount' => ceil($productPrice->total),
+	        		'paid_amount' => $productPrice->total,
 	        		'price_details' => json_encode($productPrice),
 	        		'transaction_details' => json_encode($response->data),
 	        		'customer_address' => json_encode($customerAdd->toArray()),
