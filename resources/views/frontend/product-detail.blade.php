@@ -3,6 +3,48 @@
 @section('content')
 
 <style type="text/css">
+  .detail_page_disc{  
+    margin-top:8%;
+  }
+  .iconlist{
+  }
+  .iconlist li{
+    padding-left: 26px;
+    position:relative;
+    }
+    .iconlist li::before{
+      position: absolute;
+      content: '';
+      width:6px;
+      height:6px;
+      border-radius:100%;
+      background:#000;
+      top:40%;
+      left:6px;
+    }
+
+    .detail_page_disc ul li::before {
+      position: absolute;
+      content: '';
+      width:6px;
+      height:6px;
+      border-radius:100%;
+      background:#000;
+      top:40%;
+      left:6px;
+    }
+
+    .detail_page_disc ul li{
+       padding-left: 26px;
+       position:relative;
+    }
+
+    .detail_page_disc h3{
+      text-transform: capitalize;
+    }
+    .detail_page_disc h5{
+      text-transform: capitalize;
+    }
   .validate-code-link-main .validate-code-link{
     display: flex;
   }
@@ -192,11 +234,12 @@
               </div>
             </div>
 
-            <div class="detail_page_disc">
-                {!! $product->description !!}
-            </div>
+            
             
           </div>
+          <div class="detail_page_disc">
+                {!! $product->description !!}
+            </div>
         </div>
       </div>
 </section>
