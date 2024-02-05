@@ -48,7 +48,7 @@
             
             <!-- Popular Images Slider -->
             <div class="col-md-6"> 
-              
+                
               <!-- Images Slider -->
               <div class="images-slider">
                 <ul class="slides">
@@ -59,7 +59,7 @@
               </div>
             </div>
             
-            <!-- COntent -->
+            <!-- Content -->
             <div class="col-md-6 detail_ul">
               <h4 style="color:var(--primary-color-1);">{{ $product->name }}</h4>
               
@@ -192,7 +192,9 @@
               </div>
             </div>
 
-            {!! $product->description !!}
+            <div class="detail_page_disc">
+                {!! $product->description !!}
+            </div>
             
           </div>
         </div>

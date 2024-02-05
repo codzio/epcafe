@@ -36,7 +36,7 @@
     border-right: 4px solid var(--primary-color-2);
  }
  div.ldr:before{
-  border-left: 3px solid var(--primary-color-2);
+  border-left: 3px solid var(--primary-color-3);
  }
  div.ldr:after{
   border-right: 2px solid var(--primary-color-2);
