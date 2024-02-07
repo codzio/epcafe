@@ -24,6 +24,7 @@
                   <li>
                     <h6>HELLO! {{ customerData('name'); }}</h6>
                   </li>
+                  <li><a href="{{ route('customerDashboard') }}">DASHBOARD</a></li>
                   <li><a href="{{ route('cartPage') }}">MY CART</a></li>
                   <li><a href="{{ route('customerLogout') }}">LOG OUT</a></li>
                 </ul>
@@ -151,6 +152,7 @@
                   <li>
                     <h6>HELLO! {{ customerData('name'); }}</h6>
                   </li>
+                  <li><a href="{{ route('customerDashboard') }}">DASHBOARD</a></li>
                   <li><a href="{{ route('cartPage') }}">MY CART</a></li>
                   <li><a href="{{ route('customerLogout') }}">LOG OUT</a></li>
                 </ul>
@@ -187,7 +189,7 @@
                   <li class="margin-0">
                     <div class="row">
                       <div class="col-xs-6"> <a href="{{ route('cartPage') }}" class="btn">VIEW CART</a></div>
-                      <div class="col-xs-6 "> <a href="{{ route('checkoutPage') }}" class="btn">CHECK OUT</a></div>
+                      <div class="col-xs-6 "> <a href="{{ route('checkoutPage') }}" class="btn green">CHECK OUT</a></div>
                     </div>
                   </li>
                 </ul>

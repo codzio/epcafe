@@ -73,8 +73,12 @@
   }
 </style>
 
+{!! setting('header_scripts') !!}
+
 </head>
 <body>
+
+  {!! setting('body_scripts') !!}
 
 <!-- LOADER -->
 <div id="loader">

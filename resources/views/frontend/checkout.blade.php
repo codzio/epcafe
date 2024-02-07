@@ -9,7 +9,7 @@
 </style>
 
 <!--======= SUB BANNER =========-->
-<section class="sub-bnr" data-stellar-background-ratio="0.5">
+<!-- <section class="sub-bnr" data-stellar-background-ratio="0.5">
   <div class="position-center-center">
     <div class="container">
       <h4>CHECKOUT</h4>
@@ -19,13 +19,13 @@
       </ol>
     </div>
   </div>
-</section>
+</section> -->
 
 <!-- Content -->
-<div id="content"> 
+<div id="content" class="check-out-page"> 
   
   <!--======= PAGES INNER =========-->
-  <section class="chart-page padding-top-100 padding-bottom-100">
+  <section class="chart-page">
     <div class="container"> 
       
       <!-- Payments Steps -->

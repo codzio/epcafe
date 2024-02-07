@@ -51,5 +51,8 @@ counters.forEach((counter) => {
 });
 
 </script>
+
+  {!! setting('footer_scripts') !!}
+
 </body>
 </html>
