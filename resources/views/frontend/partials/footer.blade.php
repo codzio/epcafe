@@ -52,7 +52,6 @@
     <div class="col-md-3">
       <h6>MY ACCOUNT</h6>
       <ul class="link">
-        <li><a href="{{ route('customerDashboard') }}"> Dashboard</a></li>
         <li><a href="{{ route('loginPage') }}"> Login</a></li>
         <li><a href="{{ route('registerPage') }}"> Register</a></li>
         <!-- <li><a href="#"> My Account</a></li> -->

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<section class="sub-bnr" data-stellar-background-ratio="0.5">
+<!-- <section class="sub-bnr" data-stellar-background-ratio="0.5">
   <div class="position-center-center">
     <div class="container">
       <h4>SHOPPING CART</h4>
@@ -13,7 +13,7 @@
     </div>
   </div>
 </section>
-
+ -->
 <!-- Content -->
 <div id="content"> 
   
@@ -24,30 +24,10 @@
       <!-- Payments Steps -->
       <div class="shopping-cart text-center">
         <div class="cart-head">
-          <ul class="row">
-            <!-- PRODUCTS -->
-            <li class="col-sm-2 text-left">
-              <h6>PRODUCTS</h6>
-            </li>
-            <!-- NAME -->
-            <li class="col-sm-4 text-left">
-              <h6>NAME</h6>
-            </li>
-            <!-- PRICE -->
-            <li class="col-sm-2">
+          <h6>PRODUCTS</h6>
               <h6>PRICE</h6>
-            </li>
-            <!-- QTY -->
-            <li class="col-sm-1">
               <h6>QTY</h6>
-            </li>
-            
-            <!-- TOTAL PRICE -->
-            <li class="col-sm-2">
               <h6>TOTAL</h6>
-            </li>
-            <li class="col-sm-1"> </li>
-          </ul>
         </div>
         
         @foreach($cartData as $cart)
@@ -58,47 +38,63 @@
             $price = productPrice()->price;
           }
         @endphp
-        <ul class="row cart-details">
-          <li class="col-sm-6">
-            <div class="media"> 
+        <div class="detail_card_row  shopping-cart small-cart">
+          <div class="row cart-details">
+           <div class="media media1"> 
               <!-- Media Image -->
-              <div class="media-left media-middle"> <a href="#." class="item-img"> <img class="media-object" src="{{ getImg($cart->thumbnail_id) }}" alt=""> </a> </div>
-              
-              <!-- Item Name -->
-              <div class="media-body">
-                <div class="position-center-center">
+            <div class="card_detail">
                   <h5>{{ $cart->name }}</h5>
                   {!! productSpec($cart->id) !!}
                   <p><strong>Document Link:</strong>{{ $cart->document_link }}</p>
                 </div>
               </div>
-            </div>
-          </li>
-          
-          <!-- PRICE -->
-          <li class="col-sm-2">
-            <div class="position-center-center"> <span class="price">{{ $price }}</span> </div>
-          </li>
-          
-          <!-- QTY -->
-          <li class="col-sm-1">
-            <div class="position-center-center">
-              <div class="quinty"> 
-                <input min="1" id="qty" type="number" name="qty" value="{{ $cart->qty }}">
+            
+            <!-- PRICE -->
+                <div class="media2"> <span class="price">{{ $price }}</span> </div>
+            
+            <!-- QTY -->
+              <div class="media3">
+                  <input min="1" id="qty" type="number" style="width:75px; text-align: center;" name="qty" value="{{ $cart->qty }}">
+              </div>            
+            <!-- TOTAL PRICE -->
+                <div class="media4"> <span class="price">{{ $price*$cart->qty }}</span> </div>
+            
+            <!-- REMOVE -->
+            <div class="media5"> <a class="remove-cart-item" data-id="{{ $cart->id }}" href="javascript:void(0)"><i class="icon-close"></i></a> </div>
+          </div>
+          <div class="cart-ship-info">
+            <div class="rows"> 
+              
+              <!-- DISCOUNT CODE -->
+              <div class="col-12">
+                <h6>DISCOUNT CODE</h6>
+                <form id="couponCodeForm" method="post" action="{{ route('applyPromo') }}">
+                  <input id="couponCode" name="couponCode" type="text" value="" placeholder="ENTER YOUR CODE IF YOU HAVE ONE">
+                  <button id="couponCodeFormBtn" type="submit" class="btn btn-small btn-dark">APPLY CODE</button>
+                  <p id="couponCodeErr" class="removeErr"></p>
+                </form>
+                
               </div>
+              
+              <!-- SUB TOTAL -->
+              <div class="col-12">
+                <h6>grand total</h6>
+                <div class="grand-total">
+                  <div class="order-detail">
+                    <p>Discount <span id="totalDiscount">0</span></p>
+                    <p>Shipping <span>0</span></p>
+                    <p class="all-total">TOTAL COST <span id="totalCost"> {{ productPrice()->total }}</span></p>
+                  </div>
+                </div>
+              </div>
+              <div class="coupn-btn"> 
+                  <a id="updatecart" href="javascript:void(0)" class="btn">Update Cart</a> 
+                  <a href="{{ route('checkoutPage') }}"  style="background:#49c93e;"  class="btn" style="background: var(--secondary-color-3); color: #fff!important;">Go To Checkout</a>                   
+                </div>
             </div>
-          </li>
-          
-          <!-- TOTAL PRICE -->
-          <li class="col-sm-2">
-            <div class="position-center-center"> <span class="price">{{ $price*$cart->qty }}</span> </div>
-          </li>
-          
-          <!-- REMOVE -->
-          <li class="col-sm-1">
-            <div class="position-center-center"> <a class="remove-cart-item" data-id="{{ $cart->id }}" href="javascript:void(0)"><i class="icon-close"></i></a> </div>
-          </li>
-        </ul>
+          </div>
+        </div>
+
         @endforeach
       
       </div>
@@ -106,42 +102,7 @@
   </section>
   
   <!--======= PAGES INNER =========-->
-  <section class="padding-top-100 padding-bottom-100 light-gray-bg shopping-cart small-cart">
-    <div class="container"> 
-      
-      <!-- SHOPPING INFORMATION -->
-      <div class="cart-ship-info margin-top-0">
-        <div class="row"> 
-          
-          <!-- DISCOUNT CODE -->
-          <div class="col-sm-7">
-            <h6>DISCOUNT CODE</h6>
-            <form id="couponCodeForm" method="post" action="{{ route('applyPromo') }}">
-              <input id="couponCode" name="couponCode" type="text" value="" placeholder="ENTER YOUR CODE IF YOU HAVE ONE">
-              <button id="couponCodeFormBtn" type="submit" class="btn btn-small btn-dark">APPLY CODE</button>
-              <p id="couponCodeErr" class="removeErr"></p>
-            </form>
-            <div class="coupn-btn"> 
-              <a href="{{ route('checkoutPage') }}" class="btn">Go To Checkout</a> 
-              <a id="updatecart" href="javascript:void(0)" class="btn">Update Cart</a> 
-            </div>
-          </div>
-          
-          <!-- SUB TOTAL -->
-          <div class="col-sm-5">
-            <h6>grand total</h6>
-            <div class="grand-total">
-              <div class="order-detail">
-                <p>Discount <span id="totalDiscount">0</span></p>
-                <p>Shipping <span>0</span></p>
-                <p class="all-total">TOTAL COST <span id="totalCost"> {{ productPrice()->total }}</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  
 </div>
 
 <script type="text/javascript">

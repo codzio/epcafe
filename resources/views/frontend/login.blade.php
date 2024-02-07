@@ -2,27 +2,28 @@
 
 @section('content')
   
+<style type="text/css">
+
+</style>
+
   <!--======= SUB BANNER =========-->
-  <section class="sub-bnr" data-stellar-background-ratio="0.5">
+  <!-- <section class="sub-bnr" data-stellar-background-ratio="0.5">
     <div class="position-center-center">
       <div class="container">
         <h4>LOGIN</h4>
-        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus maximus vehicula.  -->
-          <!-- Sed feugiat, tellus vel tristique posuere, diam</p> -->
         <ol class="breadcrumb">
           <li><a href="{{ route('homePage') }}">Home</a></li>
-          <!-- <li><a href="#">PAGES</a></li> -->
           <li class="active">LOGIN</li>
         </ol>
       </div>
     </div>
-  </section>
+  </section> -->
   
   <!-- Content -->
   <div id="content"> 
     
     <!--======= PAGES INNER =========-->
-    <section class="chart-page padding-top-100 padding-bottom-100">
+    <section class="chart-page charge_padding">
       <div class="container"> 
         
         <!-- Payments Steps -->
@@ -53,7 +54,7 @@
                       <span class="errors" id="emailErr"></span>
                     </li>
                     <!-- LAST NAME -->
-                    <li class="col-md-12">
+                    <li class="col-md-12 li_margin">
                       <label> PASSWORD
                         <input type="password" name="password" value="" placeholder="">
                       </label>
@@ -63,24 +64,21 @@
                     <input type="hidden" name="action" value="{{ $action }}">
                     
                     <!-- LOGIN -->
-                    <li class="col-md-4">
-                      <button id="loginFormBtn" type="submit" class="btn">LOGIN</button>
-                    </li>
-                    
-                    <!-- CREATE AN ACCOUNT -->
-                    <li class="col-md-4">
-                      <div class="checkbox margin-0 margin-top-20">
-                        <input id="checkbox1" class="styled" type="checkbox">
-                      </div>
-                    </li>
-                    
-                    <!-- FORGET PASS -->
-                    <li class="col-md-4">
-                      <div class="checkbox margin-0 margin-top-20 text-right">
-                        <a href="{{ route('forgetPasswordPage') }}">Forget Password?</a>
-                      </div>
-                    </li>
+                    <div class="rows">
+                      <li class="col-md-4">
+                        <button id="loginFormBtn" type="submit" class="btn">LOGIN</button>
+                      </li>
+                      
+                      <!-- FORGET PASS -->
+                      <li class="col-md-4">
+                        <div class="checkbox margin-0 margin-top-20 text-right">
+                          <a href="{{ route('forgetPasswordPage') }}">Forget Password?</a>
+                        </div>
+                      </li>
+                    </div>
                   </ul>
+                    <p class="sign_up">Don't have an Account? <a href="{{ $registerPageUrl }}">Sign up</a></p>
+
                 </form>
                 
               </div>

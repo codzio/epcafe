@@ -16,6 +16,7 @@
         height: 100%;
         object-fit: cover;
         object-position: center;
+        cursor: pointer;
     }
   .home_banner_slide_content{
     position:absolute;
@@ -84,6 +85,10 @@
 
     .for_card_listing {
       gap: 0px;
+    }
+
+    .home_banner_slide img {
+      object-fit: contain !important;
     }
 
   }
@@ -212,7 +217,7 @@
           </div>
           <span style="width:100%; margin-bottom:35px;">Welcome to Eprintcafe.com, An initiative of India Inttech Pvt. Ltd. ( Shyam Electrostat - Since 1990), your dedicated offline convenience printing store ! We understand the value of your time and energy, which is why our platform is designed to provide you with easy access to high-quality online printing services. Say goodbye to the hassles of traditional printing – we're here to redefine your printing experience.
           </span> 
-          <a href="about-us_01.html" class="theme-btn mt-20 home_btn">Know More <i class="lnr lnr-arrow-right"></i></a>
+          <a href="{{ route('aboutPage'); }}" class="theme-btn mt-20 home_btn">Know More <i class="lnr lnr-arrow-right"></i></a>
         </div>
       </div>
     </section>
@@ -267,20 +272,20 @@
               
               <!-- Slide -->
               <div class="testi-in"> <i class="fa fa-quote-left"></i>
-                <p>Phasellus lacinia fermentum bibendum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed ullamcorper sapien lacus, eu posuere odio luctus non. Nulla lacinia, eros vel fermentum consectetur, risus p</p>
-                <h5>john smith</h5>
+                <p>Great work, great communication and very flexible.</p>
+                <h5>Ankit</h5>
               </div>
               
               <!-- Slide -->
               <div class="testi-in"> <i class="fa fa-quote-left"></i>
-                <p>Phasellus lacinia fermentum bibendum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed ullamcorper sapien lacus, eu posuere odio luctus non. Nulla lacinia, eros vel fermentum consectetur, risus p</p>
-                <h5>faizan</h5>
+                <p>Excellent team, will be working again for sure.</p>
+                <h5>Suman</h5>
               </div>
               
               <!-- Slide -->
               <div class="testi-in"> <i class="fa fa-quote-left"></i>
-                <p>Phasellus lacinia fermentum bibendum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed ullamcorper sapien lacus, eu posuere odio luctus non. Nulla lacinia, eros vel fermentum consectetur, risus p</p>
-                <h5>arsalan</h5>
+                <p>They always go extra mile to achieve the results.</p>
+                <h5>Faizan</h5>
               </div>
             </div>
           </div>

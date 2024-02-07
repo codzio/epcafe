@@ -141,24 +141,23 @@
       <div class="col-12"> 
         
         <!-- SLide -->
-        <div class="single-slide"> 
-          
+        <div class="single-slide">
           <!-- Slide -->
           <div class="testi-in"> <i class="fa fa-quote-left"></i>
-            <p>Phasellus lacinia fermentum bibendum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed ullamcorper sapien lacus, eu posuere odio luctus non. Nulla lacinia, eros vel fermentum consectetur, risus p</p>
-            <h5>john smith</h5>
+            <p>Great work, great communication and very flexible.</p>
+            <h5>Ankit</h5>
           </div>
           
           <!-- Slide -->
           <div class="testi-in"> <i class="fa fa-quote-left"></i>
-            <p>Phasellus lacinia fermentum bibendum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed ullamcorper sapien lacus, eu posuere odio luctus non. Nulla lacinia, eros vel fermentum consectetur, risus p</p>
-            <h5>faizan</h5>
+            <p>Excellent team, will be working again for sure.</p>
+            <h5>Suman</h5>
           </div>
           
           <!-- Slide -->
           <div class="testi-in"> <i class="fa fa-quote-left"></i>
-            <p>Phasellus lacinia fermentum bibendum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed ullamcorper sapien lacus, eu posuere odio luctus non. Nulla lacinia, eros vel fermentum consectetur, risus p</p>
-            <h5>arsalan</h5>
+            <p>They always go extra mile to achieve the results.</p>
+            <h5>Faizan</h5>
           </div>
         </div>
       </div>

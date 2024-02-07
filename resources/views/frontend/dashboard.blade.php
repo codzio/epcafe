@@ -3,18 +3,18 @@
 @section('content')
     
 <!--======= SUB BANNER =========-->
-<section class="sub-bnr" data-stellar-background-ratio="0.5">
+<!-- <section class="sub-bnr" data-stellar-background-ratio="0.5">
 <div class="position-center-center">
   <div class="container">
     <h4>DASHBOARD</h4>
-    <!--<p>We're Ready To Help! Feel Free To Contact With Us</p>-->
+    <p>We're Ready To Help! Feel Free To Contact With Us</p>
     <ol class="breadcrumb">
       <li><a href="{{ route('homePage') }}">Home</a></li>
       <li class="active">DASHBOARD</li>
     </ol>
   </div>
 </div>
-</section>
+</section> -->
 
 <style type="text/css">
 		/*root css*/
@@ -32,6 +32,9 @@
 		/*typography css*/
 		.tab-head-font p{
 			margin-bottom:0;
+			font-family:'Montserrat';
+			font-weight:700;
+			font-size:17px;
 		}
 		.tab-head-font{
 			font-family: 'open-sans-regular';
@@ -42,7 +45,7 @@
 			color: #fff;
 		}
 		.tab-body-main-font{
-			font-family: 'open-sans-regular';
+			font-family: 'Montserrat';
 			font-style: normal;
 			font-weight: 600;
 			font-size: 14px;
@@ -51,7 +54,7 @@
 			color: #000;
 		}
 		.tab-body-para-font{
-			font-family: 'open-sans-regular';
+			font-family: 'Montserrat';
 			font-style: normal;
 			font-weight: 400;
 			font-size: 13px;
@@ -83,13 +86,13 @@
 			width: max-content;
 			height: auto;
 			background: #000;
-			border-right: 1px solid #fff;
+			border-right: 1px solid #fff; 	
 			border-radius: 5px 0px 0px 5px;
 			position: relative;
 		}
 		.tab-head ul{
 			padding-left: 0;
-			padding-top: 18.5px;
+/*			padding-top: 18.5px;*/
 			list-style: none;
 			position: relative;
 		}
@@ -130,6 +133,7 @@
 			padding-left: 36px;
 			padding-right: 32px;
 			border-top: 0.5px solid #1F242B;
+			font-family:'open-sans-regular';
 		}
 		.tab-head ul li img{
 			margin-right: 15px;
@@ -337,7 +341,7 @@
 			margin: 0;
 		}
 		.dashboardMsg p{
-			font-family: 'open-sans-regular';
+			font-family: 'Montserrat';
 			font-style: normal;
 			font-weight: 600;
 			font-size: 13px;
@@ -358,7 +362,7 @@
 		.my-orders table thead tr td:first-child{border-top-left-radius: 5px;border-bottom-left-radius: 5px;}
 		.my-orders table thead tr td:last-child{border-top-right-radius: 5px;border-bottom-right-radius: 5px;}
 		.my-orders table thead tr td{
-			font-family: 'open-sans-regular';
+			font-family: 'Montserrat';
 			font-style: normal;
 			font-weight: 600;
 			font-size: 14px;
@@ -799,8 +803,8 @@
 			}
 			.tab-body .after{width: 326px;}
 			.tab-body{
-				padding-left: 74px;
-				padding-right: 54px;
+/*				padding-left: 74px;*/
+/*				padding-right: 54px;*/
 			}
 			.tab-body .bodyMeasurement{padding-right: 16px;}
 			.tab-body .kandoraMeasurement{padding-right: 16px;}
@@ -844,8 +848,8 @@
 			.tab-body{
 				width: calc(100% - 266px);
 				padding-top: 30px;
-				padding-left: 101px;
-				padding-right: 62px;
+/*				padding-left: 101px;*/
+/*				padding-right: 62px;*/
 			}
 			.tab-body .bodyMeasurement{padding-right: 37px;}
 			.tab-body .kandoraMeasurement{padding-right: 37px;}
@@ -886,7 +890,7 @@
 			}
 			.tab-body .d-input .after .imp{left: 6%;}
 			.tab-body .form-field .imp{font-size: 16px;}
-			.dashboardMsg h2{font-size: 16px;}
+			.dashboardMsg h2{font-size: 16px;font-family: Montserrat;}
 			.dashboardMsg p{font-size: 16px;}
 			.addresses button{padding: 13.5px 40px;}
 			.address-tab a{font-size: 14px;}
@@ -1095,7 +1099,7 @@
 									</a>
 								</li>
 								<li>
-									<a href="{{ route('customerLogout') }}" class="tab-head-font">
+									<a onclick="logout('{{ route("customerLogout") }}')" href="{{ route('customerLogout') }}" class="tab-head-font">
 										<img src="images/logout.png" alt="">
 										<p>Logout</p>
 									</a>
@@ -1128,13 +1132,17 @@
 												</tr>
 											</thead>
 											<tbody>
+												@if(!empty($orders))
+												@foreach($orders as $order)
 												<tr>
-													<td>{{ strtoupper($orders->order_id) }}</td>
-													<td>{{ date('d-m-Y', strtotime($orders->created_at)) }}</td>
-													<td>{{ $orders->product_name }}</td>
-													<td>{{ $orders->qty }}</td>
-													<td>&#8377; {{ $orders->paid_amount }}</td>
+													<td>{{ strtoupper($order->order_id) }}</td>
+													<td>{{ date('d-m-Y', strtotime($order->created_at)) }}</td>
+													<td>{{ $order->product_name }}</td>
+													<td>{{ $order->qty }}</td>
+													<td>&#8377; {{ $order->paid_amount }}</td>
 												</tr>
+												@endforeach
+												@endif
 											</tbody>
 										</table>
 									</div>
@@ -1155,13 +1163,13 @@
 											<p>The following addresses will be used on the checkout page by default.</p>
 											<form id="shippingAddressForm" method="post">
 												<div class="form-field">
-													<input type="text" name="shippingName" class="mr-42" value="{{ $address->shipping_name }}">
+													<input type="text" name="shippingName" class="mr-42" value="{{ isset($address->shipping_name)? $address->shipping_name:'' }}">
 													<span class="imp">*<span class="plc">Shipping Name</span></span>
 												</div>
 												<span class="errors" id="shippingNameErr"></span>
 							
 												<div class="form-field">
-													<input type="text" name="shippingCompanyName" value="{{ $address->shipping_company_name }}">
+													<input type="text" name="shippingCompanyName" value="{{ isset($address->shipping_company_name)? $address->shipping_company_name:'' }}">
 													<span class="imp">*<span class="plc">Shipping Company Name</span></span>
 												</div>
 												<span class="errors" id="shippingNameErr"></span>
@@ -1213,34 +1221,34 @@
 				                        <li data-state-shipping="WB">West Bengal</li>
 															</ul>
 														</div>
-														<input id="shipping" type="hidden" name="shippingState" value="{{ $address->shipping_state }}">
-														<span class="imp set_default_shipping">*<span class="plc" data-default="{{ $address->shipping_state }}"></span></span>
+														<input id="shipping" type="hidden" name="shippingState" value="{{ isset($address->shipping_state)? $address->shipping_state:'' }}">
+														<span class="imp set_default_shipping">*<span class="plc" data-default="{{ isset($address->shipping_state)? $address->shipping_state:'' }}"></span></span>
 														<span class="arw"><img src="{{ asset('public/frontend') }}/images/ExpandMore.png" alt=""></span>
 														<span class="errors" id="shippingStateErr"></span>
 													</span>
 													<div class="form-field">
-														<input type="text" name="shippingCity" class="mr-42" value="{{ $address->shipping_city }}">
+														<input type="text" name="shippingCity" class="mr-42" value="{{ isset($address->shipping_city)? $address->shipping_city:''; }}">
 														<span class="imp">*<span class="plc">Shipping City</span></span>
 														<span class="errors" id="shippingCityErr"></span>
 													</div>
 												</span>
 												<div class="form-field">
-													<textarea  type="text" name="shippingAddress">{{ $address->shipping_address }}</textarea>
+													<textarea  type="text" name="shippingAddress">{{ isset($address->shipping_address)? $address->shipping_address:'' }}</textarea>
 													<span class="imp">*<span class="plc">Shipping Address</span></span>
 													<span class="errors" id="shippingAddressErr"></span>
 												</div>
 												<div class="form-field">
-													<input type="text" name="shippingPincode" class="mr-42" value="{{ $address->shipping_pincode }}">
+													<input type="text" name="shippingPincode" class="mr-42" value="{{ isset($address->shipping_pincode)? $address->shipping_pincode:'' }}">
 													<span class="imp"><span class="plc">Shipping Pincode</span></span>
 													<span class="errors" id="shippingPincodeerr"></span>
 												</div>
 												<div class="form-field">
-													<input type="text" name="shippingEmail" class="mr-42" value="{{ $address->shipping_email }}">
+													<input type="text" name="shippingEmail" class="mr-42" value="{{ isset($address->shipping_email)? $address->shipping_email:'' }}">
 													<span class="imp">*<span class="plc">Shipping Email</span></span>
 													<span class="errors" id="shippingEmailErr"></span>
 												</div>
 												<div class="form-field">
-													<input type="text" name="shippingPhone" class="mr-42" value="{{ $address->shipping_phone }}">
+													<input type="text" name="shippingPhone" class="mr-42" value="{{ isset($address->shipping_phone)? $address->shipping_phone:'' }}">
 													<span class="imp">*<span class="plc">Shipping Phone</span></span>
 													<span class="errors" id="shippingPhoneErr"></span>
 												</div>
@@ -1258,13 +1266,13 @@
 											<p>The following addresses will be used on the checkout page by default.</p>
 											<form id="billingAddressForm" method="post">
 												<div class="form-field">
-													<input type="text" name="billingName" class="mr-42" value="{{ $address->billing_name }}">
+													<input type="text" name="billingName" class="mr-42" value="{{ isset($address->billing_name)? $address->billing_name:'' }}">
 													<span class="imp">*<span class="plc">Billing Name</span></span>
 												</div>
 												<span class="errors" id="billingNameErr"></span>
 							
 												<div class="form-field">
-													<input type="text" name="billingCompanyName" value="{{ $address->billing_company_name }}">
+													<input type="text" name="billingCompanyName" value="{{ isset($address->billing_company_name)? $address->billing_company_name:'' }}">
 													<span class="imp">*<span class="plc">Billing Company Name</span></span>
 												</div>
 												<span class="m-set">
@@ -1312,33 +1320,33 @@
 				                        <li data-state-billing="WB">West Bengal</li>
 															</ul>
 														</div>
-														<input id="billing" type="hidden" value="{{ $address->billing_state }}" name="billingState">
-														<span class="imp set_default_billing">*<span class="plc" data-default="{{ $address->billing_state }}"></span></span>
+														<input id="billing" type="hidden" value="{{ isset($address->billing_state)? $address->billing_state:'' }}" name="billingState">
+														<span class="imp set_default_billing">*<span class="plc" data-default="{{ isset($address->billing_state)? $address->billing_state:'' }}"></span></span>
 														<span class="arw"><img src="{{ asset('public/frontend') }}/images/ExpandMore.png" alt=""></span>
 													</span>
 													<div class="form-field">
-														<input type="text" name="billingCity" class="mr-42" value="{{ $address->billing_city }}">
+														<input type="text" name="billingCity" class="mr-42" value="{{ isset($address->billing_city)? $address->billing_city:'' }}">
 														<span class="imp">*<span class="plc">Billing City</span></span>
 														<span class="errors" id="billingCityErr"></span>
 													</div>
 												</span>
 												<div class="form-field">
-													<textarea type="text" name="billingAddress">{{ $address->billing_address }}</textarea>
+													<textarea type="text" name="billingAddress">{{ isset($address->billing_address)? $address->billing_address:'' }}</textarea>
 													<span class="imp">*<span class="plc">Billing Address</span></span>
 													<span class="errors" id="billingAddressErr"></span>
 												</div>
 												<div class="form-field">
-													<input type="text" name="billingPincode" class="mr-42" value="{{ $address->billing_pincode }}">
+													<input type="text" name="billingPincode" class="mr-42" value="{{ isset($address->billing_pincode)? $address->billing_pincode:'' }}">
 													<span class="imp"><span class="plc">Billing Pincode</span></span>
 													<span class="errors" id="billingPincodeerr"></span>
 												</div>
 												<div class="form-field">
-													<input type="text" name="billingEmail" class="mr-42" value="{{ $address->billing_email }}">
+													<input type="text" name="billingEmail" class="mr-42" value="{{ isset($address->billing_email)? $address->billing_email:'' }}">
 													<span class="imp">*<span class="plc">Billing Email</span></span>
 													<span class="errors" id="billingEmailErr"></span>
 												</div>
 												<div class="form-field">
-													<input type="text" name="billingPhone" class="mr-42" value="{{ $address->billing_phone }}">
+													<input type="text" name="billingPhone" class="mr-42" value="{{ isset($address->billing_phone)? $address->billing_phone:'' }}">
 													<span class="imp">*<span class="plc">Billing Phone</span></span>
 													<span class="errors" id="billingPhoneErr"></span>
 												</div>
@@ -1954,6 +1962,11 @@ $(document).ready(function(){
 
 
 <script type="text/javascript">
+
+	function logout(url) {
+		window.location.href = url;
+	}
+
   $(document).ready(function() {
 
     $.ajaxSetup({

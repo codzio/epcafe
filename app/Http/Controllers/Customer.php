@@ -40,13 +40,13 @@ class Customer extends Controller {
 
 	    	$address = CustomerAddressModel::where($cond)->first();
 
-	    	$orders = OrderModel::where(['user_id' => $customerId])->first();
+	    	$orders = OrderModel::where(['user_id' => $customerId])->get();
 
-	    	$productDetails= json_decode($orders->product_details);
+	    	// $productDetails= json_decode($orders->product_details);
 
-	    	$priceDetailsComp= json_decode($orders->price_details);
+	    	// $priceDetailsComp= json_decode($orders->price_details);
 
-	    	$customerAdd= json_decode($orders->customer_address);
+	    	// $customerAdd= json_decode($orders->customer_address);
 
 
 	    	// echo "<pre>";
@@ -62,9 +62,9 @@ class Customer extends Controller {
 				'menu' => 'dashboard',
 				'customer' => $customer,
 				'address' => $address,
-				'customerAdd' => $customerAdd,
-				'productDetails' => $productDetails,
-				'priceDetailsComp' => $priceDetailsComp,
+				// 'customerAdd' => $customerAdd,
+				// 'productDetails' => $productDetails,
+				// 'priceDetailsComp' => $priceDetailsComp,
 				'orders' => $orders,
 			);
 
@@ -82,12 +82,18 @@ class Customer extends Controller {
 	public function login(Request $request) {
 
 		$action = $request->get('action');
+		$registerPageUrl = route('registerPage');
+
+		if (!empty($action) && $action == 'checkout') {
+			$registerPageUrl = route('registerPage', ['action' => $action]);
+		}
 
 		$data = array(
 			'title' => 'Login',
 			'pageTitle' => 'Login',
 			'menu' => 'login',
-			'action' => $action
+			'action' => $action,
+			'registerPageUrl' => $registerPageUrl
 		);
 
 		$customerSess = Session::get('customerSess');
@@ -116,10 +122,19 @@ class Customer extends Controller {
 
 	public function register(Request $request) {
 
+		$action = $request->get('action');
+		$loginPageUrl = route('loginPage');
+
+		if (!empty($action) && $action == 'checkout') {
+			$loginPageUrl = route('loginPage', ['action' => $action]);
+		}
+
 		$data = array(
 			'title' => 'Register',
 			'pageTitle' => 'Register',
 			'menu' => 'register',
+			'action' => $action,
+			'loginPageUrl' => $loginPageUrl 
 		);
 
 		$customerSess = Session::get('customerSess');
@@ -178,10 +193,21 @@ class Customer extends Controller {
 	        		$customer = CustomerModel::latest()->first();
 	        		$request->session()->put('customerSess', ['customerId' => $customer->id]);
 
+	        		$redirectUrl = route('customerDashboard');
+
+	        		if (!empty($request->post('action'))) {
+	        			if ($request->post('action') == 'checkout') {
+	        				$redirectUrl = route('checkoutPage');
+	        			}
+	        		}
+
+	        		//update customer id if cart data exist
+			        updateUserIdInCart();
+
     				$this->status = array(
 						'error' => false,								
 						'msg' => 'Your account has been created sucessfully',
-						'redirect' => route('customerDashboard'),
+						'redirect' => $redirectUrl,
 					);
 
     			} else {

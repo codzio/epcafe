@@ -404,7 +404,7 @@ class Checkout extends Controller {
 	        		$transactionId = uniqid();
 
 	        		$paymentObj = array (
-			            'merchantId' => 'PGTESTPAYUAT',
+			            'merchantId' => env("STG_MERCHANT_ID"),
 			            'merchantTransactionId' => $transactionId,
 			            'merchantUserId' => 'MUID123',
 			            'amount' => $paidAmount,
@@ -418,13 +418,13 @@ class Checkout extends Controller {
 			        );
 
 			        $encode = base64_encode(json_encode($paymentObj));
-			        $saltKey = '099eb0cd-02cf-4e2a-8aca-3e6c6aff0399';
+			        $saltKey = env('STG_MERCHANT_KEY');
         			$saltIndex = 1;
 
         			$string = $encode.'/pg/v1/pay'.$saltKey;
         			$sha256 = hash('sha256',$string);
         			$finalXHeader = $sha256.'###'.$saltIndex;
-        			$url = "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay";
+        			$url = env('STG_URL')."/pg/v1/pay";
 
         			$response = Curl::to($url)
 	                ->withHeader('Content-Type:application/json')
@@ -490,15 +490,15 @@ class Checkout extends Controller {
 
         if (!empty($paymentSess)) {
        
-	        $merchantId = "PGTESTPAYUAT";
+	        $merchantId = env("STG_MERCHANT_ID");
 	        $transactionId = $paymentSess['transactionId'];
 
-	        $saltKey = '099eb0cd-02cf-4e2a-8aca-3e6c6aff0399';
+	        $saltKey = env('STG_MERCHANT_KEY');
 	        $saltIndex = 1;
 
 	        $finalXHeader = hash('sha256','/pg/v1/status/'.$merchantId.'/'.$transactionId.$saltKey).'###'.$saltIndex;
 
-	        $response = Curl::to('https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/status/'.$merchantId.'/'.$transactionId)
+	        $response = Curl::to(env('STG_URL').'/pg/v1/status/'.$merchantId.'/'.$transactionId)
 	                ->withHeader('Content-Type:application/json')
 	                ->withHeader('accept:application/json')
 	                ->withHeader('X-VERIFY:'.$finalXHeader)

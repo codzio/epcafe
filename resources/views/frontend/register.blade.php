@@ -1,28 +1,26 @@
 @extends('vwFrontMaster')
 
 @section('content')
-    
+  
 
 <!--======= SUB BANNER =========-->
-  <section class="sub-bnr" data-stellar-background-ratio="0.5">
+  <!-- <section class="sub-bnr" data-stellar-background-ratio="0.5">
     <div class="position-center-center">
       <div class="container">
         <h4>REGISTER</h4>
-        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus maximus vehicula.  -->
-          <!-- Sed feugiat, tellus vel tristique posuere, diam</p> -->
         <ol class="breadcrumb">
           <li><a href="{{ route('homePage') }}">Home</a></li>
           <li class="active">REGISTER</li>
         </ol>
       </div>
     </div>
-  </section>
+  </section> -->
   
   <!-- Content -->
   <div id="content"> 
     
     <!--======= PAGES INNER =========-->
-    <section class="chart-page padding-top-100 padding-bottom-100">
+    <section class="chart-page charge_padding">
       <div class="container"> 
         
         <!-- Payments Steps -->
@@ -140,18 +138,19 @@
                     </li>
 
                     <!-- LAST NAME -->
-                    <li class="col-md-6">
+                    <li class="col-md-6 li_margin">
                       <label> *CONFIRM PASSWORD
                         <input type="password" name="confirmPassword" value="" placeholder="">
                       </label>
                       <span class="errors" id="confirmPasswordErr"></span>
-                    </li>                    
-                    
-          
-                    <li class="col-md-6">
-                      <button id="registerFormBtn" type="submit" class="btn">REGISTER NOW</button>
                     </li>
+
+                    <input type="hidden" name="action" value="{{ $action }}">
+                    
                   </ul>
+                  <button id="registerFormBtn" type="submit" class="btn">REGISTER NOW</button>
+                    <p class="sign_up">Already have an Account? <a href="{{ $loginPageUrl }}">Login</a></p>
+
                 </form>
               </div>
             </div>
