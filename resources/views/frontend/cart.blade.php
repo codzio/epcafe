@@ -45,7 +45,7 @@
             <div class="card_detail">
                   <h5>{{ $cart->name }}</h5>
                   {!! productSpec($cart->id) !!}
-                  <p><strong>Document Link:</strong>{{ $cart->document_link }}</p>
+                  <!-- <p><strong>Document Link:</strong>{{ $cart->document_link }}</p> -->
                 </div>
               </div>
             

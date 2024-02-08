@@ -93,7 +93,13 @@
 
                            <tr>
                                <th>Document Link</th>
-                               <td>{{ $order->document_link }}</td>
+                               <td>
+                                   @if(!empty($documentLinks))
+                                   @foreach($documentLinks as $docLink)
+                                    <li>{{ $docLink }}</li>
+                                   @endforeach
+                                   @endif
+                               </td>
                            </tr>
                            <tr>
                                <th>Customer Address</th>
