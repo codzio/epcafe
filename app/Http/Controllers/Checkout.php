@@ -28,14 +28,24 @@ use App\Models\OrderModel;
 
 use Ixudra\Curl\Facades\Curl;
 
+// Dropbox
+use Storage;
+use League\Flysystem\Filesystem;
+use Spatie\FlysystemDropbox\DropboxAdapter;
+use Spatie\Dropbox\Client as DropboxClient; // Import the DropboxClient
+
+//GDrive
+use App\Services\GoogleDriveService;
+
 class Checkout extends Controller {
 
 	private $status = array();
 
 	public function index(Request $request) {
 
-		//remove payment session
+		//remove payment session & document session
 		Session::forget('paymentSess');
+		Session::forget('documents');
 
 		$tempId = $request->cookie('tempUserId');		
 
@@ -393,6 +403,22 @@ class Checkout extends Controller {
 	        		$productSpec = productSpec(getCartId());
 	        		$shippingSess = Session::get('shippingSess');
 	        		$couponSess = Session::get('couponSess');
+	        		$documentSess = Session::get('documents');
+	        		
+	        		//check document session
+
+	        		if (empty($documentSess)) {
+	        			
+	        			$this->status = array(
+							'error' => true,
+							'eType' => 'final',
+							'msg' => 'Please upload your document'
+						);
+
+						echo json_encode($this->status);
+						die();
+						
+	        		}
 
 	        		// print_r($priceData);
 	        		// print_r($weightData);
@@ -568,10 +594,13 @@ class Checkout extends Controller {
 
 	        		//Remove Cart Data
 	        		CartModel::where('user_id', customerId())->delete();
+	        		
 	        		Session::forget('shippingSess');
 	        		Session::forget('couponSess');
 	        		Session::forget('paymentSess');
-	        		return redirect()->route('thankyouPage');
+	        		Session::forget('documents');
+
+	        		return redirect()->route('thankyouPage', ['amount' => $orderObj['paid_amount'], 'transaction_id' => $orderObj['order_id']]);
 
 	        	} else {
 	        		return redirect()->route('paymentFailPage');
@@ -585,6 +614,156 @@ class Checkout extends Controller {
         	return redirect()->route('checkoutPage');
         }
         
+    }
+
+    public function doUploadDropbox(Request $request) {
+
+    	if ($request->ajax()) {
+
+			$validator = Validator::make($request->all(), [
+	            'file.*' => 'required|mimes:png,jpg,jpeg,pdf,zip|max:10024',
+	        ]);
+
+	        if ($validator->fails()) {
+	            
+	            $errors = $validator->errors()->getMessages();
+
+	            $this->status = array(
+					'error' => true,
+					'eType' => 'field',
+					'errors' => $errors,
+					'msg' => 'Validation failed'
+				);
+
+	        } else {
+
+	        	$files = $request->file('file');
+	        	$customerId = customerId();
+
+	        	//check customer is logged in
+
+	        	if (!$customerId) {
+	        		
+	        		$this->status = array(
+						'error' => true,
+						'eType' => 'final',
+						'msg' => 'Please login to upload your document.'
+					);
+
+
+	        	} else {
+	        		
+	        		//Dropbox
+	        		$token = config('filesystems.disks.dropbox.token');
+	        		$dropboxClient = new DropboxClient($token);
+					$adapter = new DropboxAdapter($dropboxClient);
+					$filesystem = new Filesystem($adapter);
+
+					//Gdrive
+					$googleDriveService = new GoogleDriveService();
+
+	        		$uploadedFileList = [];
+	        		$year = date('Y');
+		        	$month = date('m');
+		        	$date = date('d');
+
+		        	foreach ($files as $file) {
+
+		        		$uniqueId = md5(microtime());
+		        		
+		        		$originalName = $file->getClientOriginalName();
+		        		$originalNameWithoutExt = pathinfo($originalName, PATHINFO_FILENAME);
+
+		        		$ext = $file->extension();
+		        		//$size = formatSize($file->getSize());
+		        		$size = $file->getSize();
+
+		        		$nameWithoutExtSlugify = Str::slug($originalNameWithoutExt.'-'.$uniqueId);
+			        	$finalName = $nameWithoutExtSlugify.'.'.$ext;
+
+			        	$craftPath = $year.'/'.$month.'/'.$date;
+						$path = $year.'/'.$month.'/'.$date. '/' . $finalName;
+						//$filesystem->write($path, file_get_contents($file->getRealPath()));
+
+						//$filePath = $file->storeAs($craftPath, $finalName);
+						$folderId = '1AgOwXplcpb1Y1xW-MYQ6FAgDhP_mC3Sw';
+						//$fileId = $googleDriveService->uploadFile(storage_path("app/{$filePath}"), $folderId);
+
+						$fileContent = $file->get();
+						$fileId = $googleDriveService->uploadFileContent($fileContent, $folderId, $finalName);
+
+						//$uploadedFileList[] = $path;
+						$uploadedFileList[] = $finalName;
+
+		        	}	
+
+		        	if (!empty($uploadedFileList)) {
+
+		        		//get stored document if any from the documents session
+		        		$storedDocs = Session::get('documents');
+
+		        		if (!empty($storedDocs)) {
+		        			
+		        			$oldDocs = json_decode($storedDocs);
+		        			$newDocs = $uploadedFileList;
+
+		        			$fileList = array_merge($oldDocs, $newDocs);
+		        			$fileList = json_encode($fileList);
+
+		        		} else {
+		        			$fileList = json_encode($uploadedFileList);
+		        		}
+
+		        		$obj = array('document_link' => $fileList);
+
+		        		//create session to store files
+		        		$sessionObj = $fileList;
+		        		$request->session()->put('documents', $fileList);
+
+		        		$isUploaded = CartModel::where('user_id', $customerId)->update($obj);
+
+		        		if ($isUploaded) {
+	        		
+			        		$this->status = array(
+								'error' => false,
+								'msg' => 'Document has been uploaded successfully.'
+							);
+
+			        	} else {
+
+			        		$this->status = array(
+								'error' => true,
+								'eType' => 'final',
+								'msg' => 'Something went wrong.'
+							);
+
+			        	}
+
+
+		        	} else {
+
+		        		$this->status = array(
+							'error' => true,
+							'eType' => 'final',
+							'msg' => 'Something went wrong'
+						);
+
+		        	}
+
+	        	}
+	        	
+	        }
+
+
+		} else {
+			$this->status = array(
+				'error' => true,
+				'eType' => 'final',
+				'msg' => 'Something went wrong'
+			);
+		}
+
+		echo json_encode($this->status);
     }
 
 }

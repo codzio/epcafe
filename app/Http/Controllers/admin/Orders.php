@@ -226,6 +226,11 @@ class Orders extends Controller {
 			$priceDetail = json_decode($orderData->price_details);
 			$transactionDetail = json_decode($orderData->transaction_details);
 			$addressDetails = json_decode($orderData->customer_address);
+			$documentLinks = [];
+
+			if (!empty($orderData->document_link)) {
+				$documentLinks = json_decode($orderData->document_link);
+			}
 
 			$data = array(
 				'title' => 'Order Detail',
@@ -235,7 +240,8 @@ class Orders extends Controller {
 				'customer' => $customerData,
 				'priceDetail' => $priceDetail,
 				'transactionDetail' => $transactionDetail,
-				'addressDetails' => $addressDetails
+				'addressDetails' => $addressDetails,
+				'documentLinks' => $documentLinks,
 			);
 
 			return view('admin/order/view', $data);

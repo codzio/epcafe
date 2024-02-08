@@ -23,6 +23,10 @@ use App\Models\CoverModel;
 use App\Models\ShippingModel;
 
 use App\Models\ContactModel;
+use Storage;
+use League\Flysystem\Filesystem;
+use Spatie\FlysystemDropbox\DropboxAdapter;
+use Spatie\Dropbox\Client as DropboxClient; // Import the DropboxClient
 
 class Home extends Controller {
 
@@ -499,11 +503,17 @@ class Home extends Controller {
 		return response($this->status);
 	}
 
-	public function thankyou() {
+	public function thankyou(Request $request) {
+
+		$amount = $request->get('amount');
+		$transactionId = $request->get('transaction_id');
+
 		$data = array(
 			'title' => 'Thank You',
 			'pageTitle' => 'Thank You',
 			'menu' => 'thank-you',
+			'amount' => $amount,
+			'transactionId' => $transactionId,
 		);
 
 		return view('frontend/thankYou', $data);
@@ -517,5 +527,40 @@ class Home extends Controller {
 		);
 
 		return view('frontend/paymentFailure', $data);
+	}
+
+	public function upload() {
+		$data = array(
+			'title' => 'Upload',
+			'pageTitle' => 'Upload',
+			'menu' => 'upload',
+		);
+
+		return view('frontend/upload', $data);
+	}
+
+	public function doUploadDropbox(Request $request) {
+
+		echo "<pre>";
+		print_r($_FILES);
+
+		$file = $request->file('documents');
+		$fileName = $file->getClientOriginalName();
+		$ext = $file->extension();
+		
+		//$path = $file->store('documents', 'dropbox');
+		//print_r($path);
+
+		$token = config('filesystems.disks.dropbox.token');
+		$dropboxClient = new DropboxClient($token);
+		$adapter = new DropboxAdapter($dropboxClient);
+		$filesystem = new Filesystem($adapter);
+
+        $path = 'documents/' . $file->getClientOriginalName();
+        $filesystem->write($path, file_get_contents($file->getRealPath()));
+
+        echo $path;
+		die();
+
 	}
 }

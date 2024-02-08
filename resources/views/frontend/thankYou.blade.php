@@ -1,6 +1,16 @@
 @extends('vwFrontMaster')
 
 @section('content')
+
+<!-- Event snippet for Purchase conversion page -->
+<script>
+  gtag('event', 'conversion', {
+      'send_to': 'AW-11400170460/fvYgCOnsj5AZENyXg7wq',
+      'value': {{ $amount }},
+      'currency': 'INR',
+      'transaction_id': '{{ $transactionId }}'
+  });
+</script>
     
 <!--======= SUB BANNER =========-->
 <section class="sub-bnr" data-stellar-background-ratio="0.5">

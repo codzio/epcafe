@@ -97,7 +97,7 @@ class Cart extends Controller {
 			    'lamination' => 'sometimes|nullable|numeric',
 			    'cover' => 'sometimes|nullable|numeric',
 			    'noOfCopies' => 'required|numeric',
-			    'documentLink' => 'required|url:http,https',
+			    // 'documentLink' => 'required|url:http,https',
 			]);
 
 	        if ($validator->fails()) {
@@ -123,7 +123,7 @@ class Cart extends Controller {
 	        	$lamination = $request->post('lamination');
 	        	$cover = $request->post('cover');
 	        	$noOfCopies = $request->post('noOfCopies');
-	        	$documentLink = $request->post('documentLink');
+	        	// $documentLink = $request->post('documentLink');
 
 	        	//check if product exist for delivery
 	        	$isProductExist = ProductModel::where(['id' => $productId, 'is_active' => 1])->first();
@@ -198,8 +198,16 @@ class Cart extends Controller {
 	        					'lamination_id' => $lamination,
 	        					'cover_id' => $cover,
 	        					'qty' => $noOfCopies,
-	        					'document_link' => $documentLink,
+	        					// 'document_link' => $documentLink,
 	        				];
+
+	        				//remove the cart if any
+	        				CartModel::where('temp_id', $tempId)->delete();
+
+	        				Session::forget('shippingSess');
+			        		Session::forget('couponSess');
+			        		Session::forget('paymentSess');
+			        		Session::forget('documents');
 
 	        				CartModel::where('temp_id', $tempId)->delete();
 	        				$isAdded = CartModel::create($cartObj);
@@ -293,6 +301,10 @@ class Cart extends Controller {
 	        	CartModel::where('id', $cartId)->delete();
 
 	        	//remove coupon && shipping
+	        	Session::forget('documents');
+	        	Session::forget('shippingSess');
+        		Session::forget('couponSess');
+        		Session::forget('paymentSess');
 
 	        	$this->status = array(
 					'error' => false,
