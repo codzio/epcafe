@@ -72,6 +72,7 @@ body {
 
 
 
+
 /* start login page css*/
 
 .li_margin{
@@ -182,14 +183,16 @@ body {
 	padding-left:1%;
 }
 .media1{
-	width:27%;
+/*	width:27%;*/
+	width:30%;
 }
 .media3{
 	width:42%;
 }
 .media4{
-	margin-right:9%;
-	width:8%;
+	margin-right:8%;
+/*	width:8%;*/
+	width:0;
 }
 .media5{
 	margin-top:6px;
@@ -201,12 +204,15 @@ body {
 
 /* start custom css*/
 .home_banner_slide{
-    height:350px;
+/*    height:350px;*/
 }
-.home_banner_slide img{
+.home_banner{
+	height:390px;
+}
+.home_banner img{
     width:100%;
     height:100%;
-    object-fit:cover;
+/*    object-fit:cover;*/
     object-position:center
 }
 .item-img{
@@ -531,7 +537,7 @@ section {
 	background: #fff;
 }
 .padding-top-100.home_page_card{
-    padding-top:60px!important;
+    padding-top:50px!important;
 }
 .text-shadow {
 	text-shadow: 3px 0px 5px var(--primary-color-3);
@@ -546,13 +552,13 @@ section {
 	background: #fff;
 	position: relative;
 	z-index: 1;
-	margin-top:3%;
+/*	margin-top:3%;*/
 }
 .check-out-page{
 	margin:0 0 5%;
 }
 #placeOrderBtn{
-	background:var(--green-color);
+	background:var(--green-color);	
 }
 /*=======================================================
 	HEADING
@@ -2941,6 +2947,7 @@ header .is-sticky .sticky .user-basket .dropdown-menu {
 	right: 0px;
 	margin: 0 auto;
 }
+
 .chart-page .payment_steps h6 {
 	font-size: 12px;
 	margin: 20px 0;
@@ -2993,7 +3000,7 @@ header .is-sticky .sticky .user-basket .dropdown-menu {
 .shopping-cart h5 {
 	letter-spacing: 2px;
 	color: var(--secondary-color-3);
-	margin-bottom: 0px;
+	margin-bottom:10px;
 	margin-top:0;
 }
 .shopping-cart .bootstrap-select {
@@ -3054,7 +3061,8 @@ header .is-sticky .sticky .user-basket .dropdown-menu {
 }
 .cart-head{
 	display:grid;
-	grid-template-columns:1fr 1fr 1fr 1fr;
+/*	grid-template-columns:1fr 1fr 1fr 1fr;*/
+	grid-template-columns:30% 1fr 1fr 1fr;
 }
 .cart-head h6{
 	text-align:left;
@@ -5246,7 +5254,7 @@ main {
 		padding-top:0!important;
 	}
 	#content{
-		margin-top:	-2%;
+/*		margin-top:	-2%;*/
 		margin-bottom:60px;
 	}
 	.shopping-cart .cart-ship-info h6{
@@ -5340,7 +5348,7 @@ main {
 		font-size:17px!important;
 	}
 	.media1{
-		width:40%	;
+		width:30%;
 	}
     footer{
         padding:60px 0;

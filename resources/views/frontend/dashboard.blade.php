@@ -29,12 +29,57 @@
 			--linear-gradient: linear-gradient(to right, #8B694E, #F5CF96);
 		}
 
+		/*dashboard css*/
+		#accountDetailForm{
+			flex-direction:column;
+		}
+		#changePasswordForm{
+			flex-direction: column;
+		}
+		.data.account-forms .form{
+			padding-bottom:40px;
+		}
+ 		.account-detail-input{
+				display:flex;
+				justify-content:space-between;
+		}
+		.account-detail-input .form-field{
+			width:49%;
+		}
+		.account-detail-input .m-set{
+			display:flex;
+			justify-content:space-between;
+			width:100%;
+		}
+		.btn-flex-end{
+			width:100%!important;
+			display:flex;
+			justify-content:flex-end;
+			align-items:end;
+		}
+		#shippingAddressFormBtn{
+			margin-left:8px;
+		}
+		.main-form-control.full-row{
+			width:100%;
+		}
+		.main-form-control.full-row .form-field{
+			width:100%;
+		}
+		.form_row{
+			width:100%;
+			display:flex;
+			justify-content:space-between;
+		}
+		.main-form-control{
+			width:49%;
+		}
 		/*typography css*/
 		.tab-head-font p{
 			margin-bottom:0;
 			font-family:'Montserrat';
 			font-weight:700;
-			font-size:17px;
+			font-size:16px;
 		}
 		.tab-head-font{
 			font-family: 'open-sans-regular';
@@ -48,9 +93,9 @@
 			font-family: 'Montserrat';
 			font-style: normal;
 			font-weight: 600;
-			font-size: 14px;
+			font-size: 18px;
 			line-height: 29px;
-			letter-spacing: 1px;
+			letter-spacing: 0.5px;
 			color: #000;
 		}
 		.tab-body-para-font{
@@ -110,7 +155,8 @@
 			border-top: 0.5px solid #1F242B;
 		}*/
 		.tab-head ul li:hover > a{
-			background: #dd1d26;
+/*			background: #dd1d26;*/
+			background:var(--green-color);
 /*			border-top: 0.5px solid #fff;*/
 			color: #fff;
 		}
@@ -118,7 +164,8 @@
 			color: #fff;
 		}
 		.tab-head ul li a.active{
-			background: #dd1d26;
+/*			background: #dd1d26;*/
+			background:var(--green-color);
 /*			border-top: 0.5px solid #fff;*/
 		}
 		/*.tab-head ul li.active a{color: #fff;}*/
@@ -142,11 +189,13 @@
 		.tab-body{
 			width: calc(100% - 271.28px);
 			background: #F4F4F2;
-			border: 0.5px solid #1F242B;
+/*			border: 0.5px solid #1F242B;*/
+			border: 0.5px solid var(--green-color);
 			border-radius: 0px 5px 5px 0px;
 			padding-top: 30px;
 			padding-left: 36px;
 			padding-right: 34px;
+			border-left:0;
 		}
 		.tab-body .account-forms p{
 			margin-bottom: 18px;
@@ -162,7 +211,7 @@
 			padding: 0 20px;
 			position: relative;
 			z-index: 2;
-			font-family: 'open-sans-regular';
+			font-family: 'Montserrat';
 			font-style: normal;
 			font-weight: 600;
 			font-size: 13px;
@@ -182,7 +231,7 @@
 			resize: none;
 		}
 		.tab-body .form-field{
-			width: 258px;
+/*			width: 258px;*/
 			position: relative;
 		}
 		.tab-body .select{
@@ -218,7 +267,7 @@
 			padding-left: 2px;
 		}
 		.tab-body .form-field .imp{
-			font-family: 'open-sans-regular';
+			font-family: 'Montserrat';
 			font-style: normal;
 			font-weight: 600;
 			font-size: 13px;
@@ -240,7 +289,7 @@
 			padding-left: 1px;
 		}
 		.tab-body .after .imp{
-			font-family: 'open-sans-regular';
+			font-family: 'Montserrat';
 			font-style: normal;
 			font-weight: 600;
 			font-size: 13px;
@@ -253,13 +302,14 @@
 		.tab-body .after{
 			display: inline-block;
 			position: relative;
-			width: 258px;
+/*			width: 258px;*/
 		}
 		.tab-body .after span.arw{
 			display: inline-block;
 			width: 48px;
 			height: 48px;
-			background: #dd1d26;
+			background: var(--green-color);
+			border:1px solid var(--green-color);
 			border-radius: 0px 5px 5px 0px;
 			position: absolute;
 			top: 0;
@@ -272,8 +322,11 @@
 		.tab-body .account-forms.active{display: block;}
 		.form-btn{
 			padding: 11.5px 50.5px;
-			background: #dd1d26;
-			border: 1px solid #dd1d26;
+			background: var(--green-color);
+			border: 1px solid var(--green-color);
+			font-family:'Montserrat';
+			font-size:15px;
+			letter-spacing:0;
 		}
 		.mr-42{margin-right: 24px;}
 		.mr-36{margin-right: 24px;}
@@ -316,7 +369,7 @@
 		}
 		.accountDetail .butn button:last-child{padding: 13.5px 28.5px}
 		.accountDetail .butn button{padding: 8.5px 17.5px;} 
-		.accountDetail .butn{display: flex;}
+		.accountDetail .butn{display: flex; justify-content: flex-end;}
 		.accountDetail p{text-decoration: none;}
 		.accountDetail p span{color: #E00000;}
 		.dashboardMsg{
@@ -356,7 +409,8 @@
 			border-spacing: 0 10px;
 		}
 		.my-orders table thead tr{
-			background: #dd1d26;
+/*			background: #dd1d26;*/
+				background:var(--green-color);
 		}
 		.my-orders table thead{margin-bottom: 10px;}
 		.my-orders table thead tr td:first-child{border-top-left-radius: 5px;border-bottom-left-radius: 5px;}
@@ -371,19 +425,21 @@
 			color: #fff;
 			padding: 17px 23px;
 		}
-		.orders{padding-bottom: 47px;}
-		.orders h1{margin-bottom: 9px;}
+/*		.orders{padding-bottom: 47px;}*/
+		.orders h1{
+			margin-bottom: 9px;
+		}
 		.my-orders table tbody tr td{
-			font-family: 'open-sans-regular';
+			font-family: 'Montserrat';
+			font-weight:600;
 			font-style: normal;
-			font-weight: 400;
 			font-size: 13px;
 			line-height: 16px;
 			color: #1F242B;
 			padding: 25px 24px 26px 24px;
 		}
 		.my-orders table tbody tr{background: #fff;}
-		.changePassword .butn{display: flex;}
+		.changePassword .butn{display: flex; justify-content: flex-end;}
 		.changePassword .butn button:last-child{padding: 13.5px 15.5px;}
 		.changePassword .butn button{padding: 11.5px 16.5px;}
 		.changePassword p{text-decoration: none;}
@@ -503,8 +559,9 @@
 			background: #fff;
 			border: 1px solid #000;
 			border-radius: 39px;
-			padding: 7.5px 34px;
-			font-family: 'open-sans-regular';
+/*			padding: 7.5px 34px;*/
+			padding:11px 34px;
+			font-family: 'Montserrat';
 			font-style: normal;
 			font-weight: 600;
 			font-size: 12px;
@@ -512,19 +569,19 @@
 			text-align: center;
 			letter-spacing: 1px;
 			color: #000;
-			margin-right: 36px;
+			margin-right:8px;
 		}
 		.address-tab a.active{
-			background: #dd1d26;
+			background: var(--green-color);
 			color: #fff;
-			border-color: #dd1d26;
+			border-color: var(--green-color);
 		}
 		.address-tab a:hover{
-			background: #dd1d26;
+			background: var(--green-color);
 			color: #fff;
-			border-color: #dd1d26;
+			border-color: var(--green-color);
 		}
-		.address-tab a:last-child{padding: 7.5px 43.5px;}
+/*		.address-tab a:last-child{padding: 7.5px 43.5px;}*/
 		.address-tab-body .data{display: none;}
 		.address-tab-body .active{display: block;}
 		.add_msg{display: none;}
@@ -640,7 +697,7 @@
 		.login-logo img{width: 68%;}
 		.account-login .login .switch-account{
 			margin-bottom: 40px!important;
-		}
+		}		
 		.account-login .f-password .switch-account{
 			margin-bottom: 40px!important;
 		}
@@ -792,7 +849,7 @@
 
 		@media (min-width:1200px){
 			/* my account */
-			.tab-body .form-field{width: 326px;}
+/*			.tab-body .form-field{width: 326px;}*/
 			.tab-body input{
 				/*width: 326px;*/
 				width: 100%;
@@ -806,12 +863,12 @@
 /*				padding-left: 74px;*/
 /*				padding-right: 54px;*/
 			}
-			.tab-body .bodyMeasurement{padding-right: 16px;}
-			.tab-body .kandoraMeasurement{padding-right: 16px;}
-			.tab-body .accountDetail{padding-right: 16px;}
-			.tab-body .changePassword{padding-right: 16px;}
-			.tab-body .paymentMethod{padding-right: 16px;}
-			.tab-body .addresses{padding-right: 16px;}
+/*			.tab-body .bodyMeasurement{padding-right: 16px;}*/
+/*			.tab-body .kandoraMeasurement{padding-right: 16px;}*/
+/*			.tab-body .accountDetail{padding-right: 16px;}*/
+/*			.tab-body .changePassword{padding-right: 16px;}*/
+/*			.tab-body .paymentMethod{padding-right: 16px;}*/
+/*			.tab-body .addresses{padding-right: 16px;}*/
 			.butn{width: 100%;}
 
 			/* rkm listing */
@@ -851,13 +908,13 @@
 /*				padding-left: 101px;*/
 /*				padding-right: 62px;*/
 			}
-			.tab-body .bodyMeasurement{padding-right: 37px;}
-			.tab-body .kandoraMeasurement{padding-right: 37px;}
-			.tab-body .accountDetail{padding-right: 37px;}
-			.tab-body .changePassword{padding-right: 37px;}
-			.tab-body .paymentMethod{padding-right: 37px;}
-			.tab-body .addresses{padding-right: 37px;}
-			.tab-body .form-field{width: 391px;}
+/*			.tab-body .bodyMeasurement{padding-right: 37px;}*/
+/*			.tab-body .kandoraMeasurement{padding-right: 37px;}*/
+/*			.tab-body .accountDetail{padding-right: 37px;}*/
+/*			.tab-body .changePassword{padding-right: 37px;}*/
+/*			.tab-body .paymentMethod{padding-right: 37px;}*/
+/*			.tab-body .addresses{padding-right: 37px;}*/
+/*			.tab-body .form-field{width: 391px;}*/
 			.tab-body input{
 				/*width: 391px;*/
 				width: 100%;
@@ -873,7 +930,7 @@
 				padding: 0 20px;
 				font-size: 16px;
 			}
-			.tab-body .after{width: 391px;}
+/*			.tab-body .after{width: 391px;}*/
 			.tab-body .after span.arw{
 				width: 48px;
 				height: 48px;
@@ -1162,100 +1219,123 @@
 										<div class="data shippingAddress active" id="shippingAddress">
 											<p>The following addresses will be used on the checkout page by default.</p>
 											<form id="shippingAddressForm" method="post">
-												<div class="form-field">
-													<input type="text" name="shippingName" class="mr-42" value="{{ isset($address->shipping_name)? $address->shipping_name:'' }}">
-													<span class="imp">*<span class="plc">Shipping Name</span></span>
-												</div>
-												<span class="errors" id="shippingNameErr"></span>
-							
-												<div class="form-field">
-													<input type="text" name="shippingCompanyName" value="{{ isset($address->shipping_company_name)? $address->shipping_company_name:'' }}">
-													<span class="imp">*<span class="plc">Shipping Company Name</span></span>
-												</div>
-												<span class="errors" id="shippingNameErr"></span>
-												<span class="m-set">
-													<span class="after">
-														<!-- <select name="countryregion" id="">
-															<option value="">Country/Region</option>
-														</select> -->
-														<div class="select"></div>
-														<div class="custom-select">
-															<ul class="shipping-list">
-																<li data-state-shipping="">Select state</li>
-				                        <li data-state-shipping="AN">Andaman and Nicobar Islands</li>
-				                        <li data-state-shipping="AP">Andhra Pradesh</li>
-				                        <li data-state-shipping="AR">Arunachal Pradesh</li>
-				                        <li data-state-shipping="AS">Assam</li>
-				                        <li data-state-shipping="BR">Bihar</li>
-				                        <li data-state-shipping="CH">Chandigarh</li>
-				                        <li data-state-shipping="CT">Chhattisgarh</li>
-				                        <li data-state-shipping="DN">Dadra and Nagar Haveli</li>
-				                        <li data-state-shipping="DD">Daman and Diu</li>
-				                        <li data-state-shipping="DL">Delhi</li>
-				                        <li data-state-shipping="GA">Goa</li>
-				                        <li data-state-shipping="GJ">Gujarat</li>
-				                        <li data-state-shipping="HR">Haryana</li>
-				                        <li data-state-shipping="HP">Himachal Pradesh</li>
-				                        <li data-state-shipping="JK">Jammu and Kashmir</li>
-				                        <li data-state-shipping="JH">Jharkhand</li>
-				                        <li data-state-shipping="KA">Karnataka</li>
-				                        <li data-state-shipping="KL">Kerala</li>
-				                        <li data-state-shipping="LA">Ladakh</li>
-				                        <li data-state-shipping="LD">Lakshadweep</li>
-				                        <li data-state-shipping="MP">Madhya Pradesh</li>
-				                        <li data-state-shipping="MH">Maharashtra</li>
-				                        <li data-state-shipping="MN">Manipur</li>
-				                        <li data-state-shipping="ML">Meghalaya</li>
-				                        <li data-state-shipping="MZ">Mizoram</li>
-				                        <li data-state-shipping="NL">Nagaland</li>
-				                        <li data-state-shipping="OR">Odisha</li>
-				                        <li data-state-shipping="PY">Puducherry</li>
-				                        <li data-state-shipping="PB">Punjab</li>
-				                        <li data-state-shipping="RJ">Rajasthan</li>
-				                        <li data-state-shipping="SK">Sikkim</li>
-				                        <li data-state-shipping="TN">Tamil Nadu</li>
-				                        <li data-state-shipping="TG">Telangana</li>
-				                        <li data-state-shipping="TR">Tripura</li>
-				                        <li data-state-shipping="UP">Uttar Pradesh</li>
-				                        <li data-state-shipping="UT">Uttarakhand</li>
-				                        <li data-state-shipping="WB">West Bengal</li>
-															</ul>
+												<div class="form_row">
+													<div class="main-form-control">
+														<div class="form-field">
+															<input type="text" name="shippingName" class="mr-42" value="{{ isset($address->shipping_name)? $address->shipping_name:'' }}">
+															<span class="imp">*<span class="plc">Shipping Name</span></span>
 														</div>
-														<input id="shipping" type="hidden" name="shippingState" value="{{ isset($address->shipping_state)? $address->shipping_state:'' }}">
-														<span class="imp set_default_shipping">*<span class="plc" data-default="{{ isset($address->shipping_state)? $address->shipping_state:'' }}"></span></span>
-														<span class="arw"><img src="{{ asset('public/frontend') }}/images/ExpandMore.png" alt=""></span>
-														<span class="errors" id="shippingStateErr"></span>
-													</span>
-													<div class="form-field">
-														<input type="text" name="shippingCity" class="mr-42" value="{{ isset($address->shipping_city)? $address->shipping_city:''; }}">
-														<span class="imp">*<span class="plc">Shipping City</span></span>
-														<span class="errors" id="shippingCityErr"></span>
+														<span class="errors" id="shippingNameErr"></span>
 													</div>
-												</span>
-												<div class="form-field">
-													<textarea  type="text" name="shippingAddress">{{ isset($address->shipping_address)? $address->shipping_address:'' }}</textarea>
-													<span class="imp">*<span class="plc">Shipping Address</span></span>
-													<span class="errors" id="shippingAddressErr"></span>
+													
+													<div class="main-form-control">
+														<div class="form-field">
+															<input type="text" name="shippingEmail" class="mr-42" value="{{ isset($address->shipping_email)? $address->shipping_email:'' }}">
+															<span class="imp">*<span class="plc">Shipping Email</span></span>
+															<span class="errors" id="shippingEmailErr"></span>
+														</div>
 												</div>
-												<div class="form-field">
-													<input type="text" name="shippingPincode" class="mr-42" value="{{ isset($address->shipping_pincode)? $address->shipping_pincode:'' }}">
-													<span class="imp"><span class="plc">Shipping Pincode</span></span>
-													<span class="errors" id="shippingPincodeerr"></span>
 												</div>
-												<div class="form-field">
-													<input type="text" name="shippingEmail" class="mr-42" value="{{ isset($address->shipping_email)? $address->shipping_email:'' }}">
-													<span class="imp">*<span class="plc">Shipping Email</span></span>
-													<span class="errors" id="shippingEmailErr"></span>
+												<div class="main-form-control">
+													<span class="after">
+															<!-- <select name="countryregion" id="">
+																<option value="">Country/Region</option>
+															</select> -->
+															<div class="select"></div>
+															<div class="custom-select">
+																<ul class="shipping-list">
+																	<li data-state-shipping="">Select state</li>
+					                        <li data-state-shipping="AN">Andaman and Nicobar Islands</li>
+					                        <li data-state-shipping="AP">Andhra Pradesh</li>
+					                        <li data-state-shipping="AR">Arunachal Pradesh</li>
+					                        <li data-state-shipping="AS">Assam</li>
+					                        <li data-state-shipping="BR">Bihar</li>
+					                        <li data-state-shipping="CH">Chandigarh</li>
+					                        <li data-state-shipping="CT">Chhattisgarh</li>
+					                        <li data-state-shipping="DN">Dadra and Nagar Haveli</li>
+					                        <li data-state-shipping="DD">Daman and Diu</li>
+					                        <li data-state-shipping="DL">Delhi</li>
+					                        <li data-state-shipping="GA">Goa</li>
+					                        <li data-state-shipping="GJ">Gujarat</li>
+					                        <li data-state-shipping="HR">Haryana</li>
+					                        <li data-state-shipping="HP">Himachal Pradesh</li>
+					                        <li data-state-shipping="JK">Jammu and Kashmir</li>
+					                        <li data-state-shipping="JH">Jharkhand</li>
+					                        <li data-state-shipping="KA">Karnataka</li>
+					                        <li data-state-shipping="KL">Kerala</li>
+					                        <li data-state-shipping="LA">Ladakh</li>
+					                        <li data-state-shipping="LD">Lakshadweep</li>
+					                        <li data-state-shipping="MP">Madhya Pradesh</li>
+					                        <li data-state-shipping="MH">Maharashtra</li>
+					                        <li data-state-shipping="MN">Manipur</li>
+					                        <li data-state-shipping="ML">Meghalaya</li>
+					                        <li data-state-shipping="MZ">Mizoram</li>
+					                        <li data-state-shipping="NL">Nagaland</li>
+					                        <li data-state-shipping="OR">Odisha</li>
+					                        <li data-state-shipping="PY">Puducherry</li>
+					                        <li data-state-shipping="PB">Punjab</li>
+					                        <li data-state-shipping="RJ">Rajasthan</li>
+					                        <li data-state-shipping="SK">Sikkim</li>
+					                        <li data-state-shipping="TN">Tamil Nadu</li>
+					                        <li data-state-shipping="TG">Telangana</li>
+					                        <li data-state-shipping="TR">Tripura</li>
+					                        <li data-state-shipping="UP">Uttar Pradesh</li>
+					                        <li data-state-shipping="UT">Uttarakhand</li>
+					                        <li data-state-shipping="WB">West Bengal</li>
+																</ul>
+															</div>
+															<input id="shipping" type="hidden" name="shippingState" value="{{ isset($address->shipping_state)? $address->shipping_state:'' }}">
+															<span class="imp set_default_shipping">*<span class="plc" data-default="{{ isset($address->shipping_state)? $address->shipping_state:'' }}"></span></span>
+															<span class="arw"><img src="{{ asset('public/frontend') }}/images/ExpandMore.png" alt=""></span>
+															<span class="errors" id="shippingStateErr"></span>
+														</span>
 												</div>
-												<div class="form-field">
-													<input type="text" name="shippingPhone" class="mr-42" value="{{ isset($address->shipping_phone)? $address->shipping_phone:'' }}">
-													<span class="imp">*<span class="plc">Shipping Phone</span></span>
-													<span class="errors" id="shippingPhoneErr"></span>
+
+												<div class="main-form-control">
+													<span class="m-set">
+														
+														<div class="form-field">
+															<input type="text" name="shippingCity" class="mr-42" value="{{ isset($address->shipping_city)? $address->shipping_city:''; }}">
+															<span class="imp">*<span class="plc">Shipping City</span></span>
+															<span class="errors" id="shippingCityErr"></span>
+														</div>
+													</span>
 												</div>
-												<div class="form-field">
-													<div class="butn">
-														<button class="uppercase form-btn tab-form-btn-font mr-36">Cancel</button>
-														<button id="shippingAddressFormBtn" class="uppercase form-btn tab-form-btn-font">Save Address</button>
+												<div class="main-form-control">
+													<div class="form-field">
+														<input type="text" name="shippingPincode" class="mr-42" value="{{ isset($address->shipping_pincode)? $address->shipping_pincode:'' }}">
+														<span class="imp"><span class="plc">Shipping Pincode</span></span>
+														<span class="errors" id="shippingPincodeerr"></span>
+													</div>
+												</div>
+												
+												<div class="main-form-control">
+													<div class="form-field">
+														<input type="text" name="shippingPhone" class="mr-42" value="{{ isset($address->shipping_phone)? $address->shipping_phone:'' }}">
+														<span class="imp">*<span class="plc">Shipping Phone</span></span>
+														<span class="errors" id="shippingPhoneErr"></span>
+													</div>
+												</div>
+												<div class="main-form-control full-row">
+														<div class="form-field">
+															<input type="text" name="shippingCompanyName" value="{{ isset($address->shipping_company_name)? $address->shipping_company_name:'' }}">
+															<span class="imp">*<span class="plc">Shipping Company Name</span></span>
+														</div>
+														<span class="errors" id="shippingNameErr"></span>
+													</div>
+												<div class="main-form-control full-row">
+													<div class="form-field">
+														<textarea  type="text" name="shippingAddress">{{ isset($address->shipping_address)? $address->shipping_address:'' }}</textarea>
+														<span class="imp">*<span class="plc">Shipping Address</span></span>
+														<span class="errors" id="shippingAddressErr"></span>
+													</div>
+												</div>
+												<div class="main-form-control btn-flex-end">
+													<div class="form-field ">
+														<div class="butn">
+															<button class="uppercase form-btn tab-form-btn-font">Cancel</button>
+															<button id="shippingAddressFormBtn" class="uppercase form-btn tab-form-btn-font">Save Address</button>
+														</div>
 													</div>
 												</div>
 											</form>
@@ -1441,88 +1521,97 @@
 									<h1 class="tab-body-main-font uppercase">Account Details</h1>
 									<p class="tab-body-para-font">Mandatory fields are marked <span>*</span></p>
 									<form id="accountDetailForm" method="post">
-										<div class="form-field">
-											<input type="text" name="name" class="mr-42" value="{{ $customer->name }}">
-											<span class="imp">*<span class="plc">Name</span></span>
-											<span class="errors" id="nameErr"></span>
-										</div>
-										<div class="form-field">
-											<input type="text" name="email" value="{{ $customer->email }}">
-											<span class="imp">*<span class="plc">Email</span></span>
-											<span class="errors" id="emailErr"></span>
-										</div>
-										<div class="form-field">
-											<input type="text" name="phone" class="mr-42" value="{{ $customer->phone }}">
-											<span class="imp">*<span class="plc">Phone</span></span>
-											<span class="errors" id="phoneErr"></span>
-										</div>
-
-										<div class="form-field">
-											<input type="text" name="address" class="mr-42" value="{{ $customer->address }}">
-											<span class="imp">*<span class="plc">Address</span></span>
-											<span class="errors" id="addressErr"></span>
-										</div>
-
-										<span class="m-set">
-											<span class="after">
-												<div class="select"></div>
-												<div class="custom-select">
-													<ul class="state-list">
-														<li data-state-code="">Select state</li>
-			                        <li data-state-code="AN">Andaman and Nicobar Islands</li>
-			                        <li data-state-code="AP">Andhra Pradesh</li>
-			                        <li data-state-code="AR">Arunachal Pradesh</li>
-			                        <li data-state-code="AS">Assam</li>
-			                        <li data-state-code="BR">Bihar</li>
-			                        <li data-state-code="CH">Chandigarh</li>
-			                        <li data-state-code="CT">Chhattisgarh</li>
-			                        <li data-state-code="DN">Dadra and Nagar Haveli</li>
-			                        <li data-state-code="DD">Daman and Diu</li>
-			                        <li data-state-code="DL">Delhi</li>
-			                        <li data-state-code="GA">Goa</li>
-			                        <li data-state-code="GJ">Gujarat</li>
-			                        <li data-state-code="HR">Haryana</li>
-			                        <li data-state-code="HP">Himachal Pradesh</li>
-			                        <li data-state-code="JK">Jammu and Kashmir</li>
-			                        <li data-state-code="JH">Jharkhand</li>
-			                        <li data-state-code="KA">Karnataka</li>
-			                        <li data-state-code="KL">Kerala</li>
-			                        <li data-state-code="LA">Ladakh</li>
-			                        <li data-state-code="LD">Lakshadweep</li>
-			                        <li data-state-code="MP">Madhya Pradesh</li>
-			                        <li data-state-code="MH">Maharashtra</li>
-			                        <li data-state-code="MN">Manipur</li>
-			                        <li data-state-code="ML">Meghalaya</li>
-			                        <li data-state-code="MZ">Mizoram</li>
-			                        <li data-state-code="NL">Nagaland</li>
-			                        <li data-state-code="OR">Odisha</li>
-			                        <li data-state-code="PY">Puducherry</li>
-			                        <li data-state-code="PB">Punjab</li>
-			                        <li data-state-code="RJ">Rajasthan</li>
-			                        <li data-state-code="SK">Sikkim</li>
-			                        <li data-state-code="TN">Tamil Nadu</li>
-			                        <li data-state-code="TG">Telangana</li>
-			                        <li data-state-code="TR">Tripura</li>
-			                        <li data-state-code="UP">Uttar Pradesh</li>
-			                        <li data-state-code="UT">Uttarakhand</li>
-			                        <li data-state-code="WB">West Bengal</li>
-													</ul>
-												</div>
-												<input id="state" type="hidden" value="{{ $customer->state }}" name="state">
-												<span class="imp set_default_state">*<span class="plc" data-default="{{ $customer->state }}"></span></span>
-												<span class="arw"><img src="{{ asset('public/frontend') }}/images/ExpandMore.png" alt=""></span>
-												<span class="errors" id="stateErr"></span>
-											</span>
+										<div class="account-detail-input">
 											<div class="form-field">
-												<input type="text" name="city" class="mr-42" value="{{ $customer->city }}">
-												<span class="imp">*<span class="plc">City</span></span>
-												<span class="errors" id="cityErr"></span>
+												<input type="text" name="name" class="mr-42" value="{{ $customer->name }}">
+												<span class="imp">*<span class="plc">Name</span></span>
+												<span class="errors" id="nameErr"></span>
 											</div>
-										</span>
-										<div class="form-field">
-											<div class="butn">
-												<button class="uppercase form-btn tab-form-btn-font mr-36">Cancel</button>
-												<button id="accountDetailFormBtn" class="uppercase form-btn tab-form-btn-font">Save Changes</button>
+											<div class="form-field">
+												<input type="text" name="email" value="{{ $customer->email }}">
+												<span class="imp">*<span class="plc">Email</span></span>
+												<span class="errors" id="emailErr"></span>
+											</div>
+										</div>
+										<div class="account-detail-input">
+											<div class="form-field">
+												<input type="text" name="phone" class="mr-42" value="{{ $customer->phone }}">
+												<span class="imp">*<span class="plc">Phone</span></span>
+												<span class="errors" id="phoneErr"></span>
+											</div>
+
+											<div class="form-field">
+												<input type="text" name="address" class="mr-42" value="{{ $customer->address }}">
+												<span class="imp">*<span class="plc">Address</span></span>
+												<span class="errors" id="addressErr"></span>
+											</div>
+										</div>
+
+										<div class="account-detail-input">
+											<span class="m-set">
+												<span class="after">
+													<div class="select"></div>
+													<div class="custom-select">
+														<ul class="state-list">
+															<li data-state-code="">Select state</li>
+				                        <li data-state-code="AN">Andaman and Nicobar Islands</li>
+				                        <li data-state-code="AP">Andhra Pradesh</li>
+				                        <li data-state-code="AR">Arunachal Pradesh</li>
+				                        <li data-state-code="AS">Assam</li>
+				                        <li data-state-code="BR">Bihar</li>
+				                        <li data-state-code="CH">Chandigarh</li>
+				                        <li data-state-code="CT">Chhattisgarh</li>
+				                        <li data-state-code="DN">Dadra and Nagar Haveli</li>
+				                        <li data-state-code="DD">Daman and Diu</li>
+				                        <li data-state-code="DL">Delhi</li>
+				                        <li data-state-code="GA">Goa</li>
+				                        <li data-state-code="GJ">Gujarat</li>
+				                        <li data-state-code="HR">Haryana</li>
+				                        <li data-state-code="HP">Himachal Pradesh</li>
+				                        <li data-state-code="JK">Jammu and Kashmir</li>
+				                        <li data-state-code="JH">Jharkhand</li>
+				                        <li data-state-code="KA">Karnataka</li>
+				                        <li data-state-code="KL">Kerala</li>
+				                        <li data-state-code="LA">Ladakh</li>
+				                        <li data-state-code="LD">Lakshadweep</li>
+				                        <li data-state-code="MP">Madhya Pradesh</li>
+				                        <li data-state-code="MH">Maharashtra</li>
+				                        <li data-state-code="MN">Manipur</li>
+				                        <li data-state-code="ML">Meghalaya</li>
+				                        <li data-state-code="MZ">Mizoram</li>
+				                        <li data-state-code="NL">Nagaland</li>
+				                        <li data-state-code="OR">Odisha</li>
+				                        <li data-state-code="PY">Puducherry</li>
+				                        <li data-state-code="PB">Punjab</li>
+				                        <li data-state-code="RJ">Rajasthan</li>
+				                        <li data-state-code="SK">Sikkim</li>
+				                        <li data-state-code="TN">Tamil Nadu</li>
+				                        <li data-state-code="TG">Telangana</li>
+				                        <li data-state-code="TR">Tripura</li>
+				                        <li data-state-code="UP">Uttar Pradesh</li>
+				                        <li data-state-code="UT">Uttarakhand</li>
+				                        <li data-state-code="WB">West Bengal</li>
+														</ul>
+													</div>
+													<input id="state" type="hidden" value="{{ $customer->state }}" name="state">
+													<span class="imp set_default_state">*<span class="plc" data-default="{{ $customer->state }}"></span></span>
+													<span class="arw"><img src="{{ asset('public/frontend') }}/images/ExpandMore.png" alt=""></span>
+													<span class="errors" id="stateErr"></span>
+												</span>
+												<div class="form-field">
+													<input type="text" name="city" class="mr-42" value="{{ $customer->city }}">
+													<span class="imp">*<span class="plc">City</span></span>
+													<span class="errors" id="cityErr"></span>
+												</div>
+											</span>
+										
+										</div>
+										<div >
+											<div class="form-field btn-flex-end">
+												<div class="butn">
+													<button class="uppercase form-btn tab-form-btn-font" style="margin-right: 8px;">Cancel</button>
+													<button id="accountDetailFormBtn" class="uppercase form-btn tab-form-btn-font">Save Changes</button>
+												</div>
 											</div>
 										</div>
 									</form>
@@ -1535,19 +1624,21 @@
 									<h1 class="tab-body-main-font uppercase">Change Password</h1>
 									<p class="tab-body-para-font">Mandatory fields are marked <span>*</span></p>
 									<form id="changePasswordForm" method="post">
-										<div class="form-field">
-											<input type="password" name="password" class="mr-42">
-											<span class="imp">*<span class="plc">Current Password</span></span>
+										<div class="account-detail-input">
+											<div class="form-field">
+												<input type="password" name="password" class="mr-42">
+												<span class="imp">*<span class="plc">Current Password</span></span>
 
-											<span class="errors" id="passwordErr"></span>
+												<span class="errors" id="passwordErr"></span>
 
-										</div>
-										<div class="form-field">
-											<input type="password" name="newPassword">
-											<span class="imp">*<span class="plc">New Password</span></span>
+											</div>
+											<div class="form-field">
+												<input type="password" name="newPassword">
+												<span class="imp">*<span class="plc">New Password</span></span>
 
-											<span class="errors" id="newPasswordErr"></span>
+												<span class="errors" id="newPasswordErr"></span>
 
+											</div>
 										</div>
 										<div class="form-field">
 											<input type="password" name="confirmPassword" class="mr-42">
@@ -1558,7 +1649,7 @@
 										</div>
 										<div class="form-field">
 											<div class="butn">
-												<button class="uppercase form-btn tab-form-btn-font mr-36">Cancel</button>
+												<button class="uppercase form-btn tab-form-btn-font" style="margin-right: 8px;">Cancel</button>
 												<button id="changePasswordBtn" class="uppercase form-btn tab-form-btn-font">Update Password</button>
 											</div>
 										</div>
