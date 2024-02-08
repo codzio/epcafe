@@ -11,13 +11,7 @@
   .home_banner_slide{
       position:relative;
   }
-.home_banner_slide img{
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-        cursor: pointer;
-    }
+
   .home_banner_slide_content{
     position:absolute;
     width:100%;
@@ -32,10 +26,7 @@
     transition:all .5s linear;
     border:1px solid #444;
   }
-  .home_banner a:hover{
-/*    background:transparent;*/
-/*    border:1px solid #fff;*/
-  }
+  
   .home_banner h1{
     margin:3% 0 5%;
     color:#000;
@@ -50,12 +41,6 @@
     width:80%;
     font-size:20px;
   }
-  
-  .arrival-bock .item-img{
-    /*height:37vh;*/
-  }
-  
-  
   
   .arrival-bock .item-img img{
     height: 100%;
@@ -88,7 +73,7 @@
     }
 
     .home_banner_slide img {
-      object-fit: contain !important;
+/*      object-fit: contain !important;*/
     }
 
   }
