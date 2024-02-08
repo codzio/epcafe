@@ -19,8 +19,6 @@ use App\Models\CartModel;
 use App\Models\CustomerAddressModel;
 use App\Models\OrderModel;
 
-
-
 class Customer extends Controller {
 
 	private $status = array();

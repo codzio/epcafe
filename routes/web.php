@@ -59,6 +59,9 @@ Route::prefix('/')->group(function() {
     Route::get('/thank-you', [Home::class, 'thankyou'])->name('thankyouPage');
     Route::get('/payment-failed', [Home::class, 'paymentFail'])->name('paymentFailPage');
 
+    // Route::get('/upload', [Home::class, 'upload'])->name('uploadPage');
+    // Route::post('/doUploadDropbox', [Home::class, 'doUploadDropbox'])->name('doUploadDropbox');
+
     Route::post('/doResetPassword', [Customer::class,'doResetPassword'])->name('customerDoResetPassword');
     Route::post('/doRegister', [Customer::class, 'doRegister'])->name('doRegister');
     Route::post('/doLogin', [Customer::class, 'doLogin'])->name('doLogin');
@@ -87,6 +90,8 @@ Route::prefix('/products')->group(function() {
 
 Route::prefix('/checkout')->group(function() {
     Route::get('/', [Checkout::class, 'index'])->name('checkoutPage');
+
+    Route::post('/doUploadDropbox', [Checkout::class, 'doUploadDropbox'])->name('doUploadDropbox');
     Route::post('/doSaveAddress', [Checkout::class, 'doSaveAddress'])->name('saveAddress');
     Route::post('/doPlaceOrder', [Checkout::class, 'doPlaceOrder'])->name('placeOrder');
     Route::get('/response', [Checkout::class, 'response'])->name('response');

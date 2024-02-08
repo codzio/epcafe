@@ -2,10 +2,65 @@
 
 @section('content')
 
+<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+
 <style type="text/css">
   .billing-address {
     display: none;
   }
+
+  .shopping-cart .cart-ship-info {
+    margin-top: 0;
+  }
+
+  .shopping-cart .cart-ship-info h6 {
+    margin-bottom: 25px;
+  }
+
+  .dropzone {
+    width: 100%;
+    margin: 2% 0;
+    border: 1px solid !important;
+    border-color: var(--green-color) !important;
+    border-radius: 5px;
+    transition: 0.2s;
+  }
+
+  .shopping-cart .order-place {
+    border: 1px solid !important;
+    border-color: var(--green-color) !important;
+  }
+
+  .shopping-cart .order-place .order-detail p {
+    color: black !important;
+  }
+
+  .dropzone.dz-drag-hover {
+    border: 2px solid #3498db !important;
+  }
+
+  .dz-message.needsclick img {
+    width: 50px;
+    display: block;
+    margin: auto;
+    opacity: 0.6;
+    margin-bottom: 15px;
+  }
+
+  span.plus {
+    display: none;
+  }
+
+  .dropzone .dz-message {
+      display: block;
+      text-align: center;
+  }
+
+  .card .card-header {
+      border-bottom: none;
+  }
+
 </style>
 
 <!--======= SUB BANNER =========-->
@@ -37,6 +92,22 @@
             
             <!-- ESTIMATE SHIPPING & TAX -->
             <div class="col-sm-7">
+
+              <h6>UPLOAD DOCUMENTS</h6>
+              <div id="dropzone">
+                <form action="{{ route('doUploadDropbox') }}" class="dropzone needsclick" id="upload">
+                  <div class="dz-message needsclick">
+                    <span class="text">
+                    <img src="{{ asset('public/frontend/img/upload.png') }}" alt="Upload" />
+                    <p><strong>Drop files here or click to upload.</strong></p>
+                    </span>
+                    <span class="plus">+</span>
+                  </div>
+                </form>
+                <span id="dropzoneMsg"></span>
+              </div>
+
+
               <h6>SHIPPING DETAILS</h6>
               <form id="customerAddressForm" method="post" action="{{ route('saveAddress') }}">
                 <ul class="row">
@@ -116,7 +187,7 @@
                 </ul>
               
                 <!-- SHIPPING info -->
-                <h6 style="{{ $isBillingAddressSame? '':'display:block'; }}" class="billing-address margin-top-50">Billing Details</h6>
+                <h6 style="{{ $isBillingAddressSame? '':'display:block'; }}" class="billing-address margin-top-20">Billing Details</h6>
                 <ul style="{{ $isBillingAddressSame? '':'display:block'; }}" class="billing-address row">
                   
                   <!-- Name -->
@@ -331,9 +402,11 @@
               $.each(res.errors, function(index, val) {
                  $("#"+index+"Err").html(val);
               });
+            } else {
+              $("#placeOrderMsg").html(res.msg).css('color', 'red');
             }
           } else {
-            $("#placeOrderMsg").html(res.msg);
+            $("#placeOrderMsg").html(res.msg).css('color', 'green');
             window.location.href = res.redirect;
           }
 
@@ -342,6 +415,61 @@
         }
       });
 
+    });
+
+    Dropzone.autoDiscover = false;
+    $("#upload").dropzone({
+        url: "{{ route('doUploadDropbox') }}",
+        method: 'POST',
+        parallelUploads: 10,
+        uploadMultiple: true,
+        maxFilesize: 10, //MB
+        maxFiles: 10, //Cannot upload more than 10 files
+        acceptedFiles: ".jpg, .jpeg, .png, .zip, application/pdf, application/zip",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        init: function() {
+            this.on("error", function(file, res) {
+                // Handle errors if the file size exceeds the limit or for other reasons
+                if (res) {
+                    console.log(res);
+                }
+            }),
+            this.on("success", function(file, res) {
+                // Handle errors if the file size exceeds the limit or for other reasons
+        
+                res = JSON.parse(res);
+                $this = this;
+
+                if (res.error) {
+                    
+                    if (res.eType == 'final') {
+                        //toastr.error(res.msg);
+                        $("#dropzoneMsg").html(res.msg).css('color', 'red');
+                    } else {
+                        $.each(res.errors, function(index, val) {
+                           //toastr.error(val);  
+                          $("#dropzoneMsg").html(val).css('color', 'red');
+                        });
+                    }
+
+                } else {
+
+                    // toastr.success(res.msg);
+
+                    $("#dropzoneMsg").html(res.msg).css('color', 'green');
+
+                    timeout = setTimeout(function() {
+                        //$this.removeAllFiles();
+                        $("#dropzoneMsg").hide();
+                        clearTimeout(timeout);
+                    }, 3000);
+
+                }
+
+            })
+        },
     });
 
   });
