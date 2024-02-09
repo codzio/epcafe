@@ -30,6 +30,19 @@
 		}
 
 		/*dashboard css*/
+		.shipping-list{
+			width:100%;
+			border-radius:4px;
+			height:48px;
+			border:1px solid #000;
+			color:#a0a0a0;
+			padding:0 20px;
+			font-weight:600;
+
+		}
+		.account-detail-input .m-set.ff-row .after{
+			width:49%;
+		}
 		#accountDetailForm{
 			flex-direction:column;
 		}
@@ -130,8 +143,10 @@
 		.tab-head{
 			width: max-content;
 			height: auto;
-			background: #000;
-			border-right: 1px solid #fff; 	
+			background: #f4f4f2;
+			border-right: 1px solid var(--green-color); 	
+			border-left:1px solid var(--green-color);
+			border-bottom:1px solid var(--green-color);
 			border-radius: 5px 0px 0px 5px;
 			position: relative;
 		}
@@ -161,7 +176,7 @@
 			color: #fff;
 		}
 		.tab-head ul li a p{
-			color: #fff;
+			color: #000;
 		}
 		.tab-head ul li a.active{
 /*			background: #dd1d26;*/
@@ -177,9 +192,9 @@
 			align-items: center;
 				padding-top: 16.5px;
 			padding-bottom: 16.5px;
-			padding-left: 36px;
-			padding-right: 32px;
-			border-top: 0.5px solid #1F242B;
+			padding-left: 14px;
+			padding-right: 14px;
+			border-top: 0.5px solid var(--green-color);
 			font-family:'open-sans-regular';
 		}
 		.tab-head ul li img{
@@ -303,6 +318,7 @@
 			display: inline-block;
 			position: relative;
 /*			width: 258px;*/
+			width:100%;
 		}
 		.tab-body .after span.arw{
 			display: inline-block;
@@ -858,7 +874,7 @@
 				/*width: 326px;*/
 				width: 100%;
 			}
-			.tab-body .after{width: 326px;}
+			.tab-body .after{width: 100%;}
 			.tab-body{
 /*				padding-left: 74px;*/
 /*				padding-right: 54px;*/
@@ -919,7 +935,7 @@
 				/*width: 391px;*/
 				width: 100%;
 				height: 48px;
-				margin-bottom: 31px;
+				margin-bottom: 24px;
 				padding: 0 20px;
 			}
 			.tab-body .select{
@@ -968,8 +984,14 @@
 			.after .custom-select ul{font-size: 15px;}
 		}
 
+
 		@media (max-width:990.99px){
-			/* my account */
+			/* my account */	
+			.tab-head ul li a{
+				padding-left:15px;
+				padding-right:15px;
+			}
+
 			.my-account .content{
 				flex-direction: column;
 			}
@@ -988,25 +1010,26 @@
 			}
 			.tab-head ul li a:not(.active){
 				float: left;
-				display: none;
+/*				display: none;*/
 				width: 100%;
 			}
 			.tab-head ul li a:not(.active).SH{display: flex;}
 			.tab-head ul li a.active{height: 57px;}
 			.tab-body{
 				width: 100%;
-				padding-top: 30px;
-				padding-left: 36px;
-				padding-right: 34px;
-				padding-bottom: 48px;
+				padding-top: 10px;
+				padding-left: 15px;
+				padding-right: 15px;	
+/*				padding-bottom: 48px;*/
 				border-radius: 0px 0px 5px 5px;
+				border-left: 1px solid var(--green-color);
 			}
-			.tab-body .form-field{width: 48%;}
+/*			.tab-body .form-field{width: 48%;}*/
 			.tab-body input{
 				/*width: 48%;*/
 				width: 100%;
 			}
-			.tab-body .after{width: 48%;}
+/*			.tab-body .after{width: 48%;}*/
 			.tab-body .select{
 				width: 100%;
 			}
@@ -1066,6 +1089,27 @@
 		}
 
 		@media (max-width:767.99px){
+			.shipping-list{
+				margin-bottom:24px;
+			}
+			.selec-row{
+				width:100%!important;
+			}
+			.form_row{
+				flex-direction:column;
+			}
+			.main-form-control{
+				width:100%;
+			}
+			.account-detail-input{
+				flex-direction:column;
+			}
+			.m-set.ff-row{
+				flex-direction:column;
+			}
+			.account-detail-input .m-set.ff-row .after{
+				width:100%;
+			}
 			/* my account */
 			.tab-body .form-field{width: 100%;}
 			.tab-body input{width: 100%;}
@@ -1098,7 +1142,7 @@
 
 		@media (max-width:468px){
 			/* my account */
-			.tab-body .form-field .imp{left: 3%;}
+/*			.tab-body .form-field .imp{left: 3%;}*/
 			.tab-body .after .imp{left: 4%;}
 			.addresses button{margin-right: 0;}
 			.address-tab div{justify-content: center;}
@@ -1106,6 +1150,9 @@
 			.payment-tab{justify-content: center;}
 			.accountDetail .butn{flex-direction: column;}
 			.changePassword .butn{flex-direction: column;}
+		}
+		.accountDetail .butn button{
+			margin-right:0!important;
 		}
 
 		@media (max-width:)
@@ -1134,7 +1181,7 @@
 								<li>
 									<a href="#addresses" class="tab-head-font">
 										<img src="images/addresses.png" alt="">
-										<p>Addresses</p>
+										<p>Address</p>
 									</a>
 								</li>
 								<!-- <li>
@@ -1237,58 +1284,47 @@
 												</div>
 												</div>
 												<div class="main-form-control">
-													<span class="after">
-															<!-- <select name="countryregion" id="">
-																<option value="">Country/Region</option>
-															</select> -->
-															<div class="select"></div>
-															<div class="custom-select">
-																<ul class="shipping-list">
-																	<li data-state-shipping="">Select state</li>
-					                        <li data-state-shipping="AN">Andaman and Nicobar Islands</li>
-					                        <li data-state-shipping="AP">Andhra Pradesh</li>
-					                        <li data-state-shipping="AR">Arunachal Pradesh</li>
-					                        <li data-state-shipping="AS">Assam</li>
-					                        <li data-state-shipping="BR">Bihar</li>
-					                        <li data-state-shipping="CH">Chandigarh</li>
-					                        <li data-state-shipping="CT">Chhattisgarh</li>
-					                        <li data-state-shipping="DN">Dadra and Nagar Haveli</li>
-					                        <li data-state-shipping="DD">Daman and Diu</li>
-					                        <li data-state-shipping="DL">Delhi</li>
-					                        <li data-state-shipping="GA">Goa</li>
-					                        <li data-state-shipping="GJ">Gujarat</li>
-					                        <li data-state-shipping="HR">Haryana</li>
-					                        <li data-state-shipping="HP">Himachal Pradesh</li>
-					                        <li data-state-shipping="JK">Jammu and Kashmir</li>
-					                        <li data-state-shipping="JH">Jharkhand</li>
-					                        <li data-state-shipping="KA">Karnataka</li>
-					                        <li data-state-shipping="KL">Kerala</li>
-					                        <li data-state-shipping="LA">Ladakh</li>
-					                        <li data-state-shipping="LD">Lakshadweep</li>
-					                        <li data-state-shipping="MP">Madhya Pradesh</li>
-					                        <li data-state-shipping="MH">Maharashtra</li>
-					                        <li data-state-shipping="MN">Manipur</li>
-					                        <li data-state-shipping="ML">Meghalaya</li>
-					                        <li data-state-shipping="MZ">Mizoram</li>
-					                        <li data-state-shipping="NL">Nagaland</li>
-					                        <li data-state-shipping="OR">Odisha</li>
-					                        <li data-state-shipping="PY">Puducherry</li>
-					                        <li data-state-shipping="PB">Punjab</li>
-					                        <li data-state-shipping="RJ">Rajasthan</li>
-					                        <li data-state-shipping="SK">Sikkim</li>
-					                        <li data-state-shipping="TN">Tamil Nadu</li>
-					                        <li data-state-shipping="TG">Telangana</li>
-					                        <li data-state-shipping="TR">Tripura</li>
-					                        <li data-state-shipping="UP">Uttar Pradesh</li>
-					                        <li data-state-shipping="UT">Uttarakhand</li>
-					                        <li data-state-shipping="WB">West Bengal</li>
-																</ul>
-															</div>
-															<input id="shipping" type="hidden" name="shippingState" value="{{ isset($address->shipping_state)? $address->shipping_state:'' }}">
-															<span class="imp set_default_shipping">*<span class="plc" data-default="{{ isset($address->shipping_state)? $address->shipping_state:'' }}"></span></span>
-															<span class="arw"><img src="{{ asset('public/frontend') }}/images/ExpandMore.png" alt=""></span>
-															<span class="errors" id="shippingStateErr"></span>
-														</span>
+													<select class="shipping-list">
+														<option data-state-shipping="">Select state</option>
+		                        <option data-state-shipping="AN">Andaman and Nicobar Islands</option>
+		                        <option data-state-shipping="AP">Andhra Pradesh</option>
+		                        <option data-state-shipping="AR">Arunachal Pradesh</option>
+		                        <option data-state-shipping="AS">Assam</option>
+		                        <option data-state-shipping="BR">Bihar</option>
+		                        <option data-state-shipping="CH">Chandigarh</option>
+		                        <option data-state-shipping="CT">Chhattisgarh</option>
+		                        <option data-state-shipping="DN">Dadra and Nagar Haveoption</option>
+		                        <option data-state-shipping="DD">Daman and Diu</option>
+		                        <option data-state-shipping="DL">Delhi</option>
+		                        <option data-state-shipping="GA">Goa</option>
+		                        <option data-state-shipping="GJ">Gujarat</option>
+		                        <option data-state-shipping="HR">Haryana</option>
+		                        <option data-state-shipping="HP">Himachal Pradesh</option>
+		                        <option data-state-shipping="JK">Jammu and Kashmir</option>
+		                        <option data-state-shipping="JH">Jharkhand</option>
+		                        <option data-state-shipping="KA">Karnataka</option>
+		                        <option data-state-shipping="KL">Kerala</option>
+		                        <option data-state-shipping="LA">Ladakh</option>
+		                        <option data-state-shipping="LD">Lakshadweep</option>
+		                        <option data-state-shipping="MP">Madhya Pradesh</option>
+		                        <option data-state-shipping="MH">Maharashtra</option>
+		                        <option data-state-shipping="MN">Manipur</option>
+		                        <option data-state-shipping="ML">Meghalaya</option>
+		                        <option data-state-shipping="MZ">Mizoram</option>
+		                        <option data-state-shipping="NL">Nagaland</option>
+		                        <option data-state-shipping="OR">Odisha</option>
+		                        <option data-state-shipping="PY">Puducherry</option>
+		                        <option data-state-shipping="PB">Punjab</option>
+		                        <option data-state-shipping="RJ">Rajasthan</option>
+		                        <option data-state-shipping="SK">Sikkim</option>
+		                        <option data-state-shipping="TN">Tamil Nadu</option>
+		                        <option data-state-shipping="TG">Telangana</option>
+		                        <option data-state-shipping="TR">Tripura</option>
+		                        <option data-state-shipping="UP">Uttar Pradesh</option>
+		                        <option data-state-shipping="UT">Uttarakhand</option>
+		                        <option data-state-shipping="WB">West Bengal</option>
+													</select>
+													<span class="errors" id="shippingCityErr"></span>
 												</div>
 
 												<div class="main-form-control">
@@ -1548,56 +1584,49 @@
 										</div>
 
 										<div class="account-detail-input">
-											<span class="m-set">
-												<span class="after">
-													<div class="select"></div>
-													<div class="custom-select">
-														<ul class="state-list">
-															<li data-state-code="">Select state</li>
-				                        <li data-state-code="AN">Andaman and Nicobar Islands</li>
-				                        <li data-state-code="AP">Andhra Pradesh</li>
-				                        <li data-state-code="AR">Arunachal Pradesh</li>
-				                        <li data-state-code="AS">Assam</li>
-				                        <li data-state-code="BR">Bihar</li>
-				                        <li data-state-code="CH">Chandigarh</li>
-				                        <li data-state-code="CT">Chhattisgarh</li>
-				                        <li data-state-code="DN">Dadra and Nagar Haveli</li>
-				                        <li data-state-code="DD">Daman and Diu</li>
-				                        <li data-state-code="DL">Delhi</li>
-				                        <li data-state-code="GA">Goa</li>
-				                        <li data-state-code="GJ">Gujarat</li>
-				                        <li data-state-code="HR">Haryana</li>
-				                        <li data-state-code="HP">Himachal Pradesh</li>
-				                        <li data-state-code="JK">Jammu and Kashmir</li>
-				                        <li data-state-code="JH">Jharkhand</li>
-				                        <li data-state-code="KA">Karnataka</li>
-				                        <li data-state-code="KL">Kerala</li>
-				                        <li data-state-code="LA">Ladakh</li>
-				                        <li data-state-code="LD">Lakshadweep</li>
-				                        <li data-state-code="MP">Madhya Pradesh</li>
-				                        <li data-state-code="MH">Maharashtra</li>
-				                        <li data-state-code="MN">Manipur</li>
-				                        <li data-state-code="ML">Meghalaya</li>
-				                        <li data-state-code="MZ">Mizoram</li>
-				                        <li data-state-code="NL">Nagaland</li>
-				                        <li data-state-code="OR">Odisha</li>
-				                        <li data-state-code="PY">Puducherry</li>
-				                        <li data-state-code="PB">Punjab</li>
-				                        <li data-state-code="RJ">Rajasthan</li>
-				                        <li data-state-code="SK">Sikkim</li>
-				                        <li data-state-code="TN">Tamil Nadu</li>
-				                        <li data-state-code="TG">Telangana</li>
-				                        <li data-state-code="TR">Tripura</li>
-				                        <li data-state-code="UP">Uttar Pradesh</li>
-				                        <li data-state-code="UT">Uttarakhand</li>
-				                        <li data-state-code="WB">West Bengal</li>
-														</ul>
-													</div>
-													<input id="state" type="hidden" value="{{ $customer->state }}" name="state">
-													<span class="imp set_default_state">*<span class="plc" data-default="{{ $customer->state }}"></span></span>
-													<span class="arw"><img src="{{ asset('public/frontend') }}/images/ExpandMore.png" alt=""></span>
-													<span class="errors" id="stateErr"></span>
-												</span>
+											<span class="m-set ff-row">
+												<div class="selec-row" style="width:49%;">
+													<select class="shipping-list">
+															<option data-state-code="">Select state</option>
+				                        <option data-state-code="AN">Andaman and Nicobar Islands</option>
+				                        <option data-state-code="AP">Andhra Pradesh</option>
+				                        <option data-state-code="AR">Arunachal Pradesh</option>
+				                        <option data-state-code="AS">Assam</option>
+				                        <option data-state-code="BR">Bihar</option>
+				                        <option data-state-code="CH">Chandigarh</option>
+				                        <option data-state-code="CT">Chhattisgarh</option>
+				                        <option data-state-code="DN">Dadra and Nagar Haveoption</option>
+				                        <option data-state-code="DD">Daman and Diu</option>
+				                        <option data-state-code="DL">Delhi</option>
+				                        <option data-state-code="GA">Goa</option>
+				                        <option data-state-code="GJ">Gujarat</option>
+				                        <option data-state-code="HR">Haryana</option>
+				                        <option data-state-code="HP">Himachal Pradesh</option>
+				                        <option data-state-code="JK">Jammu and Kashmir</option>
+				                        <option data-state-code="JH">Jharkhand</option>
+				                        <option data-state-code="KA">Karnataka</option>
+				                        <option data-state-code="KL">Kerala</option>
+				                        <option data-state-code="LA">Ladakh</option>
+				                        <option data-state-code="LD">Lakshadweep</option>
+				                        <option data-state-code="MP">Madhya Pradesh</option>
+				                        <option data-state-code="MH">Maharashtra</option>
+				                        <option data-state-code="MN">Manipur</option>
+				                        <option data-state-code="ML">Meghalaya</option>
+				                        <option data-state-code="MZ">Mizoram</option>
+				                        <option data-state-code="NL">Nagaland</option>
+				                        <option data-state-code="OR">Odisha</option>
+				                        <option data-state-code="PY">Puducherry</option>
+				                        <option data-state-code="PB">Punjab</option>
+				                        <option data-state-code="RJ">Rajasthan</option>
+				                        <option data-state-code="SK">Sikkim</option>
+				                        <option data-state-code="TN">Tamil Nadu</option>
+				                        <option data-state-code="TG">Telangana</option>
+				                        <option data-state-code="TR">Tripura</option>
+				                        <option data-state-code="UP">Uttar Pradesh</option>
+				                        <option data-state-code="UT">Uttarakhand</option>
+				                        <option data-state-code="WB">West Bengal</option>
+														</select>
+												</div>
 												<div class="form-field">
 													<input type="text" name="city" class="mr-42" value="{{ $customer->city }}">
 													<span class="imp">*<span class="plc">City</span></span>
