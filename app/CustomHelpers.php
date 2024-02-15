@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cookie;
-// use Request;
+use Request;
 
 use App\Models\AdminModel;
 use App\Models\MediaModel;
@@ -320,6 +320,8 @@ function cartData() {
 	$getCartData = CartModel::join('product', 'cart.product_id', '=', 'product.id')
 		->where($cond)
 		->select('cart.*', 'product.name', 'product.thumbnail_id')
+		->orderBy('cart.id', 'desc')
+		->take(1)
 		->get();
 
 	if (!empty($getCartData) && $getCartData->count()) {
@@ -343,6 +345,8 @@ function getCartId() {
 
 	return CartModel::join('product', 'cart.product_id', '=', 'product.id')
 		->where($cond)
+		->orderBy('cart.id', 'desc')
+		->take(1)
 		->value('cart.id');
 }
 
@@ -359,6 +363,8 @@ function getCartProductId() {
 
 	return CartModel::join('product', 'cart.product_id', '=', 'product.id')
 		->where($cond)
+		->orderBy('cart.id', 'desc')
+		->take(1)
 		->value('cart.product_id');
 }
 
@@ -367,6 +373,7 @@ function productSpec($cartId) {
 	$cartData = CartModel::join('product', 'cart.product_id', '=', 'product.id')
 		->where(['cart.id' => $cartId, 'product.is_active' => 1])
 		->select('cart.*', 'product.name', 'product.thumbnail_id')
+		->orderBy('cart.id', 'desc')
 		->first();
 
 	if (!empty($cartData)) {
@@ -453,6 +460,7 @@ function productPrice() {
 	$cartData = CartModel::join('product', 'cart.product_id', '=', 'product.id')
 		->where($cond)
 		->select('cart.*', 'product.name', 'product.thumbnail_id')
+		->orderBy('cart.id', 'desc')
 		->first();
 
 	if (!empty($cartData)) {
@@ -535,7 +543,20 @@ function productPrice() {
 			$shipping = $getShippingData['shipping'];
 		}
 
-		$getPriceCal = ($data['price']*$cartData->qty)+$data['binding']+$data['lamination']+$data['cover'];
+		//no of copies
+		$noOfCopies = $cartData->no_of_copies;
+
+		$getPriceCal = (($data['price']*$cartData->qty))+$data['binding']+$data['lamination']+$data['cover'];
+		$getPriceCal = $getPriceCal*$noOfCopies;
+
+		// if (!empty($noOfCopies)) {
+				
+		// 	$noOfCopies = $noOfCopies+1;
+		// 	$getPriceCal = (($data['price']*$cartData->qty)*$noOfCopies)+$data['binding']+$data['lamination']+$data['cover'];
+
+		// } else {
+		// 	$getPriceCal = ($data['price']*$cartData->qty)+$data['binding']+$data['lamination']+$data['cover'];
+		// }
 
 		$data['discount'] = $discount;
 		$data['shipping'] = $shipping;
@@ -564,6 +585,7 @@ function cartWeight() {
 	$cartData = CartModel::join('product', 'cart.product_id', '=', 'product.id')
 		->where($cond)
 		->select('cart.*', 'product.name', 'product.thumbnail_id')
+		->orderBy('cart.id', 'desc')
 		->first();
 
 	if (!empty($cartData)) {
@@ -578,13 +600,22 @@ function cartWeight() {
 		$laminationId = $cartData->lamination_id;
 		$coverId = $cartData->cover_id;
 
+		$noOfCopies = $cartData->no_of_copies;
+
 		$weight = 0;
 
 		//Get GSM Data
 		$getWeight = GsmModel::where(['paper_size' => $paperSizeId, 'id' => $paperGsmId])->value('per_sheet_weight');
 
 		$weight = $getWeight;
-		$totalWeight = $weight*$cartData->qty;
+		$totalWeight = ($weight*$cartData->qty)*$noOfCopies;
+		
+		// if (!empty($noOfCopies)) {
+		// 	$noOfCopies = $noOfCopies+1;
+		// 	$totalWeight = (($weight*$cartData->qty)*$noOfCopies);
+		// } else {
+		// 	$totalWeight = $weight*$cartData->qty;
+		// }
 
 		return $totalWeight;
 

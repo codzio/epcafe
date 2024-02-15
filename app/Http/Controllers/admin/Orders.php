@@ -91,6 +91,7 @@ class Orders extends Controller {
 			        	  ->orWhere('customer.phone', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('orders.product_name', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('orders.qty', 'like', '%' . $searchValue . '%')
+			        	  ->orWhere('orders.no_of_copies', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('orders.paid_amount', 'like', '%' . $searchValue . '%');
 
 			        // if (strtolower($searchValue) == 'active') {
@@ -118,6 +119,7 @@ class Orders extends Controller {
 			        	  ->orWhere('customer.phone', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('orders.product_name', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('orders.qty', 'like', '%' . $searchValue . '%')
+			        	  ->orWhere('orders.no_of_copies', 'like', '%' . $searchValue . '%')
 			        	  ->orWhere('orders.paid_amount', 'like', '%' . $searchValue . '%');
 
 			        // if (strtolower($searchValue) == 'active') {
@@ -183,6 +185,7 @@ class Orders extends Controller {
 			          	"phone" => $record->phone,
 			          	"product_name" => $record->product_name,
 			          	"qty" => $record->qty,
+			          	"no_of_copies" => $record->no_of_copies,
 			          	"paid_amount" => $record->paid_amount,
 			          	"action" => $action
 			        );

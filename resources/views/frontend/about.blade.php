@@ -1,6 +1,16 @@
 @extends('vwFrontMaster')
 
 @section('content')
+
+<style type="text/css">
+  .vision-text h2 {
+    font-family: inherit;
+  }
+
+  .heading span {
+    font-family: inherit;
+  }
+</style>
     
 <!--======= SUB BANNER =========-->
 <section class="sub-bnr" data-stellar-background-ratio="0.5">
@@ -31,7 +41,7 @@
       <!--<div class="more_than_year">-->
       <!--  <h4>We Have More than <strong style="color:var(--primary-color-1);">33</strong> Years Of Experience in Printing Services</h4>-->
       <!--</div>-->
-      <span style="width:100%; margin-bottom:35px;">Welcome to Eprintcafe.com, An initiative of India Inttech Pvt. Ltd. ( Shyam Electrostat - Since 1990), your dedicated offline convenience printing store ! We understand the value of your time and energy, which is why our platform is designed to provide you with easy access to high-quality online printing services. Say goodbye to the hassles of traditional printing – we're here to redefine your printing experience.
+      <span style="width:100%; margin-bottom:35px; margin-top: 1rem;">Welcome to Eprintcafe.com, An initiative of India Inttech Pvt. Ltd. ( Shyam Electrostat - Since 1990), your dedicated offline convenience printing store ! We understand the value of your time and energy, which is why our platform is designed to provide you with easy access to high-quality online printing services. Say goodbye to the hassles of traditional printing – we're here to redefine your printing experience.
       </span> 
     </div>
   </div>
@@ -47,12 +57,12 @@
         <div class="vision-text">
           <div class="col-lg-12">
             <h5 class="text-left">our vision</h5>
-            <h2>Our promise to you is simple - unique, affordable, and easy online printing solutions.</h2>
+            <span>Our promise to you is simple - unique, affordable, and easy online printing solutions.</span>
           </div>
           <div class="col-lg-12" style="height: 32px;"></div>
           <div class="col-lg-12">
             <h5 class="text-left">our mission</h5>
-            <h2>Our commitment is to offer you quality products and online printing services without breaking the bank.</h2>
+            <span>Our commitment is to offer you quality products and online printing services without breaking the bank.</span>
           </div>
           <div class="col-lg-12" style="height: 32px;"></div>
           <div class="col-lg-12">
@@ -97,7 +107,7 @@
 </section>
 
 <!-- home cards sec -->
-<section class="light-gray-bg padding-top-50" style="padding-bottom:50px;">
+<section class="light-gray-bg padding-top-50" style="">
   <div class="container"> 
     
     <!-- Main Heading -->

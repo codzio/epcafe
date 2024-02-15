@@ -202,9 +202,16 @@
                   </div>
                 </div>
                 <div class="input_field">
+                  <label for="select">No of Pages</label>
+                    <div class="label_input choose">
+                      <input min="1" id="noOfPages" name="noOfPages" type="text" style="width:100%;" placeholder="No of Pages">
+                      <span class="text-danger" id="noOfPagesErr"></span>
+                    </div>
+                </div>
+                <div class="input_field">
                   <label for="select">No of Copies</label>
                     <div class="label_input choose">
-                      <input id="noOfCopies" name="noOfCopies" type="text" style="width:100%;" placeholder="No of Copies">
+                      <input min="1" id="noOfCopies" name="noOfCopies" type="text" style="width:100%;" placeholder="No of Copies" value="1">
                         <p>Choose a quantity between 1 - 1000 for instant ordering. For higher quantities, you will be allowed to request quotations from Sales Team.
                       </p>
                       <span class="text-danger" id="noOfCopiesErr"></span>
@@ -463,6 +470,10 @@
       calculatePrice();
     });
 
+    $("#noOfPages").change(function (e) {
+      calculatePrice();
+    });
+
     function calculatePrice() {
 
       paperGsmPrice = 0;
@@ -472,7 +483,8 @@
       bindingPrice = 0;
       laminationPrice = 0;
 
-      qty = ($("#noOfCopies").val() == '')? 0:$("#noOfCopies").val();
+      qty = ($("#noOfPages").val() == '')? 0:$("#noOfPages").val();
+      noOfCopies = ($("#noOfCopies").val() == '')? 1:$("#noOfCopies").val();
 
       // if ($("#paperGsm").find(':selected').val() != '') {
       //   paperGsmPrice = $("#paperGsm").find(':selected').attr('data-weight');
@@ -507,9 +519,22 @@
       // }
 
       finalPrice = (parseFloat(totalPrice)*parseInt(qty))+parseFloat(bindingPrice)+parseFloat(laminationPrice);;
+      
       if(qty != 0) {
-        $('.price-widget-sezzle').html(`₹`+finalPrice);
+          
+          // if(noOfCopies != 0) {
+
+          //   noOfCopies = parseInt(noOfCopies)+1;
+
+          //   $('.price-widget-sezzle').html(`₹`+(finalPrice*noOfCopies));
+          // } else {
+          //   $('.price-widget-sezzle').html(`₹`+finalPrice);
+          // }
+
+        $('.price-widget-sezzle').html(`₹`+(finalPrice*noOfCopies));
+
       }
+
       $("#perSheetPrice").html(`₹`+totalPrice)
 
       console.log(totalPrice, parseInt(qty));

@@ -3,7 +3,9 @@
 @section('content')
   
 <style type="text/css">
-
+  .shopping-cart .cart-ship-info {
+    margin-top: 0;
+  }
 </style>
 
   <!--======= SUB BANNER =========-->
@@ -72,7 +74,7 @@
                       <!-- FORGET PASS -->
                       <li class="col-md-4">
                         <div class="checkbox margin-0 margin-top-20 text-right">
-                          <a href="{{ route('forgetPasswordPage') }}">Forget Password?</a>
+                          <a href="{{ route('forgotPasswordPage') }}">Forgot Password?</a>
                         </div>
                       </li>
                     </div>
@@ -135,7 +137,7 @@
         dataType: 'json',
         data: formData,
         beforeSend: function() {
-          $("#loginFormBtn").html('Sending...');
+          $("#loginFormBtn").html('Please Wait...');
           $(".errors").html('');
         }, success: function(res) {
 
@@ -154,7 +156,7 @@
           }
 
 
-          $("#loginFormBtn").html('SEND Message');
+          $("#loginFormBtn").html('Login');
         }
       })
 

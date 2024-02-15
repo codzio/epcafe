@@ -2,6 +2,30 @@
 
 @section('content')
 
+<style type="text/css">
+  .cart-head {
+      display: grid;
+      /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+      grid-template-columns: 29% 16% 30% 1fr;
+  }
+
+  .media3 input {
+      padding: 0.375rem 0.75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212529;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid #ced4da;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border-radius: 0.25rem;
+      transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  }
+</style>
+
 <!-- <section class="sub-bnr" data-stellar-background-ratio="0.5">
   <div class="position-center-center">
     <div class="container">
@@ -26,7 +50,7 @@
         <div class="cart-head">
           <h6>PRODUCTS</h6>
               <h6>PRICE</h6>
-              <h6>QTY</h6>
+              <h6>No Of Pages/Copies</h6>
               <h6>TOTAL</h6>
         </div>
         
@@ -45,6 +69,9 @@
             <div class="card_detail">
                   <h5>{{ $cart->name }}</h5>
                   {!! productSpec($cart->id) !!}
+                  <p><strong>Binding:</strong> {{ productPrice()->binding }}</p>
+                  <p><strong>Lamination:</strong> {{ productPrice()->lamination }}</p>
+                  <p><strong>Cover:</strong> {{ productPrice()->cover }}</p>
                   <!-- <p><strong>Document Link:</strong>{{ $cart->document_link }}</p> -->
                 </div>
               </div>
@@ -54,10 +81,14 @@
             
             <!-- QTY -->
               <div class="media3">
-                  <input min="1" id="qty" type="number" style="width:75px; text-align: center;" name="qty" value="{{ $cart->qty }}">
+                  <input min="1" id="qty" type="number" style="width:95px; text-align: center;" name="qty" value="{{ $cart->qty }}" placeholder="No of Pages">
+                  <input min="1" id="noOfCopies" type="number" style="width:95px; text-align: center;" name="noOfCopies" value="{{ $cart->no_of_copies }}" placeholder="No of Copies">
               </div>            
             <!-- TOTAL PRICE -->
-                <div class="media4"> <span class="price">{{ $price*$cart->qty }}</span> </div>
+                <div class="media4"> 
+                  <!-- <span class="price">{{ (($price*$cart->qty)*$cart->no_of_copies) }}</span> -->
+                  <span class="price">{{ productPrice()->total }}</span>
+                </div>
             
             <!-- REMOVE -->
             <div class="media5"> <a class="remove-cart-item" data-id="{{ $cart->id }}" href="javascript:void(0)"><i class="icon-close"></i></a> </div>
@@ -81,8 +112,12 @@
                 <h6>grand total</h6>
                 <div class="grand-total">
                   <div class="order-detail">
+                    <p>Weight <span id="totalWeight">{{ cartWeight() }}</span></p>
+                    <!-- <p>Binding <span>{{ productPrice()->binding }}</span></p>
+                    <p>Lamination <span>{{ productPrice()->lamination }}</span></p>
+                    <p>Cover <span>{{ productPrice()->cover }}</span></p> -->
                     <p>Discount <span id="totalDiscount">0</span></p>
-                    <p>Shipping <span>0</span></p>
+                    <!-- <p>Shipping <span>0</span></p> -->
                     <p class="all-total">TOTAL COST <span id="totalCost"> {{ productPrice()->total }}</span></p>
                   </div>
                 </div>
@@ -132,12 +167,13 @@
     $("#updatecart").click(function (e) {
       
       qty = $("#qty").val();
+      noOfCopies = $("#noOfCopies").val();
 
       $.ajax({
         url: '{{ route("updateCartItem") }}',
         type: 'POST',
         dataType: 'json',
-        data: {qty: qty},
+        data: {qty: qty, noOfCopies:noOfCopies},
         beforeSend: function() {
           $("#updatecart").html('Updating...')
         },

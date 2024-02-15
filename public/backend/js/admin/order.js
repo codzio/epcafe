@@ -35,6 +35,7 @@ var table = $('#kt_file_manager_list').DataTable({
         { "data": "phone" },
         { "data": "product_name" },
         { "data": "qty" },
+        { "data": "no_of_copies" },
         { "data": "paid_amount" },
         { "orderable": false, "searchable": false, "data": "action" }
     ]

@@ -67,6 +67,8 @@ class Checkout extends Controller {
 		$getCartData = CartModel::join('product', 'cart.product_id', '=', 'product.id')
 		->where($cond)
 		->select('cart.*', 'product.name', 'product.thumbnail_id')
+		->orderBy('cart.id', 'desc')
+		->take(1)
 		->get();
 
 		if (!empty($getCartData) && $getCartData->count()) {
@@ -115,6 +117,7 @@ class Checkout extends Controller {
 	            'shippingPincode' => 'required|numeric|digits:6',
 	            'shippingEmail' => 'required|email',
 	            'shippingPhone' => 'required|numeric',
+	            'gstNumber' => 'sometimes|nullable',
 	        ];
 
 	        $isBillingAddrSame = $request->post('isBillingAddressSame');
@@ -169,6 +172,7 @@ class Checkout extends Controller {
 			            'shipping_pincode' => $request->post('shippingPincode'),
 			            'shipping_email' => $request->post('shippingEmail'),
 			            'shipping_phone' => $request->post('shippingPhone'),
+			            'gst_number' => $request->post('gstNumber'),
 			            'is_billing_same' => 1,
 			        ];
 
@@ -283,6 +287,7 @@ class Checkout extends Controller {
 	            'shippingPincode' => 'required|numeric|digits:6',
 	            'shippingEmail' => 'required|email',
 	            'shippingPhone' => 'required|numeric',
+	            'gstNumber' => 'sometimes|nullable',
 	            'acceptTermsCondition' => 'required',
 	        ];
 
@@ -338,6 +343,7 @@ class Checkout extends Controller {
 			            'shipping_pincode' => $request->post('shippingPincode'),
 			            'shipping_email' => $request->post('shippingEmail'),
 			            'shipping_phone' => $request->post('shippingPhone'),
+			            'gst_number' => $request->post('gstNumber'),
 			            'is_billing_same' => 1,
 			        ];
 
@@ -430,7 +436,7 @@ class Checkout extends Controller {
 	        		$transactionId = uniqid();
 
 	        		$paymentObj = array (
-			            'merchantId' => env("STG_MERCHANT_ID"),
+			            'merchantId' => env("PROD_MERCHANT_ID"),
 			            'merchantTransactionId' => $transactionId,
 			            'merchantUserId' => 'MUID123',
 			            'amount' => $paidAmount,
@@ -444,13 +450,13 @@ class Checkout extends Controller {
 			        );
 
 			        $encode = base64_encode(json_encode($paymentObj));
-			        $saltKey = env('STG_MERCHANT_KEY');
+			        $saltKey = env('PROD_MERCHANT_KEY');
         			$saltIndex = 1;
 
         			$string = $encode.'/pg/v1/pay'.$saltKey;
         			$sha256 = hash('sha256',$string);
         			$finalXHeader = $sha256.'###'.$saltIndex;
-        			$url = env('STG_URL')."/pg/v1/pay";
+        			$url = env('PROD_URL')."/pg/v1/pay";
 
         			$response = Curl::to($url)
 	                ->withHeader('Content-Type:application/json')
@@ -516,15 +522,15 @@ class Checkout extends Controller {
 
         if (!empty($paymentSess)) {
        
-	        $merchantId = env("STG_MERCHANT_ID");
+	        $merchantId = env("PROD_MERCHANT_ID");
 	        $transactionId = $paymentSess['transactionId'];
 
-	        $saltKey = env('STG_MERCHANT_KEY');
+	        $saltKey = env('PROD_MERCHANT_KEY');
 	        $saltIndex = 1;
 
 	        $finalXHeader = hash('sha256','/pg/v1/status/'.$merchantId.'/'.$transactionId.$saltKey).'###'.$saltIndex;
 
-	        $response = Curl::to(env('STG_URL').'/pg/v1/status/'.$merchantId.'/'.$transactionId)
+	        $response = Curl::to(env('PROD_URL').'/pg/v1/status/'.$merchantId.'/'.$transactionId)
 	                ->withHeader('Content-Type:application/json')
 	                ->withHeader('accept:application/json')
 	                ->withHeader('X-VERIFY:'.$finalXHeader)
@@ -566,7 +572,9 @@ class Checkout extends Controller {
 
 	        	$customerAdd = CustomerAddressModel::where('user_id', customerId())->first();
 
-	        	$getCartData = CartModel::where('user_id', customerId())->first();
+	        	$getCartData = CartModel::where('user_id', customerId())
+	        	->orderBy('cart.id', 'desc')
+	        	->first();
 	        	$productName = ProductModel::where('id', getCartProductId())->value('name');
 
 	        	$orderObj = array(
@@ -585,7 +593,8 @@ class Checkout extends Controller {
 	        		'transaction_details' => json_encode($response->data),
 	        		'customer_address' => json_encode($customerAdd->toArray()),
 	        		'document_link' => $getCartData->document_link,
-	        		'qty' => $getCartData->qty
+	        		'qty' => $getCartData->qty,
+	        		'no_of_copies' => $getCartData->no_of_copies,
 	        	);
 
 	        	$isOrderCreated = OrderModel::create($orderObj);
@@ -686,7 +695,8 @@ class Checkout extends Controller {
 						//$filesystem->write($path, file_get_contents($file->getRealPath()));
 
 						//$filePath = $file->storeAs($craftPath, $finalName);
-						$folderId = '1AgOwXplcpb1Y1xW-MYQ6FAgDhP_mC3Sw';
+						//$folderId = '1AgOwXplcpb1Y1xW-MYQ6FAgDhP_mC3Sw';
+						$folderId = '1KYl_BlpStYJRqTg7-yMELsvEx8dqWFBu';
 						//$fileId = $googleDriveService->uploadFile(storage_path("app/{$filePath}"), $folderId);
 
 						$fileContent = $file->get();

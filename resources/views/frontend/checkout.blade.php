@@ -6,6 +6,11 @@
 <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 
 <style type="text/css">
+
+  .shopping-cart .order-place input {
+    margin: -20px;
+  }
+
   .billing-address {
     display: none;
   }
@@ -94,6 +99,7 @@
             <div class="col-sm-7">
 
               <h6>UPLOAD DOCUMENTS</h6>
+              <small>You can upload multiple documents by click on this box</small>
               <div id="dropzone">
                 <form action="{{ route('doUploadDropbox') }}" class="dropzone needsclick" id="upload">
                   <div class="dz-message needsclick">
@@ -122,6 +128,12 @@
                       <input type="text" name="shippingCompanyName" value="{{ isset($customerAddress->shipping_company_name)? $customerAddress->shipping_company_name:'' }}" placeholder="">
                     </label>
                     <span class="error" id="shippingCompanyNameErr"></span>
+                  </li>
+                  <li class="col-md-6"> 
+                    <label>GST Number
+                      <input type="text" name="gstNumber" value="{{ isset($customerAddress->gst_number)? $customerAddress->gst_number:'' }}" placeholder="">
+                    </label>
+                    <span class="error" id="gstNumberErr"></span>
                   </li>
                   <li class="col-md-6"> 
                     <label>*ADDRESS
@@ -262,6 +274,10 @@
               <h6>YOUR ORDER</h6>
               <div class="order-place">
                 <div class="order-detail">
+                  <!-- <p>Binding <span id="discountData">{{ $productPrice->binding }}</span></p>
+                  <p>Lamination <span id="discountData">{{ $productPrice->lamination }}</span></p>
+                  <p>Cover <span id="discountData">{{ $productPrice->cover }}</span></p> -->
+                  <p>Weight <span id="cartWeight">{{ cartWeight() }}</span></p>
                   <p>Discount <span id="discountData">{{ $productPrice->discount }}</span></p>
                   <p>Shipping Charge <span id="shippingData">{{ $productPrice->shipping }}</span></p>
                   <p>Sub Total <span id="subTotalData">{{ $productPrice->total-$productPrice->shipping-$productPrice->discount }}</span></p>
@@ -299,7 +315,7 @@
                     <li>
                       <div class="checkbox">
                         <input name="acceptTermsCondition" value="true" id="checkbox3-4" class="styled" type="checkbox">
-                        <label for="checkbox3-4"> I’VE READ AND ACCEPT THE <span class="color"> TERMS & CONDITIONS </span> </label>
+                        <label for="checkbox3-4"> I’VE READ AND ACCEPT THE <span onclick="redirect('{{ route('termsAndConditionPage') }}')" class="color"> TERMS & CONDITIONS </span> </label>
 
                         <span id="acceptTermsConditionErr" class="error"></span>
                       </div>
@@ -319,6 +335,11 @@
 </div>
 
 <script type="text/javascript">
+
+  function redirect(url) {
+    window.location.href = url
+  }
+
   $(document).ready(function() {
 
     $.ajaxSetup({

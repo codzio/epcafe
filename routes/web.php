@@ -52,7 +52,7 @@ Route::prefix('/')->group(function() {
 
     Route::get('/login', [Customer::class, 'login'])->name('loginPage');
     Route::get('/register', [Customer::class, 'register'])->name('registerPage');
-    Route::get('/forget-password', [Customer::class, 'forgetPassword'])->name('forgetPasswordPage');
+    Route::get('/forgot-password', [Customer::class, 'forgotPassword'])->name('forgotPasswordPage');
     Route::post('/doForgotPassword', [Customer::class, 'doForgotPassword'])->name('doForgotPassword');
     Route::get('/reset-password/{token}', [Customer::class,'resetPassword'])->name('customerResetPassword');
 

@@ -53,6 +53,10 @@
                                <td>{{ $order->qty }}</td>
                            </tr>
                            <tr>
+                               <th>No of Copies</th>
+                               <td>{{ $order->no_of_copies }}</td>
+                           </tr>
+                           <tr>
                                <th>Coupon Code</th>
                                <td>{{ $order->coupon_code }}</td>
                            </tr>

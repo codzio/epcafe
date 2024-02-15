@@ -106,12 +106,12 @@ class Customer extends Controller {
 
 	}
 
-	public function forgetPassword(Request $request) {
+	public function forgotPassword(Request $request) {
 
 		$data = array(
-			'title' => 'Forget Passwoord',
-			'pageTitle' => 'Forget Passwoord',
-			'menu' => 'forget-password',
+			'title' => 'Forgot Passwoord',
+			'pageTitle' => 'Forgot Passwoord',
+			'menu' => 'forgot-password',
 		);
 
 		return view('frontend/forgetPassword', $data);

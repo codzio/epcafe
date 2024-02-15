@@ -55,7 +55,8 @@
                                         <th class="min-w-100px">name</th>
                                         <th class="min-w-100px">phone</th>
                                         <th class="min-w-100px">product_name</th>
-                                        <th class="min-w-100px">qty</th>
+                                        <th class="min-w-100px">Qty</th>
+                                        <th class="min-w-100px">Copies</th>
                                         <th class="min-w-100px">paid amount</th>
                                         <th class="w-125px">Action</th>
                                     </tr>

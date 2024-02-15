@@ -44,6 +44,8 @@ class Cart extends Controller {
 		$getCartData = CartModel::join('product', 'cart.product_id', '=', 'product.id')
 		->where($cond)
 		->select('cart.*', 'product.name', 'product.thumbnail_id')
+		->orderBy('cart.id', 'desc')
+		->take(1)
 		->get();
 
 		if (!empty($getCartData) && $getCartData->count()) {
@@ -96,7 +98,8 @@ class Cart extends Controller {
 			    'binding' => 'sometimes|nullable|numeric',
 			    'lamination' => 'sometimes|nullable|numeric',
 			    'cover' => 'sometimes|nullable|numeric',
-			    'noOfCopies' => 'required|numeric',
+			    'noOfPages' => 'required|numeric|min:1',
+			    'noOfCopies' => 'required|numeric|min:1',
 			    // 'documentLink' => 'required|url:http,https',
 			]);
 
@@ -122,6 +125,7 @@ class Cart extends Controller {
 	        	$binding = $request->post('binding');
 	        	$lamination = $request->post('lamination');
 	        	$cover = $request->post('cover');
+	        	$noOfPages = $request->post('noOfPages');
 	        	$noOfCopies = $request->post('noOfCopies');
 	        	// $documentLink = $request->post('documentLink');
 
@@ -197,7 +201,8 @@ class Cart extends Controller {
 	        					'binding_id' => $binding,
 	        					'lamination_id' => $lamination,
 	        					'cover_id' => $cover,
-	        					'qty' => $noOfCopies,
+	        					'qty' => $noOfPages,
+	        					'no_of_copies' => $noOfCopies,
 	        					// 'document_link' => $documentLink,
 	        				];
 
@@ -343,6 +348,7 @@ class Cart extends Controller {
 
 			$validator = Validator::make($request->post(), [
 			    'qty' => 'required|numeric|min:1',
+			    'noOfCopies' => 'required|numeric|min:1',
 			]);
 
 	        if ($validator->fails()) {
@@ -368,8 +374,9 @@ class Cart extends Controller {
 				}
 
 				$qty = $request->post('qty');
+				$noOfCopies = $request->post('noOfCopies');
 
-	        	CartModel::where($cond)->update(['qty' => $qty]);
+	        	CartModel::where($cond)->update(['qty' => $qty, 'no_of_copies' => $noOfCopies]);
 
 	        	//remove coupon && shipping
 

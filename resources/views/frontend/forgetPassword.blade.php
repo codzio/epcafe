@@ -6,13 +6,13 @@
   <section class="sub-bnr" data-stellar-background-ratio="0.5">
     <div class="position-center-center">
       <div class="container">
-        <h4>Forget Password</h4>
+        <h4>Forgot Password</h4>
         <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus maximus vehicula.  -->
           <!-- Sed feugiat, tellus vel tristique posuere, diam</p> -->
         <ol class="breadcrumb">
           <li><a href="{{ route('homePage') }}">Home</a></li>
           <!-- <li><a href="#">PAGES</a></li> -->
-          <li class="active">Forget Password</li>
+          <li class="active">Forgot Password</li>
         </ol>
       </div>
     </div>
