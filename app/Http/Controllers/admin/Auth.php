@@ -15,6 +15,19 @@ use Illuminate\Support\Facades\Cookie;
 
 use App\Http\Controllers\EmailSending;
 use App\Models\AdminModel;
+use App\Models\ProductModel;
+use App\Models\CategoryModel;
+use App\Models\PaperSizeModel;
+use App\Models\PaperTypeModel;
+use App\Models\BindingModel;
+use App\Models\LaminationModel;
+use App\Models\CoverModel;
+use App\Models\GsmModel;
+use App\Models\CouponModel;
+use App\Models\ShippingModel;
+use App\Models\ContactModel;
+use App\Models\OrderModel;
+use App\Models\CustomerModel;
 
 class Auth extends Controller {
 
@@ -135,13 +148,24 @@ class Auth extends Controller {
 	}
 
 	public function dashboard(Request $request) {
-
-		$adminSess = Session::get('adminSess');
 		
 		$data = array(
 			'title' => 'Dashboard',
-			'pageTitle' => 'eCommerce Dashboard',
-			'menu' => 'dashboard'
+			'pageTitle' => 'Dashboard',
+			'menu' => 'dashboard',
+			'users' => AdminModel::count(),
+			'products' => ProductModel::count(),
+			'category' => CategoryModel::count(),
+			'paperSize' => PaperSizeModel::count(),
+			'paperType' => PaperTypeModel::count(),
+			'binding' => BindingModel::count(),
+			'lamination' => LaminationModel::count(),
+			'cover' => CoverModel::count(),
+			'paperGsm' => GsmModel::count(),
+			'coupon' => CouponModel::count(),
+			'shipping' => ShippingModel::count(),
+			'contact' => ContactModel::count(),
+			'customer' => CustomerModel::count(),
 		);
 		
 		return view('admin/dashboard/vwAdminDashboard', $data);

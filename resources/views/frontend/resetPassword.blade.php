@@ -1,6 +1,12 @@
 @extends('vwFrontMaster')
 
 @section('content')
+
+<style type="text/css">
+  .errors {
+    position: unset;
+  }
+</style>
   
   <!--======= SUB BANNER =========-->
   <section class="sub-bnr" data-stellar-background-ratio="0.5">
@@ -51,29 +57,31 @@
 
 
                   <ul class="row">
-                    <!-- Name -->
+                    
+                    <li class="col-md-12">
+                      <label> OTP
+                        <input type="text" name="otp" value="" placeholder="">
+                      </label>
+                      <span class="errors" id="otpErr"></span>
+                    </li>
+
                     <li class="col-md-12">
                       <label> PASSWORD
                         <input type="password" name="password" value="" placeholder="">
                       </label>
                       <span class="errors" id="passwordErr"></span>
                     </li>
-                    <!-- LAST NAME -->
                     <li class="col-md-12">
                       <label> CONFIRM PASSWORD
                         <input type="password" name="confirmPass" value="" placeholder="">
                       </label>
                       <span class="errors" id="confirmPassErr"></span>
                     </li>
-
-                    <input type="hidden" name="resetToken" value="{{ $token }}">
                     
-                    <!-- LOGIN -->
                     <li class="col-md-4">
                       <button id="resetPasswordBtn" type="submit" class="btn">RESET PASSWORD</button>
                     </li>
                     
-                    <!-- CREATE AN ACCOUNT -->
                     <li class="col-md-4">
                       <div class="checkbox margin-0 margin-top-20">
                         <input id="checkbox1" class="styled" type="checkbox">
@@ -83,7 +91,7 @@
                     <!-- FORGET PASS -->
                     <li class="col-md-4">
                       <div class="checkbox margin-0 margin-top-20 text-right">
-                        <a href="#.">Forget Password?</a>
+                        <a id="resendOTP" href="javascript:void(0)">Resend OTP</a>
                       </div>
                     </li>
                   </ul>
@@ -166,19 +174,47 @@
                       $("#"+index+"Err").html(val);
                   });
               } else {
-                  $('#resetPasswordMsg').html(res.msg);
+                  $('#resetPasswordMsg').html(res.msg).css('color', 'red');
               }
           } else {
               $("#resetPassword")[0].reset();
-              $('#resetPasswordMsg').html(res.msg).show();
+              $('#resetPasswordMsg').html(res.msg).show().css('color', 'green');
               window.location.href = res.redirect;
           }
-
 
           $("#resetPasswordBtn").html('RESET PASSWORD');
         }
       })
 
+    });
+
+    $("#resendOTP").click(function (e) {
+      $.ajax({
+        url: '{{ route("doResendForgotPassOtp") }}',
+        type: 'POST',
+        dataType: 'json',
+        data: {action: 'resend'},
+        beforeSend: function() {
+          $("#resendOTP").html('Please Wait...');
+          $(".errors").html('');
+        }, success: function(res) {
+
+          if (res.error == true) {
+              if (res.eType == 'field') {
+                  $.each(res.errors, function(index, val) {
+                      $("#"+index+"Err").html(val);
+                  });
+              } else {
+                  $('#resetPasswordMsg').html(res.msg).css('color', 'red');
+              }
+          } else {
+              // $("#loginForm")[0].reset();
+              $('#resetPasswordMsg').html(res.msg).css('color', 'green');
+          }
+          
+          $("#resendOTP").html('Resend OTP');
+        }
+      })
     });
   
   });

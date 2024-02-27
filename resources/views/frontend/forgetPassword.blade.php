@@ -40,11 +40,13 @@
                     
                     <!-- Name -->
                     <li class="col-md-12">
-                      <label> EMAIL
-                        <input type="text" name="email" value="" placeholder="">
+                      <label> Phone Number
+                        <input type="text" name="phoneNumber" value="" placeholder="">
                       </label>
-                      <span class="errors" id="emailErr"></span>
                     </li>
+
+                    <span class="col-md-12 text-danger" id="phoneNumberErr"></span>
+                    <div class="col-md-12" id="forgetPassMsg"></div>
                     
                     <!-- LOGIN -->
                     <li class="col-md-4">
@@ -91,20 +93,6 @@
         </div>
       </div>
     </section>
-    
-    
-    <!-- News Letter -->
-    <section class="news-letter padding-top-150 padding-bottom-150">
-      <div class="container">
-        <div class="heading light-head text-center margin-bottom-30">
-          <h4>NEWSLETTER</h4>
-          <span>Phasellus lacinia fermentum bibendum. Interdum et malesuada fames ac ante ipsumien lacus, eu posuere odi </span> </div>
-        <form>
-          <input type="email" placeholder="Enter your email address" required>
-          <button type="submit">SEND ME</button>
-        </form>
-      </div>
-    </section>
   </div>
 
 <script type="text/javascript">
@@ -127,8 +115,8 @@
         dataType: 'json',
         data: formData,
         beforeSend: function() {
-          $("#forgetPassBtn").html('Sending Mail...');
-          $(".errors").html('');
+          $("#forgetPassBtn").html('Please Wait...');
+          $(".text-danger").html('');
         }, success: function(res) {
 
           if (res.error == true) {
@@ -137,12 +125,14 @@
                       $("#"+index+"Err").html(val);
                   });
               } else {
-                  $('#forgetPassMsg').html(res.msg);
+                  $('#forgetPassMsg').html(res.msg).css('color', 'red');
               }
           } else {
               $("#forgetPass")[0].reset();
-              $('#forgetPassMsg').html(res.msg).show();
-              window.location.href = res.redirect;
+              $('#forgetPassMsg').html(res.msg).css('color', 'green').show();
+              setTimeout(function() {
+                window.location.href = res.redirect;
+              }, 2000);
           }
 
 

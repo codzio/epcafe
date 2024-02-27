@@ -6,6 +6,14 @@
   .shopping-cart .cart-ship-info {
     margin-top: 0;
   }
+
+  .shopping-cart .cart-ship-info .errors {
+    margin-bottom: 10px;
+  }
+
+  .errors {
+    position: unset;
+  }
 </style>
   
 
@@ -159,6 +167,7 @@
 
                 </form>
               </div>
+
             </div>
           </div>
         </div>

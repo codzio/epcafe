@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\File;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\SmsSending;
 
 use App\Models\CategoryModel;
 use App\Models\ProductModel;
@@ -25,6 +27,7 @@ use App\Models\CartModel;
 use App\Models\CouponModel;
 use App\Models\CustomerAddressModel;
 use App\Models\OrderModel;
+use App\Models\CustomerModel;
 
 use Ixudra\Curl\Facades\Curl;
 
@@ -234,6 +237,10 @@ class Checkout extends Controller {
 	        		$request->session()->put('shippingSess', $shippingSessObj);
 
 	        		$priceData = productPrice();
+
+	        		// echo "<pre>";
+	        		// print_r($priceData);
+	        		// die();
 
 	        		$this->status = array(
 						'error' => false,						
@@ -466,6 +473,16 @@ class Checkout extends Controller {
 
 	                $rData = json_decode($response);
 
+	                // // Log information
+					// Log::info('API Host: ' . $url);
+					// Log::info('Request Payload: ' . json_encode(['request' => $encode]));
+					// Log::info('Response Payload: ' . $response);
+					// Log::info('Header values: ' . $finalXHeader);
+
+	                // print_r($rData);
+	                // print_r($paymentObj);
+	                // die();
+
 	        		if (isset($rData->success) && $rData->success) {
 
 	        			Session::forget('paymentSess');
@@ -488,7 +505,7 @@ class Checkout extends Controller {
 	        			$this->status = array(
 							'error' => true,
 							'eType' => 'final',
-							'msg' => 'Something went wrong'
+							'msg' => 'Something went wrong while initiating payment.'
 						);
 	        		}
 
@@ -601,8 +618,13 @@ class Checkout extends Controller {
 	        	
 	        	if ($isOrderCreated) {
 
+	        		$getCustomer = CustomerModel::where('id', customerId())->first();
+
 	        		//Remove Cart Data
 	        		CartModel::where('user_id', customerId())->delete();
+
+	        		//send SMS
+	        		SmsSending::orderPlaced($getCustomer->phone, $getCustomer->name);
 	        		
 	        		Session::forget('shippingSess');
 	        		Session::forget('couponSess');
@@ -630,7 +652,7 @@ class Checkout extends Controller {
     	if ($request->ajax()) {
 
 			$validator = Validator::make($request->all(), [
-	            'file.*' => 'required|mimes:png,jpg,jpeg,pdf,zip|max:10024',
+	            'file.*' => 'required|mimes:png,jpg,jpeg,pdf,zip|max:110000',
 	        ]);
 
 	        if ($validator->fails()) {

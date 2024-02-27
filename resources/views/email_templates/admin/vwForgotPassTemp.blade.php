@@ -63,10 +63,10 @@
                                 <td align="center" valign="center" style="font-size: 13px; text-align:center; padding: 0 10px 10px 10px; font-weight: 500; color: #A1A5B7; font-family:Arial,Helvetica,sans-serif">
                                     <p style="color:#181C32; font-size: 16px; font-weight: 600; margin-bottom:9px">It’s all about customers!</p>
                                     
-                                    <p style="margin-bottom:2px">Call our customer care number: 6395028377</p>
+                                    <p style="margin-bottom:2px">Call our customer care number: 7065132319</p>
 
                                     <p style="margin-bottom:4px">You may reach us at 
-                                    <a href="#" rel="noopener" target="_blank" style="font-weight: 600">alfaizm19@gmail.com</a>.</p>
+                                    <a href="#" rel="noopener" target="_blank" style="font-weight: 600">{{ setting('from_address') }}</a>.</p>
                                 </td>
                             </tr>
                             <tr>
@@ -84,7 +84,7 @@
                             </tr>
                             <tr>
                                 <td align="center" valign="center" style="font-size: 13px; padding:0 15px; text-align:center; font-weight: 500; color: #A1A5B7;font-family:Arial,Helvetica,sans-serif">
-                                    <p>&copy; Copyright Ecom. 
+                                    <p>&copy; Copyright {{ setting('website_name') }}. 
                                 </td>
                             </tr>
                         </tbody>

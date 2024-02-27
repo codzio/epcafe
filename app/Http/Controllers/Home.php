@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cookie;
 
+ use App\Http\Controllers\SmsSending;
+
 use App\Models\CategoryModel;
 use App\Models\ProductModel;
 use App\Models\PricingModel;
@@ -562,5 +564,26 @@ class Home extends Controller {
         echo $path;
 		die();
 
+	}
+
+	public function testEmail() {
+		$obj = [
+			'name' => 'Alfaiz',
+			'otp' => 123456,
+			'email' => 'alfaizm19@gmail.com',
+			'debug' => true,
+			'level' => 1			
+		];
+		EmailSending::test($obj);
+	}
+
+	public function testSMS() {
+		//$data = SmsSending::sendOTP('6395028377', '123456');
+		//print_r($data);
+		// if ($data->type == 'success') {
+		// 	echo "Msg Sent";
+		// } else {
+		// 	echo "Something went wrong";
+		// }
 	}
 }

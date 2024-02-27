@@ -84,9 +84,9 @@ class EmailSending extends Controller {
 
         //$data['siteSettings'] = siteSettings();
 
-        $data = array();
+        //$data = array();
 
-        $template = view('templates.email.admin.vwChangePassword', $data)->render();
+        $template = view('email_templates.admin.vwTwoStepTemp', $data)->render();
 
         $emailComposer = new EmailSending();
         return $emailComposer->composeEmail(array(
@@ -115,24 +115,24 @@ class EmailSending extends Controller {
             }
 
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';             //  smtp host
+            $mail->Host = setting('smtp_host');             //  smtp host
             $mail->SMTPAuth = true;
-            $mail->Username = 'alfaizm19@gmail.com';   //  sender username
-            $mail->Password = 'oyvi ygcl iipl bpld';       // sender password
-            $mail->SMTPSecure = 'ssl';                  // encryption - ssl/tls
-            $mail->Port = '465';                          // port - 587/465
+            $mail->Username = setting('smtp_username');   //  sender username
+            $mail->Password = setting('smtp_password');       // sender password
+            $mail->SMTPSecure = setting('email_encryption');                  // encryption - ssl/tls
+            $mail->Port = setting('smtp_port');                          // port - 587/465
 
-            $mail->setFrom('alfaizm19@gmail.com', 'Ecom');
+            $mail->setFrom(setting('from_address'), setting('from_name'));
             
             $mail->addAddress($mailInfo['to']);
             
             if (isset($mailInfo['cc'])) {
-            	$mail->addCC($mailInfo['cc']);
+                $mail->addCC($mailInfo['cc']);
             }
 
             if (isset($mailInfo['bcc'])) {
-            	$mail->addBCC($mailInfo['bcc']);
-            }            
+                $mail->addBCC($mailInfo['bcc']);
+            }           
 
             // $mail->addReplyTo('sender-reply-email', 'sender-reply-name');
 

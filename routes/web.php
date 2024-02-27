@@ -28,6 +28,7 @@ use App\Http\Controllers\admin\Product;
 use App\Http\Controllers\admin\Pricing;
 use App\Http\Controllers\admin\Contact;
 use App\Http\Controllers\admin\Orders;
+use App\Http\Controllers\admin\Customers;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,9 +53,16 @@ Route::prefix('/')->group(function() {
 
     Route::get('/login', [Customer::class, 'login'])->name('loginPage');
     Route::get('/register', [Customer::class, 'register'])->name('registerPage');
+    Route::get('/verify-account', [Customer::class, 'verifyAccount'])->name('verifyAccountPage');
+    Route::post('/doVerifyAccount', [Customer::class, 'doVerifyAccount'])->name('doVerifyAccount');
+    Route::post('/doResendRegisOtp', [Customer::class, 'doResendRegisOtp'])->name('doResendRegisOtp');
+    Route::post('/doResendForgotPassOtp', [Customer::class, 'doResendForgotPassOtp'])->name('doResendForgotPassOtp');
+
+
     Route::get('/forgot-password', [Customer::class, 'forgotPassword'])->name('forgotPasswordPage');
     Route::post('/doForgotPassword', [Customer::class, 'doForgotPassword'])->name('doForgotPassword');
-    Route::get('/reset-password/{token}', [Customer::class,'resetPassword'])->name('customerResetPassword');
+    // Route::get('/reset-password/{token}', [Customer::class,'resetPassword'])->name('customerResetPassword');
+    Route::get('/reset-password', [Customer::class,'resetPassword'])->name('customerResetPassword');
 
     Route::get('/thank-you', [Home::class, 'thankyou'])->name('thankyouPage');
     Route::get('/payment-failed', [Home::class, 'paymentFail'])->name('paymentFailPage');
@@ -63,11 +71,15 @@ Route::prefix('/')->group(function() {
     // Route::post('/doUploadDropbox', [Home::class, 'doUploadDropbox'])->name('doUploadDropbox');
 
     Route::post('/doResetPassword', [Customer::class,'doResetPassword'])->name('customerDoResetPassword');
+
     Route::post('/doRegister', [Customer::class, 'doRegister'])->name('doRegister');
     Route::post('/doLogin', [Customer::class, 'doLogin'])->name('doLogin');
     Route::get('/contact-us', [Home::class, 'contact'])->name('contactPage');
     Route::get('/cart', [Cart::class, 'index'])->name('cartPage');
     Route::post('/doContact', [Home::class, 'getContact'])->name('getContact');
+
+    Route::get('/testEmail', [Home::class, 'testEmail'])->name('testEmail');
+    Route::get('/testSms', [Home::class, 'testSms'])->name('testSms');
 });
 
 Route::prefix('/customer')->middleware('customerSessionCheck')->group(function(){
@@ -220,6 +232,14 @@ Route::prefix(config('admin.path'))->middleware('web')->group(function () {
             Route::get('/', [Orders::class, 'index'])->name('adminOrders');
             Route::get('/get', [Orders::class, 'get'])->name('getAdminOrders');
             Route::get('/view/{id}', [Orders::class, 'view'])->name('adminViewOrder');
+        });
+
+        //Customers
+        Route::prefix('customers')->group(function() {
+            Route::get('/', [Customers::class, 'index'])->name('adminCustomers');
+            Route::get('/get', [Customers::class, 'get'])->name('getAdminCustomers');
+            Route::get('/export', [Customers::class, 'export'])->name('customerExport');
+            Route::get('/view/{id}', [Customers::class, 'view'])->name('adminViewCustomer');
         });
 
 

@@ -381,11 +381,12 @@
           } else {
             $("#customerAddressFormMsg").html(res.msg);
 
-            subTotal = ((res.priceData.shipping+res.priceData.total)+res.priceData.discount);
+            //subTotal = ((res.priceData.shipping+res.priceData.total)+res.priceData.discount);
+            subTotal = ((res.priceData.total-res.priceData.shipping)-res.priceData.discount);
 
             $("#discountData").html(res.priceData.discount)
             $("#shippingData").html(res.priceData.shipping)
-            $("#subTotalData").html(subTotal)
+            $("#subTotalData").html(parseFloat(subTotal).toFixed(2));
             $("#totalData").html(res.priceData.total)
           }
 
@@ -444,7 +445,7 @@
         method: 'POST',
         parallelUploads: 10,
         uploadMultiple: true,
-        maxFilesize: 10, //MB
+        maxFilesize: 100, //MB
         maxFiles: 10, //Cannot upload more than 10 files
         acceptedFiles: ".jpg, .jpeg, .png, .zip, application/pdf, application/zip",
         headers: {
